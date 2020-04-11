@@ -2,6 +2,7 @@
 #define __TANK_H__
 #include <iostream>
 #include "render.h"
+#include "bullet.h"
 
 #define N_TANK_MODEL 1
 
@@ -14,18 +15,25 @@ protected:
   static bool canMove[6];
   bool checkMove();
   int modelSel = M_LHT;
-  int speed = 500;
+  int speedMove = 500;
+  int speedFire = 500;
   uint64_t lastMove;
+  uint64_t lastFire;
+  int life = 1000;
 public:
-  virtual void draw() = 0;
-  virtual void move(int direction) = 0;
+  Tank(int x, int y, int direction);
+  void draw();
+  void move(int direction = 0);
+  Bullet *fire();
+  void hit(int type);
 };
 
 
 class ManualTank: public Tank {
 public:
-  void draw();
-  void move(int direction);
+  // void draw();
+  // void move(int direction);
+  // void fire();
 };
 
 class AutoTank: public Tank {

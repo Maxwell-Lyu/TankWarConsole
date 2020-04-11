@@ -19,9 +19,9 @@ typedef struct _elem_t elem_t;
 
 
 
-enum { F_BLK = 30, F_RED, F_GRN, F_YLW, F_BLU, F_MGT, F_CYN, F_WHT };
-enum { B_BLK = 40, B_RED, B_GRN, B_YLW, B_BLU, B_MGT, B_CYN, B_WHT };
-enum { T_DRW, T_BNK, T_GRS, T_WTR, T_STN, T_WAL };
+enum { F_BLK = 30, F_RED, F_GRN, F_YLW, F_BLU, F_MGT, F_CYN, F_WHT, F_TSP };
+enum { B_BLK = 40, B_RED, B_GRN, B_YLW, B_BLU, B_MGT, B_CYN, B_WHT, B_TSP };
+enum { T_BNK, T_GRS, T_WTR, T_STN, T_WAL, T_DRW };
 enum { D_UP, D_LT, D_DN, D_RT };
 
 struct _pixel_t{
@@ -41,7 +41,10 @@ protected:
   int x = 2, y = 2;
   int direction = 0;
 public:
+  Drawable() {}
+  Drawable(int x, int y, int direction): x(x), y(y), direction(direction) {}
   virtual void draw() = 0;
+  virtual void hit(int type) {};
 };
 
 struct _elem_t{
