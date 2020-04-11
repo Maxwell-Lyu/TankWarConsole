@@ -3,17 +3,9 @@
 #include <windows.h>
 #include <thread>
 
-
-std::list<Drawable *> Drawables;
-
-
-elem_t Map[MAP_W][MAP_H] = {
-  { {T_WAL, NULL}, {T_GRS, NULL}, {T_GRS, NULL}, {T_GRS, NULL}, {T_WTR, NULL}, },
-  { {T_GRS, NULL}, {T_GRS, NULL}, {T_BNK, NULL}, {T_GRS, NULL}, {T_GRS, NULL}, },
-  { {T_GRS, NULL}, {T_GRS, NULL}, {T_BNK, NULL}, {T_BNK, NULL}, {T_GRS, NULL}, },
-  { {T_GRS, NULL}, {T_GRS, NULL}, {T_BNK, NULL}, {T_GRS, NULL}, {T_GRS, NULL}, },
-  { {T_GRS, NULL}, {T_GRS, NULL}, {T_GRS, NULL}, {T_GRS, NULL}, {T_GRS, NULL}, },
-};
+std::list<Drawable *> Render::Drawables;
+pixel_t Render::vBuf[MAP_H][MAP_W];
+extern elem_t Map[MAP_W][MAP_H];
 
 
 void Render::refresh(){
