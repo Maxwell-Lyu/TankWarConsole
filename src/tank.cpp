@@ -13,14 +13,16 @@ bool Tank::canMove[6] = {true, true, false, false, false, false};
 
 char *Tank::models[N_TANK_MODEL][4][9] = {{
   {" ▄", "▐▌" ,"▄ " ,"██" ,"▀▀" ,"██" ,"▀█" ,"▀▀" ,"█▀"},
-  {"轮", "轮" ,"轮" ,"■■" ,"仓" ,"尾" ,"轮" ,"轮" ,"轮"},
-  {"轮", "尾" ,"轮" ,"●○" ,"☼ " ,"轮" ,"  " ,"▲▲" ,"轮"},
-  {"轮", "轮" ,"轮" ,"炮" ,"仓" ,"尾" ,"轮" ,"轮" ,"轮"},
+  {" ▄", "██" ,"█▄" ,"■■" ,"█ " ,"█ " ," ▀" ,"██" ,"█▀"},
+  {"▄█", "▄▄" ,"█▄" ,"██" ,"▄▄" ,"██" ," ▀" ,"▐▌" ,"▀ "},
+  {"▄█", "██" ,"▄ " ," █" ," █" ,"■■" ,"▀█" ,"██" ,"▀ "},
 }};
 
 
 Tank::Tank(int x, int y, int direction): Drawable(x, y, direction)  {
-  Map[this->x][this->y] = {T_DRW, this};
+  for (int x = this->x - 1; x <= this->x + 1; x++)
+    for (int y = this->y - 1; y <= this->y + 1; y++)
+      Map[x][y] = {T_DRW, this};
 }
 
 bool Tank::checkMove() {
@@ -40,15 +42,56 @@ bool Tank::checkMove() {
 
 
 void Tank::draw() {
-  Render::draw({F_WHT, B_BLK, models[modelSel][this->direction][0]}, x - 1, y - 1);
-  Render::draw({F_GRN, B_BLK, models[modelSel][this->direction][1]}, x, y - 1);
-  Render::draw({F_WHT, B_BLK, models[modelSel][this->direction][2]}, x + 1, y - 1);
-  Render::draw({F_WHT, B_BLK, models[modelSel][this->direction][3]}, x - 1, y);
-  Render::draw({F_GRN, B_BLK, models[modelSel][this->direction][4]}, x, y);
-  Render::draw({F_WHT, B_BLK, models[modelSel][this->direction][5]}, x + 1, y);
-  Render::draw({F_WHT, B_BLK, models[modelSel][this->direction][6]}, x - 1, y + 1);
-  Render::draw({F_GRN, B_BLK, models[modelSel][this->direction][7]}, x, y + 1);
-  Render::draw({F_WHT, B_BLK, models[modelSel][this->direction][8]}, x + 1, y + 1);
+  switch(this->direction) {
+  case D_UP: {
+    Render::draw({F_WHT, B_BLK, models[modelSel][D_UP][0]}, x - 1, y - 1);
+    Render::draw({F_GRN, B_BLK, models[modelSel][D_UP][1]}, x, y - 1);
+    Render::draw({F_WHT, B_BLK, models[modelSel][D_UP][2]}, x + 1, y - 1);
+    Render::draw({F_WHT, B_BLK, models[modelSel][D_UP][3]}, x - 1, y);
+    Render::draw({F_GRN, B_BLK, models[modelSel][D_UP][4]}, x, y);
+    Render::draw({F_WHT, B_BLK, models[modelSel][D_UP][5]}, x + 1, y);
+    Render::draw({F_WHT, B_BLK, models[modelSel][D_UP][6]}, x - 1, y + 1);
+    Render::draw({F_GRN, B_BLK, models[modelSel][D_UP][7]}, x, y + 1);
+    Render::draw({F_WHT, B_BLK, models[modelSel][D_UP][8]}, x + 1, y + 1);
+    break;
+  }
+  case D_LT: {
+    Render::draw({F_WHT, B_BLK, models[modelSel][D_LT][0]}, x - 1, y - 1);
+    Render::draw({F_WHT, B_BLK, models[modelSel][D_LT][1]}, x, y - 1);
+    Render::draw({F_WHT, B_BLK, models[modelSel][D_LT][2]}, x + 1, y - 1);
+    Render::draw({F_GRN, B_BLK, models[modelSel][D_LT][3]}, x - 1, y);
+    Render::draw({F_GRN, B_BLK, models[modelSel][D_LT][4]}, x, y);
+    Render::draw({F_GRN, B_BLK, models[modelSel][D_LT][5]}, x + 1, y);
+    Render::draw({F_WHT, B_BLK, models[modelSel][D_LT][6]}, x - 1, y + 1);
+    Render::draw({F_WHT, B_BLK, models[modelSel][D_LT][7]}, x, y + 1);
+    Render::draw({F_WHT, B_BLK, models[modelSel][D_LT][8]}, x + 1, y + 1);
+    break;
+  }
+  case D_DN: {
+    Render::draw({F_WHT, B_BLK, models[modelSel][D_DN][0]}, x - 1, y - 1);
+    Render::draw({F_GRN, B_BLK, models[modelSel][D_DN][1]}, x, y - 1);
+    Render::draw({F_WHT, B_BLK, models[modelSel][D_DN][2]}, x + 1, y - 1);
+    Render::draw({F_WHT, B_BLK, models[modelSel][D_DN][3]}, x - 1, y);
+    Render::draw({F_GRN, B_BLK, models[modelSel][D_DN][4]}, x, y);
+    Render::draw({F_WHT, B_BLK, models[modelSel][D_DN][5]}, x + 1, y);
+    Render::draw({F_WHT, B_BLK, models[modelSel][D_DN][6]}, x - 1, y + 1);
+    Render::draw({F_GRN, B_BLK, models[modelSel][D_DN][7]}, x, y + 1);
+    Render::draw({F_WHT, B_BLK, models[modelSel][D_DN][8]}, x + 1, y + 1);
+    break;
+  }
+  case D_RT: {
+    Render::draw({F_WHT, B_BLK, models[modelSel][D_RT][0]}, x - 1, y - 1);
+    Render::draw({F_WHT, B_BLK, models[modelSel][D_RT][1]}, x, y - 1);
+    Render::draw({F_WHT, B_BLK, models[modelSel][D_RT][2]}, x + 1, y - 1);
+    Render::draw({F_GRN, B_BLK, models[modelSel][D_RT][3]}, x - 1, y);
+    Render::draw({F_GRN, B_BLK, models[modelSel][D_RT][4]}, x, y);
+    Render::draw({F_GRN, B_BLK, models[modelSel][D_RT][5]}, x + 1, y);
+    Render::draw({F_WHT, B_BLK, models[modelSel][D_RT][6]}, x - 1, y + 1);
+    Render::draw({F_WHT, B_BLK, models[modelSel][D_RT][7]}, x, y + 1);
+    Render::draw({F_WHT, B_BLK, models[modelSel][D_RT][8]}, x + 1, y + 1);
+    break;
+  }
+  }
 };
 void Tank::move(int direction) {
   if(direction != this->direction) {
@@ -57,29 +100,34 @@ void Tank::move(int direction) {
   }
   if(getTime() < speedMove + lastMove) return;
   lastMove = getTime();
-  Map[this->x][this->y] = {T_BNK, NULL};
+  for (int x = this->x - 1; x <= this->x + 1; x++)
+    for (int y = this->y - 1; y <= this->y + 1; y++)
+      Map[x][y] = {T_BNK, NULL};
   switch (this->direction) {
   case D_UP:{
     if(this->y > 1 && checkMove())
-      Map[this->x][--this->y] = {T_DRW, this};
+      --this->y;
     break;
   }
   case D_LT:{
     if(this->x > 1 && checkMove())
-      Map[--this->x][this->y] = {T_DRW, this};
+      --this->x;
     break;
   }
   case D_DN:{
     if(this->y < MAP_H - 2 && checkMove())
-      Map[this->x][++this->y] = {T_DRW, this};
+      ++this->y;
     break;
   }
   case D_RT:{
     if(this->x < MAP_W - 2 && checkMove())
-      Map[++this->x][this->y] = {T_DRW, this};
+      ++this->x;
     break;
   }
   }
+  for (int x = this->x - 1; x <= this->x + 1; x++)
+    for (int y = this->y - 1; y <= this->y + 1; y++)
+      Map[x][y] = {T_DRW, this};
 }
 
 Bullet *Tank::fire() {

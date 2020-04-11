@@ -53,11 +53,9 @@ bool Bullet::move() {
   case T_STN:
   case T_DRW: break;
   }
-  for (int x = this->x - 1; x <= this->x + 1; x++)
-    for (int y = this->y - 1; y <= this->y + 1; y++)
-      if(Map[x][y].type == T_DRW) {
-        Map[x][y].data->hit(this->type);
-        return true;
-      }
+  if(Map[x][y].type == T_DRW) {
+    Map[x][y].data->hit(this->type);
+    return true;
+  }
   return false;
 }
