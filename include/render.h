@@ -3,8 +3,8 @@
 #include <iostream>
 #include <list>
 
-#define MAP_W 5
-#define MAP_H 5
+#define MAP_W 10
+#define MAP_H 10
 
 
 typedef struct _pixel_t pixel_t;
@@ -62,8 +62,9 @@ private:
   static void refresh();
 public:
   static int fps;
-  static void draw(pixel_t pixel, int x, int y) { vBuf[y][x] = pixel; }
+  static void draw(pixel_t pixel, int x, int y) { vBuf[x][y] = pixel; }
   static void run();
+  static std::list<Drawable *> Drawables;
 };
 
 #endif
