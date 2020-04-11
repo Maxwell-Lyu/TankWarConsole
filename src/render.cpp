@@ -1,27 +1,26 @@
 #include "render.h"
-#include <iostream>
+// #include <iostream>
 #include <windows.h>
 #include <thread>
 
 
-elem_t Map[MAP_H][MAP_W] = {
+std::list<Drawable *> Drawables;
+
+
+elem_t Map[MAP_W][MAP_H] = {
   { {T_WAL, NULL}, {T_GRS, NULL}, {T_GRS, NULL}, {T_GRS, NULL}, {T_WTR, NULL}, },
-  { {T_GRS, NULL}, {T_GRS, NULL}, {T_GRS, NULL}, {T_GRS, NULL}, {T_GRS, NULL}, },
-  { {T_GRS, NULL}, {T_GRS, NULL}, {T_GRS, NULL}, {T_BNK, NULL}, {T_GRS, NULL}, },
-  { {T_GRS, NULL}, {T_GRS, NULL}, {T_GRS, NULL}, {T_GRS, NULL}, {T_GRS, NULL}, },
+  { {T_GRS, NULL}, {T_GRS, NULL}, {T_BNK, NULL}, {T_GRS, NULL}, {T_GRS, NULL}, },
+  { {T_GRS, NULL}, {T_GRS, NULL}, {T_BNK, NULL}, {T_BNK, NULL}, {T_GRS, NULL}, },
+  { {T_GRS, NULL}, {T_GRS, NULL}, {T_BNK, NULL}, {T_GRS, NULL}, {T_GRS, NULL}, },
   { {T_GRS, NULL}, {T_GRS, NULL}, {T_GRS, NULL}, {T_GRS, NULL}, {T_GRS, NULL}, },
 };
 
 
-void Render::draw(pixel_t pixel) {
-  std::cout << "\033[" << pixel.colorFG <<  ";" << pixel.colorBG 
-    << "m\033[" << pixel.y + 1 << ";" << pixel.x * 2 + 1 << "H" << pixel.val;  
-}
-
-void Render::draw(pixelList_t *list) {
-  for (int i = 0; i < list->size; i++)
-    draw(list->pixels[i]);
-  std::cout << "\033[0m";
+void Render::refresh(){
+  for (int x = 0; x < MAP_W; x++)
+    for (int y = 0; y < MAP_H; y++)
+      std::cout << "\033[" << vBuf[x][y].colorFG <<  ";" << vBuf[x][y].colorBG 
+        << "m\033[" << y + 1 << ";" << x * 2 + 1 << "H" << vBuf[x][y].val;  
 }
 
 void Render::thrRender() {
@@ -30,25 +29,25 @@ void Render::thrRender() {
   while(1) {
     for (int x = 0; x < MAP_W; x++)
       for (int y = 0; y < MAP_H; y++) {
-        elem = Map[y][x];
+        elem = Map[x][y];
         switch (elem.type) {
-        case T_DRW: {
-          if(elem.data)
-            draw(elem.data->toPixel(x, y));
+        case T_DRW:
           break;
-        }
         case T_GRS:
-          draw({x, y, F_WHT, B_GRN, "草"}); break;
+          draw({F_WHT, B_GRN, "草"}, x, y); break;
         case T_WTR:
-          draw({x, y, F_WHT, B_BLU, "水"}); break;
+          draw({F_WHT, B_BLU, "水"}, x, y); break;
         case T_WAL:
-          draw({x, y, F_WHT, B_YLW, "墙"}); break;
+          draw({F_WHT, B_YLW, "墙"}, x, y); break;
         case T_STN:
-          draw({x, y, F_WHT, B_MGT, "石"}); break;
+          draw({F_WHT, B_MGT, "石"}, x, y); break;
         case T_BNK:
-          draw({x, y, F_WHT, B_BLK, "  "}); break;
+          draw({F_WHT, B_BLK, "  "}, x, y); break;
         }
       }
+    for(auto &drawable: Drawables)
+      drawable->draw();
+    refresh();
     Sleep(fps);
   }
 }

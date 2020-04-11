@@ -1,6 +1,7 @@
 #ifndef __RENDER_H__
 #define __RENDER_H__
-
+#include <iostream>
+#include <list>
 
 #define MAP_W 5
 #define MAP_H 5
@@ -21,11 +22,12 @@ typedef struct _elem_t elem_t;
 enum { F_BLK = 30, F_RED, F_GRN, F_YLW, F_BLU, F_MGT, F_CYN, F_WHT };
 enum { B_BLK = 40, B_RED, B_GRN, B_YLW, B_BLU, B_MGT, B_CYN, B_WHT };
 enum { T_DRW, T_BNK, T_GRS, T_WTR, T_STN, T_WAL };
+enum { D_UP, D_LT, D_DN, D_RT };
 
 struct _pixel_t{
-  int x, y;
+  // int x, y;
   int colorFG, colorBG;
-  const char *val;
+  char *val;
 };
 
 struct _pixelList_t{
@@ -35,10 +37,11 @@ struct _pixelList_t{
 
 
 class Drawable {
-private:
-  int x, y;
+protected:
+  int x = 2, y = 2;
+  int direction = 0;
 public:
-  virtual pixelList_t *toPixel(int x, int y) = 0;
+  virtual void draw() = 0;
 };
 
 struct _elem_t{
@@ -53,11 +56,14 @@ struct _elem_t{
 class Render {
 private:
   // static std::vector<Drawable *> drawableList;
-  static void draw(pixel_t pixel);
-  static void draw(pixelList_t *list);
+  // static void draw(pixelList_t list);
+  static pixel_t vBuf[MAP_H][MAP_W];
   static void thrRender();
+  static void refresh();
 public:
   static int fps;
+  static void draw(pixel_t pixel, int x, int y) { vBuf[y][x] = pixel; }
   static void run();
 };
+
 #endif
