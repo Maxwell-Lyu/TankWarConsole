@@ -57,10 +57,9 @@ private:
   static pixel_t vBuf[MAP_H][MAP_W];
   static void thrRender();
   static void refresh();
-  static char buf[MAP_W * 4 + 4];
 public:
   static int fps;
-  static void draw(pixel_t pixel, int x, int y) { vBuf[x][y] = pixel; }
+  static void draw(pixel_t pixel, int x, int y) { vBuf[x][y] = pixel;}
   static void run();
   static std::list<Drawable *> Drawables;
 };
