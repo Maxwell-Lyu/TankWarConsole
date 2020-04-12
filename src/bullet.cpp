@@ -1,6 +1,7 @@
 #include "bullet.h"
 #include "common.h"
-extern elem_t Map[MAP_W][MAP_H];
+#include "map.h"
+// extern elem_t Map[MAP_W][MAP_H];
 
 int Bullet::bulletSpeed = 200;
 std::list<Bullet *> Bullet::pool;
@@ -42,9 +43,9 @@ bool Bullet::move() {
     break;
   }
   }
-  switch (Map[this->x][this->y].type) {
+  switch (Map::map[this->x][this->y].type) {
   case T_WAL: {
-    Map[this->x][this->y] = {T_BNK, NULL}; 
+    Map::map[this->x][this->y] = {T_BNK, NULL}; 
     return true; 
   }
   case T_BNK:
@@ -53,8 +54,8 @@ bool Bullet::move() {
   case T_STN:
   case T_DRW: break;
   }
-  if(Map[x][y].type == T_DRW) {
-    Map[x][y].data->hit(this->type);
+  if(Map::map[x][y].type == T_DRW) {
+    Map::map[x][y].data->hit(this->type);
     return true;
   }
   return false;

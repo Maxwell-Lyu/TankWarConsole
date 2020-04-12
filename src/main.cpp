@@ -10,8 +10,8 @@ using namespace std;
 int Render::fps = 50;
 
 // extern elem_t Map[MAP_H][MAP_W];
-extern std::list<Drawable *> Drawables;
-extern std::list<Bullet *> Bullets;
+// extern std::list<Drawable *> Drawables;
+// extern std::list<Bullet *> Bullets;
 int main() {
   system("chcp 65001");
   system("cls");

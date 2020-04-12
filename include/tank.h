@@ -28,14 +28,6 @@ public:
   void hit(int type);
 };
 
-
-class ManualTank: public Tank {
-public:
-  // void draw();
-  // void move(int direction);
-  // void fire();
-};
-
 class AutoTank: public Tank {
 
 };

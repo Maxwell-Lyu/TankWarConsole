@@ -2,10 +2,11 @@
 // #include <iostream>
 #include <windows.h>
 #include <thread>
+#include "map.h"
 
 std::list<Drawable *> Render::Drawables;
 pixel_t Render::vBuf[MAP_H][MAP_W];
-extern elem_t Map[MAP_W][MAP_H];
+// extern elem_t Map[MAP_W][MAP_H];
 
 
 void Render::refresh(){
@@ -21,7 +22,7 @@ void Render::thrRender() {
   while(1) {
     for (int x = 0; x < MAP_W; x++)
       for (int y = 0; y < MAP_H; y++) {
-        elem = Map[x][y];
+        elem = Map::map[x][y];
         switch (elem.type) {
         case T_DRW:
           break;
