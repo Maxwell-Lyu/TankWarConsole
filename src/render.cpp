@@ -106,7 +106,12 @@ void Render::renderStatusTank(int y, Tank *t) {
   for (int i = n; i < 10; i++) std::cout << " ";
   std::cout << "\033[" << y + 2 << ";77H]";
   if(t->camp != CP_EN)
-    std::cout << "\033[" << y + 3 << ";63HWP [" << Bullet::models[t->weapon] << "] LF [" << std::setw(2) << std::setfill('0') << t->nLife << "] ";
+    std::cout << "\033[" << y + 3 << ";63HWP [" << Bullet::models[t->weapon] << "]  LF [" << std::setw(2) << std::setfill('0') << t->nLife << "]";
+  if(t->camp == CP_P1)
+    std::cout << "\033[" << y + 4 << ";63HPT [" << std::setw(10) << std::setfill(' ') << Level::currentLevel->scoreP1 << "] ";
+  if(t->camp == CP_P2)
+    std::cout << "\033[" << y + 4 << ";63HPT [" << std::setw(10) << std::setfill(' ') << Level::currentLevel->scoreP2 << "] ";
+    
 }
 
 void Render::run() {
