@@ -3,11 +3,10 @@
 #include <iostream>
 #include "render.h"
 #include "bullet.h"
-
+#include "common.h"
 #define N_TANK_MODEL 1
 
 
-enum {M_LHT, M_AMR, M_ATG, M_HVY};
 
 class Tank: public Drawable {
 protected:

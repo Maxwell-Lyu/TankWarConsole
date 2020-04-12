@@ -4,8 +4,8 @@
 #include <cstring>
 #include <malloc.h>
 #include "render.h"
+#include "common.h"
 
-enum {BL_NM, BL_AP, BL_HE};
 
 class Bullet: public Drawable {
 protected:
