@@ -10,10 +10,13 @@ pixel_t Render::vBuf[MAP_H][MAP_W];
 
 
 void Render::refresh(){
-  for (int x = 0; x < MAP_W; x++)
-    for (int y = 0; y < MAP_H; y++)
-      std::cout << "\033[" << vBuf[x][y].colorFG <<  ";" << vBuf[x][y].colorBG 
-        << "m\033[" << y + 1 << ";" << x * 2 + 1 << "H" << vBuf[x][y].val;  
+  std::cout << "\033[31;31H" << getTime();
+  std::cout.tie(0);
+  // for (int x = 0; x < MAP_W; x++)
+  //   for (int y = 0; y < MAP_H; y++)
+  //     std::cout << "\033[" << vBuf[x][y].colorFG <<  ";" << vBuf[x][y].colorBG 
+  //       << "m\033[" << y + 1 << ";" << x * 2 + 1 << "H" << vBuf[x][y].val;  
+  me();
 }
 
 void Render::thrRender() {

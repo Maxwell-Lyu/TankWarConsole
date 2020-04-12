@@ -9,7 +9,12 @@ enum { BL_NM, BL_AP, BL_HE };
 
 enum { F_BLK = 30, F_RED, F_GRN, F_YLW, F_BLU, F_MGT, F_CYN, F_WHT, F_TSP };
 enum { B_BLK = 40, B_RED, B_GRN, B_YLW, B_BLU, B_MGT, B_CYN, B_WHT, B_TSP };
+
+#define MAP_W 30
+#define MAP_H 30
 enum { T_BNK, T_GRS, T_WTR, T_STN, T_WAL, T_DRW };
+
+
 enum { D_UP, D_LT, D_DN, D_RT };
 
 #define N_TANK_MODEL 4

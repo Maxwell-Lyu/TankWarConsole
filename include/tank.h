@@ -41,7 +41,8 @@ public:
 };
 
 class AutoTank: public Tank {
-
+public:
+  void move(int direction = 0);
 };
 
 

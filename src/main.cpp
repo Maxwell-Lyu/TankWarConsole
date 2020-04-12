@@ -8,7 +8,7 @@
 
 using namespace std;
 
-int Render::fps = 100;
+int Render::fps = 50;
 
 int main() {
   system("chcp 65001");
