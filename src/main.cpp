@@ -4,16 +4,17 @@
 #include <windows.h>
 #include "tank.h"
 #include "render.h"
+#include "common.h"
 
 using namespace std;
 
-int Render::fps = 50;
+int Render::fps = 100;
 
 int main() {
   system("chcp 65001");
   system("cls");
-  Tank t(2, 2, D_UP);
-  Tank t1(2, 6, D_UP);
+  Tank t(2, 2, D_UP, CP_P1, MD_HVY);
+  Tank t1(2, 6, D_UP, CP_P2);
   Render::run();
   Render::Drawables.emplace_back(&t);
   Render::Drawables.emplace_back(&t1);

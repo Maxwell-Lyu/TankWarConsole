@@ -11,16 +11,58 @@
 
 
 bool Tank::canMove[6] = {true, true, false, false, false, false};
+int Tank::lifeMaxVals[N_TANK_MODEL] { 1000, 1000, 1000, 2000 };
+int Tank::speedMoveVals[N_TANK_MODEL] { 300, 150, 300, 300 };
+int Tank::speedFireVals[N_TANK_MODEL] { 300, 300, 150, 300 };
+int Tank::weaponVals[N_TANK_MODEL] { BL_NM, BL_NM, BL_NM, BL_AP};
+
 
 char *Tank::models[N_TANK_MODEL][4][9] = {{
   {" ▄", "▐▌" ,"▄ " ,"██" ,"▀▀" ,"██" ,"▀█" ,"▀▀" ,"█▀"},
   {" ▄", "██" ,"█▄" ,"■■" ,"█ " ,"█ " ," ▀" ,"██" ,"█▀"},
   {"▄█", "▄▄" ,"█▄" ,"██" ,"▄▄" ,"██" ," ▀" ,"▐▌" ,"▀ "},
   {"▄█", "██" ,"▄ " ," █" ," █" ,"■■" ,"▀█" ,"██" ,"▀ "},
-}};
+}, {
+  {" ▄", "▐▌" ,"▄ " ,"██" ,"▀▀" ,"██" ,"▀█" ,"▀▀" ,"█▀"},
+  {" ▄", "██" ,"█▄" ,"■■" ,"█ " ,"█ " ," ▀" ,"██" ,"█▀"},
+  {"▄█", "▄▄" ,"█▄" ,"██" ,"▄▄" ,"██" ," ▀" ,"▐▌" ,"▀ "},
+  {"▄█", "██" ,"▄ " ," █" ," █" ,"■■" ,"▀█" ,"██" ,"▀ "},
+}, {
+  {" ▄", "▐▌" ,"▄ " ,"██" ,"▀▀" ,"██" ,"▀█" ,"▀▀" ,"█▀"},
+  {" ▄", "██" ,"█▄" ,"■■" ,"█ " ,"█ " ," ▀" ,"██" ,"█▀"},
+  {"▄█", "▄▄" ,"█▄" ,"██" ,"▄▄" ,"██" ," ▀" ,"▐▌" ,"▀ "},
+  {"▄█", "██" ,"▄ " ," █" ," █" ,"■■" ,"▀█" ,"██" ,"▀ "},
+}, {
+  {" ▄", "▐▌" ,"▄ " ,"██" ,"██" ,"██" ,"▀█" ,"▄▄" ,"█▀"},
+  {" ▄", "██" ,"█▄" ,"■■" ,"██" ," █" ," ▀" ,"██" ,"█▀"},
+  {"▄█", "▀▀" ,"█▄" ,"██" ,"██" ,"██" ," ▀" ,"▐▌" ,"▀ "},
+  {"▄█", "██" ,"▄ " ,"█ " ,"██" ,"■■" ,"▀█" ,"██" ,"▀ "},
+}, };
 
 
-Tank::Tank(int x, int y, int direction): Drawable(x, y, direction)  {
+Tank::Tank(int x, int y, int direction, int camp, int modelSel): Drawable(x, y, direction), modelSel(modelSel)  {
+  this->life = Tank::lifeMaxVals[modelSel];
+  this->lifeMax = Tank::lifeMaxVals[modelSel];
+  this->speedMove = Tank::speedMoveVals[modelSel];
+  this->speedFire = Tank::speedFireVals[modelSel];
+  this->weapon = Tank::weaponVals[modelSel];
+  switch(camp) {
+  case CP_P1: {
+    this->colorBody = F_GRN;
+    this->colorWheel = F_WHT;
+    break;
+  }
+  case CP_P2: {
+    this->colorBody = F_BLU;
+    this->colorWheel = F_WHT;
+    break;
+  }
+  case CP_EN: {
+    this->colorBody = F_RED;
+    this->colorWheel = F_WHT;
+    break;
+  }
+  }
   for (int x = this->x - 1; x <= this->x + 1; x++)
     for (int y = this->y - 1; y <= this->y + 1; y++)
       Map::map[x][y] = {T_DRW, this};
@@ -45,51 +87,51 @@ bool Tank::checkMove() {
 void Tank::draw() {
   switch(this->direction) {
   case D_UP: {
-    Render::draw({F_WHT, B_BLK, models[modelSel][D_UP][0]}, x - 1, y - 1);
-    Render::draw({F_GRN, B_BLK, models[modelSel][D_UP][1]}, x, y - 1);
-    Render::draw({F_WHT, B_BLK, models[modelSel][D_UP][2]}, x + 1, y - 1);
-    Render::draw({F_WHT, B_BLK, models[modelSel][D_UP][3]}, x - 1, y);
-    Render::draw({F_GRN, B_BLK, models[modelSel][D_UP][4]}, x, y);
-    Render::draw({F_WHT, B_BLK, models[modelSel][D_UP][5]}, x + 1, y);
-    Render::draw({F_WHT, B_BLK, models[modelSel][D_UP][6]}, x - 1, y + 1);
-    Render::draw({F_GRN, B_BLK, models[modelSel][D_UP][7]}, x, y + 1);
-    Render::draw({F_WHT, B_BLK, models[modelSel][D_UP][8]}, x + 1, y + 1);
+    Render::draw({colorWheel, B_BLK, models[modelSel][D_UP][0]}, x - 1, y - 1);
+    Render::draw({colorBody, B_BLK, models[modelSel][D_UP][1]}, x, y - 1);
+    Render::draw({colorWheel, B_BLK, models[modelSel][D_UP][2]}, x + 1, y - 1);
+    Render::draw({colorWheel, B_BLK, models[modelSel][D_UP][3]}, x - 1, y);
+    Render::draw({colorBody, B_BLK, models[modelSel][D_UP][4]}, x, y);
+    Render::draw({colorWheel, B_BLK, models[modelSel][D_UP][5]}, x + 1, y);
+    Render::draw({colorWheel, B_BLK, models[modelSel][D_UP][6]}, x - 1, y + 1);
+    Render::draw({colorBody, B_BLK, models[modelSel][D_UP][7]}, x, y + 1);
+    Render::draw({colorWheel, B_BLK, models[modelSel][D_UP][8]}, x + 1, y + 1);
     break;
   }
   case D_LT: {
-    Render::draw({F_WHT, B_BLK, models[modelSel][D_LT][0]}, x - 1, y - 1);
-    Render::draw({F_WHT, B_BLK, models[modelSel][D_LT][1]}, x, y - 1);
-    Render::draw({F_WHT, B_BLK, models[modelSel][D_LT][2]}, x + 1, y - 1);
-    Render::draw({F_GRN, B_BLK, models[modelSel][D_LT][3]}, x - 1, y);
-    Render::draw({F_GRN, B_BLK, models[modelSel][D_LT][4]}, x, y);
-    Render::draw({F_GRN, B_BLK, models[modelSel][D_LT][5]}, x + 1, y);
-    Render::draw({F_WHT, B_BLK, models[modelSel][D_LT][6]}, x - 1, y + 1);
-    Render::draw({F_WHT, B_BLK, models[modelSel][D_LT][7]}, x, y + 1);
-    Render::draw({F_WHT, B_BLK, models[modelSel][D_LT][8]}, x + 1, y + 1);
+    Render::draw({colorWheel, B_BLK, models[modelSel][D_LT][0]}, x - 1, y - 1);
+    Render::draw({colorWheel, B_BLK, models[modelSel][D_LT][1]}, x, y - 1);
+    Render::draw({colorWheel, B_BLK, models[modelSel][D_LT][2]}, x + 1, y - 1);
+    Render::draw({colorBody, B_BLK, models[modelSel][D_LT][3]}, x - 1, y);
+    Render::draw({colorBody, B_BLK, models[modelSel][D_LT][4]}, x, y);
+    Render::draw({colorBody, B_BLK, models[modelSel][D_LT][5]}, x + 1, y);
+    Render::draw({colorWheel, B_BLK, models[modelSel][D_LT][6]}, x - 1, y + 1);
+    Render::draw({colorWheel, B_BLK, models[modelSel][D_LT][7]}, x, y + 1);
+    Render::draw({colorWheel, B_BLK, models[modelSel][D_LT][8]}, x + 1, y + 1);
     break;
   }
   case D_DN: {
-    Render::draw({F_WHT, B_BLK, models[modelSel][D_DN][0]}, x - 1, y - 1);
-    Render::draw({F_GRN, B_BLK, models[modelSel][D_DN][1]}, x, y - 1);
-    Render::draw({F_WHT, B_BLK, models[modelSel][D_DN][2]}, x + 1, y - 1);
-    Render::draw({F_WHT, B_BLK, models[modelSel][D_DN][3]}, x - 1, y);
-    Render::draw({F_GRN, B_BLK, models[modelSel][D_DN][4]}, x, y);
-    Render::draw({F_WHT, B_BLK, models[modelSel][D_DN][5]}, x + 1, y);
-    Render::draw({F_WHT, B_BLK, models[modelSel][D_DN][6]}, x - 1, y + 1);
-    Render::draw({F_GRN, B_BLK, models[modelSel][D_DN][7]}, x, y + 1);
-    Render::draw({F_WHT, B_BLK, models[modelSel][D_DN][8]}, x + 1, y + 1);
+    Render::draw({colorWheel, B_BLK, models[modelSel][D_DN][0]}, x - 1, y - 1);
+    Render::draw({colorBody, B_BLK, models[modelSel][D_DN][1]}, x, y - 1);
+    Render::draw({colorWheel, B_BLK, models[modelSel][D_DN][2]}, x + 1, y - 1);
+    Render::draw({colorWheel, B_BLK, models[modelSel][D_DN][3]}, x - 1, y);
+    Render::draw({colorBody, B_BLK, models[modelSel][D_DN][4]}, x, y);
+    Render::draw({colorWheel, B_BLK, models[modelSel][D_DN][5]}, x + 1, y);
+    Render::draw({colorWheel, B_BLK, models[modelSel][D_DN][6]}, x - 1, y + 1);
+    Render::draw({colorBody, B_BLK, models[modelSel][D_DN][7]}, x, y + 1);
+    Render::draw({colorWheel, B_BLK, models[modelSel][D_DN][8]}, x + 1, y + 1);
     break;
   }
   case D_RT: {
-    Render::draw({F_WHT, B_BLK, models[modelSel][D_RT][0]}, x - 1, y - 1);
-    Render::draw({F_WHT, B_BLK, models[modelSel][D_RT][1]}, x, y - 1);
-    Render::draw({F_WHT, B_BLK, models[modelSel][D_RT][2]}, x + 1, y - 1);
-    Render::draw({F_GRN, B_BLK, models[modelSel][D_RT][3]}, x - 1, y);
-    Render::draw({F_GRN, B_BLK, models[modelSel][D_RT][4]}, x, y);
-    Render::draw({F_GRN, B_BLK, models[modelSel][D_RT][5]}, x + 1, y);
-    Render::draw({F_WHT, B_BLK, models[modelSel][D_RT][6]}, x - 1, y + 1);
-    Render::draw({F_WHT, B_BLK, models[modelSel][D_RT][7]}, x, y + 1);
-    Render::draw({F_WHT, B_BLK, models[modelSel][D_RT][8]}, x + 1, y + 1);
+    Render::draw({colorWheel, B_BLK, models[modelSel][D_RT][0]}, x - 1, y - 1);
+    Render::draw({colorWheel, B_BLK, models[modelSel][D_RT][1]}, x, y - 1);
+    Render::draw({colorWheel, B_BLK, models[modelSel][D_RT][2]}, x + 1, y - 1);
+    Render::draw({colorBody, B_BLK, models[modelSel][D_RT][3]}, x - 1, y);
+    Render::draw({colorBody, B_BLK, models[modelSel][D_RT][4]}, x, y);
+    Render::draw({colorBody, B_BLK, models[modelSel][D_RT][5]}, x + 1, y);
+    Render::draw({colorWheel, B_BLK, models[modelSel][D_RT][6]}, x - 1, y + 1);
+    Render::draw({colorWheel, B_BLK, models[modelSel][D_RT][7]}, x, y + 1);
+    Render::draw({colorWheel, B_BLK, models[modelSel][D_RT][8]}, x + 1, y + 1);
     break;
   }
   }
@@ -137,16 +179,16 @@ Bullet *Tank::fire() {
   Bullet *blt;
   switch(this->direction) {
   case D_UP:
-    blt = new Bullet(this->x, this->y - 1, this->direction);
+    blt = new Bullet(this->x, this->y - 1, this->direction, this->weapon);
     break;
   case D_LT:
-    blt = new Bullet(this->x - 1, this->y, this->direction);
+    blt = new Bullet(this->x - 1, this->y, this->direction, this->weapon);
     break;
   case D_DN:
-    blt = new Bullet(this->x, this->y + 1, this->direction);
+    blt = new Bullet(this->x, this->y + 1, this->direction, this->weapon);
     break;
   case D_RT:
-    blt = new Bullet(this->x + 1, this->y, this->direction);
+    blt = new Bullet(this->x + 1, this->y, this->direction, this->weapon);
     break;
   }
   return blt;

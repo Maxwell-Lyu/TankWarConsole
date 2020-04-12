@@ -16,7 +16,7 @@ protected:
   int type = BL_NM;
 public:
   static std::list<Bullet *> Bullets;
-  Bullet(int x, int y, int direction): Drawable(x, y, direction) {}
+  Bullet(int x, int y, int direction, int type): Drawable(x, y, direction), type(type) {}
 	void *operator new(size_t size) {	
     if(pool.empty()) {
       void *p = malloc(size);

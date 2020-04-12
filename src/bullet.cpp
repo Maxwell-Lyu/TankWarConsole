@@ -3,12 +3,16 @@
 #include "map.h"
 // extern elem_t Map[MAP_W][MAP_H];
 
-int Bullet::bulletSpeed = 200;
+int Bullet::bulletSpeed = 100;
 std::list<Bullet *> Bullet::pool;
 std::list<Bullet *> Bullet::Bullets;
 
 void Bullet::draw() {
-  Render::draw({F_WHT, B_TSP, "弹"}, x, y);
+  switch (this->type) {
+  case BL_NM: Render::draw({F_WHT, B_TSP, "弹"}, x, y); break;
+  case BL_AP: Render::draw({F_WHT, B_TSP, "AP"}, x, y); break;
+  case BL_HE: Render::draw({F_WHT, B_TSP, "HE"}, x, y); break;
+  }
 }
 bool Bullet::move() {
   if(getTime() < Bullet::bulletSpeed + lastMove) return false;

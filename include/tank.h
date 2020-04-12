@@ -4,7 +4,6 @@
 #include "render.h"
 #include "bullet.h"
 #include "common.h"
-#define N_TANK_MODEL 1
 
 
 
@@ -12,17 +11,31 @@ class Tank: public Drawable {
 protected:
   static char *models[N_TANK_MODEL][4][9];
   static bool canMove[6];
+  static int lifeMaxVals[N_TANK_MODEL];
+  static int speedMoveVals[N_TANK_MODEL];
+  static int speedFireVals[N_TANK_MODEL];
+  static int weaponVals[N_TANK_MODEL];
+
   bool checkMove();
-  int modelSel = M_LHT;
-  int speedMove = 500;
-  int speedFire = 500;
+  
+  const int modelSel;
+  int lifeMax;
+  int speedMove;
+  int speedFire;
+  int weapon;
+  int life;
+
   uint64_t lastMove;
   uint64_t lastFire;
-  int life = 1000;
+
+  int camp;
+  int colorBody;
+  int colorWheel;
 public:
-  Tank(int x, int y, int direction);
+  Tank(int x, int y, int direction, int camp, 
+    int modelSel = MD_LHT);
   void draw();
-  void move(int direction = 0);
+  virtual void move(int direction = 0);
   Bullet *fire();
   void hit(int type);
 };

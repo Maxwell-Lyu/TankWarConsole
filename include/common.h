@@ -6,11 +6,14 @@
 uint64_t getTime();
 
 enum { BL_NM, BL_AP, BL_HE };
+
 enum { F_BLK = 30, F_RED, F_GRN, F_YLW, F_BLU, F_MGT, F_CYN, F_WHT, F_TSP };
 enum { B_BLK = 40, B_RED, B_GRN, B_YLW, B_BLU, B_MGT, B_CYN, B_WHT, B_TSP };
 enum { T_BNK, T_GRS, T_WTR, T_STN, T_WAL, T_DRW };
 enum { D_UP, D_LT, D_DN, D_RT };
-enum { M_LHT, M_AMR, M_ATG, M_HVY };
 
+#define N_TANK_MODEL 4
+enum { MD_LHT, MD_AMR, MD_ATG, MD_HVY };
+enum { CP_P1 = 1, CP_P2, CP_EN };
 #endif
 
