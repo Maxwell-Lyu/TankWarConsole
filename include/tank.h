@@ -24,6 +24,7 @@ protected:
   int speedFire;
   int weapon;
   int life;
+  int nLife;
 
   uint64_t lastMove;
   uint64_t lastFire;

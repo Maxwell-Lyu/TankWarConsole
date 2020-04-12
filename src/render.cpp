@@ -3,7 +3,9 @@
 #include <windows.h>
 #include <thread>
 #include "map.h"
-
+#include "level.h"
+#include <iostream>
+#include <iomanip>
 std::list<Drawable *> Render::Drawables;
 pixel_t Render::vBuf[MAP_H][MAP_W];
 int Render::scene;
@@ -44,6 +46,7 @@ void Render::thrRender() {
         }
       for(auto &drawable: Drawables)
         drawable->draw();
+      renderStatus();
       refresh();
       break;
     }
@@ -67,6 +70,43 @@ void Render::thrRender() {
     }
     Sleep(fps);
   }
+}
+
+void Render::renderStatus() {
+  // switch (Level::currentLevel->type) {
+  // case LV_AD1:
+    
+  //   break;
+  
+  // default:
+  //   break;
+  // }
+  renderStatusTank(10, Level::currentLevel->player1);
+  renderStatusTank(15, Level::currentLevel->player2);
+  // switch (Level::currentLevel->type) {
+  // case LV_AD1: {
+
+  // }
+  // default:
+  //   break;
+  // }
+}
+void Render::renderStatusTank(int y, Tank *t) {
+  std::cout << "\033[1m";
+  std::cout << "\033[" << t->colorBody << "m\033[" << y + 1 << ";63H";
+  switch(t->camp) {
+    case CP_P1: std::cout << "PLAYER 1"; break;
+    case CP_P2: std::cout << "PLAYER 2"; break;
+    case CP_EN: std::cout << "ENEMY   "; break;
+  }
+  std::cout << "\033[0m";
+  std::cout << "\033[" << y + 2 << ";63HHP [";
+    int n = t->life * 10 / t->lifeMax;
+  for (int i = 0; i < n; i++) std::cout << "█";
+  for (int i = n; i < 10; i++) std::cout << " ";
+  std::cout << "\033[" << y + 2 << ";77H]";
+  if(t->camp != CP_EN)
+    std::cout << "\033[" << y + 3 << ";63HWP [" << Bullet::models[t->weapon] << "] LF [" << std::setw(2) << std::setfill('0') << t->nLife << "] ";
 }
 
 void Render::run() {

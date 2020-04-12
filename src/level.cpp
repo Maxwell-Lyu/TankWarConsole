@@ -21,7 +21,7 @@ Level::Level(int type): type(type), scoreP1(0), scoreP2(0) {
     scoreP1 = 0;
     scoreP2 = 0;
     Render::Drawables.push_back(player1);
-    Render::Drawables.push_back(new Tank(5, 5, D_UP, CP_EN, MD_LHT));
+    Render::Drawables.push_back(player2 = new Tank(5, 5, D_UP, CP_EN, MD_LHT));
     break;
   }
   default:

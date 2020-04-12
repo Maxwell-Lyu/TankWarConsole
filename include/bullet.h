@@ -11,6 +11,7 @@ class Bullet: public Drawable {
 protected:
   static std::list<Bullet *> pool;
   static int bulletSpeed;
+  static char *models[N_BULLET_MODEL];
   // static std::list<Bullet *> pool;
   uint64_t lastMove = 0;
 public:
@@ -35,6 +36,7 @@ public:
   }
   void draw();
   bool move();
+  friend class Render;
 };
 
 

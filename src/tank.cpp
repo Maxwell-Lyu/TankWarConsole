@@ -41,7 +41,7 @@ char *Tank::models[N_TANK_MODEL][4][9] = {{
 }, };
 
 
-Tank::Tank(int x, int y, int direction, int camp, int modelSel): Drawable(x, y, direction), modelSel(modelSel), camp(camp)  {
+Tank::Tank(int x, int y, int direction, int camp, int modelSel): Drawable(x, y, direction), modelSel(modelSel), camp(camp), nLife(1)  {
   this->life = Tank::lifeMaxVals[modelSel];
   this->lifeMax = Tank::lifeMaxVals[modelSel];
   this->speedMove = Tank::speedMoveVals[modelSel];

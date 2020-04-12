@@ -1,6 +1,5 @@
 #ifndef __RENDER_H__
 #define __RENDER_H__
-#include <iostream>
 #include <list>
 #include "common.h"
 
@@ -49,6 +48,8 @@ private:
   static pixel_t vBuf[MAP_H][MAP_W];
   static void thrRender();
   static void refresh();
+  static void renderStatus();
+  static void renderStatusTank(int y, Tank *t);
 public:
   static int scene;
   static int fps;

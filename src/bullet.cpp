@@ -4,16 +4,16 @@
 #include "level.h"
 // extern elem_t Map[MAP_W][MAP_H];
 
+char *Bullet::models[N_BULLET_MODEL] = {
+  "○", "●", "◌",
+};
+
 int Bullet::bulletSpeed = 100;
 std::list<Bullet *> Bullet::pool;
 std::list<Bullet *> Bullet::Bullets;
 
 void Bullet::draw() {
-  switch (this->type) {
-  case BL_NM: Render::draw({F_WHT, B_TSP, "弹"}, x, y); break;
-  case BL_AP: Render::draw({F_WHT, B_TSP, "AP"}, x, y); break;
-  case BL_HE: Render::draw({F_WHT, B_TSP, "HE"}, x, y); break;
-  }
+  Render::draw({F_WHT, B_TSP, Bullet::models[this->type]}, x, y);
 }
 bool Bullet::move() {
   if(getTime() < Bullet::bulletSpeed + lastMove) return false;

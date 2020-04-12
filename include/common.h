@@ -5,6 +5,7 @@
 
 uint64_t getTime();
 
+#define N_BULLET_MODEL 3
 enum { BL_NM, BL_AP, BL_HE };
 
 enum { F_BLK = 30, F_RED, F_GRN, F_YLW, F_BLU, F_MGT, F_CYN, F_WHT, F_TSP };
@@ -26,6 +27,8 @@ enum { EV_DST_TK, EV_DST_BS };
 // enum { ST_STB, ST_RUN, ST_PUS, ST_FIN };
 enum { SC_WLC, SC_HLP, SC_GRN, SC_GRD, SC_GPS, SC_GFN };
 
+
+class Tank;
 
 #endif
 
