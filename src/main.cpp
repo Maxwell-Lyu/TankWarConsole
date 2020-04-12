@@ -14,7 +14,7 @@ int main() {
   system("chcp 65001");
   system("cls");
   Tank t(2, 2, D_UP, CP_P1, MD_HVY);
-  Tank t1(2, 6, D_UP, CP_P2);
+  Tank t1(2, 6, D_UP, CP_EN, MD_AMR);
   Render::run();
   Render::Drawables.emplace_back(&t);
   Render::Drawables.emplace_back(&t1);
