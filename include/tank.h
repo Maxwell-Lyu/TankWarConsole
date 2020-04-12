@@ -37,7 +37,9 @@ public:
   void draw();
   virtual void move(int direction = 0);
   Bullet *fire();
-  void hit(int type);
+  void hit(int type, int srcCamp);
+  ~Tank();
+  friend class Render;
 };
 
 class AutoTank: public Tank {

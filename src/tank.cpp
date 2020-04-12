@@ -7,12 +7,13 @@
 #include <iostream>
 #include "common.h"
 #include "map.h"
+#include "level.h"
 // extern elem_t Map::map[MAP_W][MAP_H];
 
 
 bool Tank::canMove[6] = {true, true, false, false, false, false};
 int Tank::lifeMaxVals[N_TANK_MODEL] { 1000, 1000, 1000, 2000 };
-int Tank::speedMoveVals[N_TANK_MODEL] { 300, 150, 300, 300 };
+int Tank::speedMoveVals[N_TANK_MODEL] { 200, 100, 200, 200 };
 int Tank::speedFireVals[N_TANK_MODEL] { 400, 400, 200, 400 };
 int Tank::weaponVals[N_TANK_MODEL] { BL_NM, BL_NM, BL_NM, BL_AP};
 
@@ -40,12 +41,14 @@ char *Tank::models[N_TANK_MODEL][4][9] = {{
 }, };
 
 
-Tank::Tank(int x, int y, int direction, int camp, int modelSel): Drawable(x, y, direction), modelSel(modelSel)  {
+Tank::Tank(int x, int y, int direction, int camp, int modelSel): Drawable(x, y, direction), modelSel(modelSel), camp(camp)  {
   this->life = Tank::lifeMaxVals[modelSel];
   this->lifeMax = Tank::lifeMaxVals[modelSel];
   this->speedMove = Tank::speedMoveVals[modelSel];
   this->speedFire = Tank::speedFireVals[modelSel];
   this->weapon = Tank::weaponVals[modelSel];
+  this->lastMove = 0;
+  this->lastFire = 0;
   switch(camp) {
   case CP_P1: {
     this->colorBody = F_GRN;
@@ -179,25 +182,34 @@ Bullet *Tank::fire() {
   Bullet *blt;
   switch(this->direction) {
   case D_UP:
-    blt = new Bullet(this->x, this->y - 1, this->direction, this->weapon);
+    blt = new Bullet(this->x, this->y - 1, this->direction, this->weapon, this->camp);
     break;
   case D_LT:
-    blt = new Bullet(this->x - 1, this->y, this->direction, this->weapon);
+    blt = new Bullet(this->x - 1, this->y, this->direction, this->weapon, this->camp);
     break;
   case D_DN:
-    blt = new Bullet(this->x, this->y + 1, this->direction, this->weapon);
+    blt = new Bullet(this->x, this->y + 1, this->direction, this->weapon, this->camp);
     break;
   case D_RT:
-    blt = new Bullet(this->x + 1, this->y, this->direction, this->weapon);
+    blt = new Bullet(this->x + 1, this->y, this->direction, this->weapon, this->camp);
     break;
   }
   return blt;
 }
 
-void Tank::hit(int type) {
+void Tank::hit(int type, int srcCamp) {
+  if(!(this->camp & srcCamp)) return;
   switch (type) {
-  case BL_NM: this->life -= 100; return;
-  case BL_AP: this->life -= 200; return;
-  case BL_HE: this->life -= 400; return;
+  case BL_NM: this->life -= 100; break;
+  case BL_AP: this->life -= 200; break;
+  case BL_HE: this->life -= 400; break;
   }
+  if(this->life <= 0)
+    Level::currentLevel->events.push_back(std::make_tuple(EV_DST_TK, this, srcCamp));
+}
+
+Tank::~Tank() {
+  for (int x = this->x - 1; x <= this->x + 1; x++)
+    for (int y = this->y - 1; y <= this->y + 1; y++)
+      Map::map[x][y] = {T_BNK, NULL};
 }

@@ -1,6 +1,7 @@
 #include "bullet.h"
 #include "common.h"
 #include "map.h"
+#include "level.h"
 // extern elem_t Map[MAP_W][MAP_H];
 
 int Bullet::bulletSpeed = 100;
@@ -59,7 +60,8 @@ bool Bullet::move() {
   case T_DRW: break;
   }
   if(Map::map[x][y].type == T_DRW) {
-    Map::map[x][y].data->hit(this->type);
+    Map::map[x][y].data->hit(this->type, this->srcCamp);
+    // Level::currentLevel->events.push_bacxk(std::make_tuple(EV_HIT, Map::map[x][y].data, this->src));
     return true;
   }
   return false;

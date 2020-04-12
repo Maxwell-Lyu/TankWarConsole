@@ -13,10 +13,11 @@ protected:
   static int bulletSpeed;
   // static std::list<Bullet *> pool;
   uint64_t lastMove = 0;
-  int type = BL_NM;
 public:
+  int srcCamp;
+  int type = BL_NM;
   static std::list<Bullet *> Bullets;
-  Bullet(int x, int y, int direction, int type): Drawable(x, y, direction), type(type) {}
+  Bullet(int x, int y, int direction, int type, int srcCamp): Drawable(x, y, direction), type(type), srcCamp(srcCamp) {}
 	void *operator new(size_t size) {	
     if(pool.empty()) {
       void *p = malloc(size);

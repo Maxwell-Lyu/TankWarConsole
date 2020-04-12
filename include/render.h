@@ -4,16 +4,9 @@
 #include <list>
 #include "common.h"
 
-
 typedef struct _pixel_t pixel_t;
 typedef struct _pixelList_t pixelList_t;
 typedef struct _elem_t elem_t;
-
-
-
-
-
-
 
 
 
@@ -29,7 +22,6 @@ struct _pixelList_t{
   int size;
 };
 
-
 class Drawable {
 protected:
   int x = 2, y = 2;
@@ -38,7 +30,7 @@ public:
   Drawable() {}
   Drawable(int x, int y, int direction): x(x), y(y), direction(direction) {}
   virtual void draw() = 0;
-  virtual void hit(int type) {};
+  virtual void hit(int type, int srcCamp) {};
 };
 
 struct _elem_t{
@@ -58,6 +50,7 @@ private:
   static void thrRender();
   static void refresh();
 public:
+  static int scene;
   static int fps;
   static void draw(pixel_t pixel, int x, int y) { vBuf[x][y] = pixel;}
   static void run();

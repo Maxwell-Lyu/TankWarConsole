@@ -20,5 +20,12 @@ enum { D_UP, D_LT, D_DN, D_RT };
 #define N_TANK_MODEL 4
 enum { MD_LHT, MD_AMR, MD_ATG, MD_HVY };
 enum { CP_P1 = 1, CP_P2, CP_EN };
+
+enum { LV_AD1, LV_AD2, LV_ARN };
+enum { EV_DST_TK, EV_DST_BS };
+// enum { ST_STB, ST_RUN, ST_PUS, ST_FIN };
+enum { SC_WLC, SC_HLP, SC_GRN, SC_GRD, SC_GPS, SC_GFN };
+
+
 #endif
 
