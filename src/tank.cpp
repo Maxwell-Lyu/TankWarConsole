@@ -13,7 +13,7 @@
 
 bool Tank::canMove[6] = {true, true, false, false, false, false};
 int Tank::lifeMaxVals[N_TANK_MODEL] { 1000, 1000, 1000, 2000 };
-int Tank::speedMoveVals[N_TANK_MODEL] { 200, 100, 200, 200 };
+int Tank::speedMoveVals[N_TANK_MODEL] { 200, 150, 200, 200 };
 int Tank::speedFireVals[N_TANK_MODEL] { 400, 400, 200, 400 };
 int Tank::weaponVals[N_TANK_MODEL] { BL_NM, BL_NM, BL_NM, BL_AP};
 

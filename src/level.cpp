@@ -58,8 +58,16 @@ void Adventure::run() {
       } 
       }
     }
-    for(auto it = enemies.begin(); it != enemies.end(); ++it)
+    for(auto it = enemies.begin(); it != enemies.end(); ++it) {
       (*it)->move();
+      if(rand() & 0xf > 3){
+        Bullet *blt = (*it)->fire();
+        if(blt != nullptr) {
+          Render::Drawables.emplace_back(blt);
+          Bullet::Bullets.emplace_back(blt);
+        }
+      } 
+    }
     for(auto it = Bullet::Bullets.begin(); it != Bullet::Bullets.end();) {
       Bullet *blt = *it;
       if(blt->move()) {
