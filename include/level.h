@@ -3,6 +3,7 @@
 #include "common.h"
 #include "render.h"
 #include "tank.h"
+#include "base.h"
 #include <list>
 #include <tuple>
 
@@ -10,6 +11,7 @@ class Level {
 protected:
   Tank *player1;
   Tank *player2;
+  Base *base;
   // Tank *enemy[4];
   std::list<std::tuple<int, int, int> > waves;
   std::list<Tank *> enemies;

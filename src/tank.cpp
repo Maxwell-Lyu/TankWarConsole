@@ -65,6 +65,11 @@ Tank::Tank(int x, int y, int direction, int camp, int modelSel): Drawable(x, y, 
     this->colorWheel = F_WHT;
     break;
   }
+  case CP_BS: {
+    this->colorBody = F_YLW;
+    this->colorWheel = F_WHT;
+    break;
+  }
   }
   for (int x = this->x - 1; x <= this->x + 1; x++)
     for (int y = this->y - 1; y <= this->y + 1; y++)

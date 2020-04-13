@@ -18,8 +18,10 @@ Level::Level(int type): type(type), scoreP1(0), scoreP2(0) {
   case LV_AD1: {
     player1 = new Tank(5, 28, D_UP, CP_P1, MD_ATG);
     player2 = nullptr;
+    base = new Base(15, 28);
     scoreP1 = 0;
     scoreP2 = 0;
+    Render::Drawables.push_back(base);
     Render::Drawables.push_back(player1);
     // Render::Drawables.push_back(player2 = new Tank(5, 5, D_UP, CP_EN, MD_LHT));
     waves.push_back(std::make_tuple(5, 5, MD_LHT));

@@ -74,9 +74,10 @@ void Render::thrRender() {
 
 void Render::renderStatus() {
   switch (Level::currentLevel->type) {
-  case LV_AD2: renderStatusTank(20, Level::currentLevel->player2);
+  case LV_AD2: renderStatusTank(23, Level::currentLevel->player2);
   case LV_AD1: {
-    renderStatusTank(15, Level::currentLevel->player1);
+    renderStatusTank(18, Level::currentLevel->player1);
+    renderStatusTank(15, Level::currentLevel->base);
     int line = 7;
     for (auto it = Level::currentLevel->enemies.begin(); it != Level::currentLevel->enemies.end(); it++) {
       renderStatusTank(line, *it);
@@ -84,8 +85,6 @@ void Render::renderStatus() {
     }
     for (; line < 15; line++)
       std::cout << "\033[" << line + 1 << ";63H                ";
-
-    
     break;
   }
   case LV_ARN:
@@ -110,6 +109,7 @@ void Render::renderStatusTank(int y, Tank *t) {
   switch(t->camp) {
     case CP_P1: std::cout << "PLAYER 1"; break;
     case CP_P2: std::cout << "PLAYER 2"; break;
+    case CP_BS: std::cout << "BASE TO PROTECT"; break;
     case CP_EN: {
       std::cout << "ENEMY   "; 
       std::cout << Tank::models[t->modelSel][D_RT][3] << Tank::models[t->modelSel][D_RT][4] << Tank::models[t->modelSel][D_RT][5]; break;
@@ -121,7 +121,7 @@ void Render::renderStatusTank(int y, Tank *t) {
   for (int i = 0; i < n; i++) std::cout << "■";
   for (int i = n; i < 10; i++) std::cout << " ";
   std::cout << "\033[" << y + 2 << ";77H]";
-  if(t->camp != CP_EN)
+  if(t->camp == CP_P1 || t->camp == CP_P2)
     std::cout << "\033[" << y + 3 << ";63HWP [" << Bullet::models[t->weapon] << "]  LF [" << std::setw(2) << std::setfill('0') << t->nLife << "]";
   if(t->camp == CP_P1)
     std::cout << "\033[" << y + 4 << ";63HPT [" << std::setw(10) << std::setfill(' ') << Level::currentLevel->scoreP1 << "] ";
