@@ -210,7 +210,10 @@ void Tank::hit(int type, int srcCamp) {
   case BL_HE: this->life -= 400; break;
   }
   if(this->life <= 0)
-    Level::currentLevel->events.push_back(std::make_tuple(EV_DST_TK, this, srcCamp));
+    if((--this->nLife) > 0)
+      this->life - this->lifeMax;
+    else
+      Level::currentLevel->events.push_back(std::make_tuple(EV_DST_TK, this, srcCamp));
 }
 
 Tank::~Tank() {

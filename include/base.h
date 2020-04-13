@@ -10,8 +10,6 @@ public:
   Base(int x, int y);
   void draw();
   void move();
-  void hit();
-  void hit(int type, int srcCamp);
 };
 
 #endif

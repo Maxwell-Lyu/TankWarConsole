@@ -52,15 +52,3 @@ void Base::draw() {
 
 
 void Base::move() {}
-
-
-void Base::hit(int type, int srcCamp) {
-  if(Level::currentLevel->type != LV_ARN && !(this->camp & srcCamp)) return;
-  switch (type) {
-  case BL_NM: this->life -= 100; break;
-  case BL_AP: this->life -= 200; break;
-  case BL_HE: this->life -= 400; break;
-  }
-  if(this->life <= 0 && !(--this->nLife))
-    Level::currentLevel->events.push_back(std::make_tuple(EV_DST_BS, this, srcCamp));
-}
