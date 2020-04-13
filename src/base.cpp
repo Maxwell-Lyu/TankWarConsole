@@ -39,9 +39,9 @@ Base::Base(int x, int y): Tank(x, y, D_UP, CP_BS) {
 
 
 void Base::draw() {
-    Render::draw({colorWheel, B_BLK, "  "}, x - 1, y - 1);
+    Render::draw({colorWheel, B_BLK, "▄ "}, x - 1, y - 1);
     Render::draw({colorBody, B_BLK, "▐▌"}, x, y - 1);
-    Render::draw({colorWheel, B_BLK, "  "}, x + 1, y - 1);
+    Render::draw({colorWheel, B_BLK, " ▄"}, x + 1, y - 1);
     Render::draw({colorWheel, B_BLK, "█▄"}, x - 1, y);
     Render::draw({colorBody, B_BLK, "██"}, x, y);
     Render::draw({colorWheel, B_BLK, "▄█"}, x + 1, y);

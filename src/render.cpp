@@ -116,7 +116,7 @@ void Render::renderStatusTank(int y, Tank *t) {
       std::cout << Tank::models[t->modelSel][D_RT][3] << Tank::models[t->modelSel][D_RT][4] << Tank::models[t->modelSel][D_RT][5]; break;
     }
   }
-  std::cout << "\033[0m";
+  std::cout << "\033[0m\033[1m";
   std::cout << "\033[" << y + 2 << ";63HHP [";
     int n = t->life * 10 / t->lifeMax;
   for (int i = 0; i < n; i++) std::cout << "■";

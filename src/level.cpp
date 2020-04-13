@@ -44,12 +44,12 @@ void Adventure::run() {
   while(1) {
     while(kbhit()) {
       switch(getch()) {
-      case 119: enemies.front()->move(D_UP); break;
-      case 97:  enemies.front()->move(D_LT); break;
-      case 115: enemies.front()->move(D_DN); break;
-      case 100: enemies.front()->move(D_RT); break;
+      case 119: player1->move(D_UP); break;
+      case 97:  player1->move(D_LT); break;
+      case 115: player1->move(D_DN); break;
+      case 100: player1->move(D_RT); break;
       case 32: {
-        Bullet *blt = enemies.front()->fire();
+        Bullet *blt = player1->fire();
         if(blt != nullptr) {
           Render::Drawables.emplace_back(blt);
           Bullet::Bullets.emplace_back(blt);
