@@ -10,11 +10,13 @@ class Level {
 protected:
   Tank *player1;
   Tank *player2;
-  Tank *enemy[4];
+  // Tank *enemy[4];
+  std::list<std::tuple<int, int, int> > waves;
+  std::list<Tank *> enemies;
   int scoreP1;
   int scoreP2;
-  int type;
 public:
+  int type;
   static Level *currentLevel;
   std::list <std::tuple<int, Tank *, int> > events; 
   Level(int type);
@@ -24,8 +26,12 @@ public:
 
 
 class Adventure: public Level {
+protected:
+  int lastWave = 0;
+  int waveSpeed = 5000;
 public:
   Adventure(): Level(LV_AD1) {}
+  void sendEnemy();
   void run();
 };
 

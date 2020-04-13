@@ -73,16 +73,20 @@ void Render::thrRender() {
 }
 
 void Render::renderStatus() {
-  // switch (Level::currentLevel->type) {
-  // case LV_AD1:
+  switch (Level::currentLevel->type) {
+  case LV_AD2: renderStatusTank(20, Level::currentLevel->player2);
+  case LV_AD1: {
+    renderStatusTank(15, Level::currentLevel->player1);
+    break;
+  }
+  case LV_ARN:
     
-  //   break;
+    break;
   
-  // default:
-  //   break;
-  // }
-  renderStatusTank(10, Level::currentLevel->player1);
-  renderStatusTank(15, Level::currentLevel->player2);
+  default:
+    break;
+  }
+  // renderStatusTank(10, Level::currentLevel->player1);
   // switch (Level::currentLevel->type) {
   // case LV_AD1: {
 

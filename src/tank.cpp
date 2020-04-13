@@ -198,7 +198,7 @@ Bullet *Tank::fire() {
 }
 
 void Tank::hit(int type, int srcCamp) {
-  if(!(this->camp & srcCamp)) return;
+  if(Level::currentLevel->type != LV_ARN && !(this->camp & srcCamp)) return;
   switch (type) {
   case BL_NM: this->life -= 100; break;
   case BL_AP: this->life -= 200; break;
