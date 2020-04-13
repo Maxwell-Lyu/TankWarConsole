@@ -50,6 +50,7 @@ private:
   static void refresh();
   static void renderStatus();
   static void renderStatusTank(int y, Tank *t);
+  static void renderStatusEnemy(int y); 
 public:
   static int scene;
   static int fps;

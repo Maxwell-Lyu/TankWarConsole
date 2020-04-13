@@ -85,6 +85,7 @@ void Render::renderStatus() {
     }
     for (; line < 15; line++)
       std::cout << "\033[" << line + 1 << ";63H                ";
+    renderStatusEnemy(5);
     break;
   }
   case LV_ARN:
@@ -128,6 +129,9 @@ void Render::renderStatusTank(int y, Tank *t) {
   if(t->camp == CP_P2)
     std::cout << "\033[" << y + 4 << ";63HPT [" << std::setw(10) << std::setfill(' ') << Level::currentLevel->scoreP2 << "] ";
     
+}
+void Render::renderStatusEnemy(int y) {
+  std::cout << "\033[31;1m\033[" << y + 1 << ";63HENEMY LEFT [\033[37;1m" << std::setw(2) << std::setfill('0') << Level::currentLevel->waves.size() << "\033[31;1m]";
 }
 
 void Render::run() {
