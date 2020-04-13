@@ -3,6 +3,7 @@
 
 #include "tank.h"
 
+
 class Base: public Tank {
 private:
   static int lifeMaxVal;

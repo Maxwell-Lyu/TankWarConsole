@@ -11,7 +11,7 @@
 // extern elem_t Map::map[MAP_W][MAP_H];
 
 
-bool Tank::canMove[N_TERRIAN] = {true, true, false, false, false, false, true};
+bool Tank::canMove[N_TERRIAN] = {true, true, false, false, false, false, true };
 int Tank::lifeMaxVals[N_TANK_MODEL] { 1000, 1000, 1000, 2000 };
 int Tank::speedMoveVals[N_TANK_MODEL] { 200, 150, 200, 200 };
 int Tank::speedFireVals[N_TANK_MODEL] { 400, 400, 200, 400 };
@@ -177,8 +177,11 @@ void Tank::move(int direction) {
   }
   }
   for (int x = this->x - 1; x <= this->x + 1; x++)
-    for (int y = this->y - 1; y <= this->y + 1; y++)
+    for (int y = this->y - 1; y <= this->y + 1; y++) {
+      if(Map::map[x][y].type == T_PWU)
+        Map::map[x][y].data->hit(this->weapon, this->camp);
       Map::map[x][y] = {T_DRW, this};
+    }
 }
 
 Bullet *Tank::fire() {
@@ -205,6 +208,7 @@ Bullet *Tank::fire() {
 void Tank::hit(int type, int srcCamp) {
   if(this->camp == srcCamp) return;
   if(Level::currentLevel->type != LV_ARN && !(this->camp & srcCamp)) return;
+  this->weapon = max(this->weapon--, 0);
   switch (type) {
   case BL_NM: this->life -= 100; break;
   case BL_AP: this->life -= 200; break;
@@ -270,6 +274,12 @@ void AutoTank::move(int direction) {
   }
   }
   for (int x = this->x - 1; x <= this->x + 1; x++)
-    for (int y = this->y - 1; y <= this->y + 1; y++)
-      Map::map[x][y] = {T_DRW, this};
+    for (int y = this->y - 1; y <= this->y + 1; y++) {
+      if(Map::map[x][y].type == T_PWU) {
+        Drawable *d = Map::map[x][y].data;
+        Map::map[x][y] = {T_DRW, this};
+        d->hit(this->weapon, this->camp);
+      } else
+        Map::map[x][y] = {T_DRW, this};
+    }
 }

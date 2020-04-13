@@ -25,7 +25,7 @@ enum { MD_LHT, MD_AMR, MD_ATG, MD_HVY };
 enum { CP_P1 = 1, CP_P2 = 2, CP_BS = 4, CP_EN = 7 };
 
 enum { LV_AD1, LV_AD2, LV_ARN };
-enum { EV_DST_TK };
+enum { EV_DST_TK, EV_GET_PW };
 // enum { ST_STB, ST_RUN, ST_PUS, ST_FIN };
 
 
@@ -34,7 +34,9 @@ enum { EV_DST_TK };
 enum { SC_WLC, SC_HLP, SC_GRN, SC_GRD, SC_GPS, SC_GFN };
 
 
-class Tank;
+enum { PU_NLF, PU_UGD, PU_CLK, PU_SVL, PU_BMB };
+
+
 
 #endif
 

@@ -29,9 +29,9 @@ protected:
   uint64_t lastMove;
   uint64_t lastFire;
 
-  int camp;
   int colorBody;
   int colorWheel;
+  int camp;
 public:
   Tank(int x, int y, int direction, int camp, int modelSel = MD_LHT);
   void draw();
@@ -40,6 +40,7 @@ public:
   void hit(int type, int srcCamp);
   ~Tank();
   friend class Render;
+  friend class Adventure;
 };
 
 class AutoTank: public Tank {

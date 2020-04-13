@@ -3,6 +3,7 @@
 #include "render.h"
 #include "bullet.h"
 #include "tank.h"
+#include "base.h"
 #include <conio.h>
 #include <Windows.h>
 #include <iostream>
@@ -97,7 +98,7 @@ void Adventure::run() {
       else
         it++;
     }
-
+    // * handle events
     for(auto it = events.begin(); it != events.end();) {
       auto e = *it;
       switch(std::get<0>(e)) {
@@ -107,6 +108,7 @@ void Adventure::run() {
           Render::Drawables.remove(dest);
           dest->~Tank();
           if(dest == player1) {
+            delete player1;
             return;
           } 
           else if(dest == base) {
@@ -114,7 +116,37 @@ void Adventure::run() {
           }
           else {
             enemies.remove(dest);
+            delete dest;
             scoreP1 += 1000;
+          }
+          break;
+        }
+        case EV_GET_PW: {
+          auto target = std::get<1>(e);
+          auto type = std::get<2>(e);
+          if(target->camp != CP_EN) {
+            switch(type) {
+              case PU_NLF: target->nLife++; break;
+              case PU_UGD: target->weapon = min(target->weapon++, 2); break;
+              case PU_CLK: {
+                for(auto it = enemies.begin(); it != enemies.end(); ++it)
+                  (*it)->lastMove = (*it)->lastFire = getTime() + 3000;
+                break;
+              }
+              case PU_SVL: {
+                // TODO
+                break;
+              }
+              case PU_BMB:  {
+                for(auto it = enemies.begin(); it != enemies.end();) {
+                  Render::Drawables.remove(*it);
+                  (*it)->~Tank();
+                  delete (*it);
+                  it = enemies.erase(it);
+                }
+                break;
+              }
+            }
           }
           break;
         }
