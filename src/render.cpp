@@ -77,6 +77,15 @@ void Render::renderStatus() {
   case LV_AD2: renderStatusTank(20, Level::currentLevel->player2);
   case LV_AD1: {
     renderStatusTank(15, Level::currentLevel->player1);
+    int line = 7;
+    for (auto it = Level::currentLevel->enemies.begin(); it != Level::currentLevel->enemies.end(); it++) {
+      renderStatusTank(line, *it);
+      line += 2;
+    }
+    for (; line < 15; line++)
+      std::cout << "\033[" << line + 1 << ";63H                ";
+
+    
     break;
   }
   case LV_ARN:
@@ -101,12 +110,15 @@ void Render::renderStatusTank(int y, Tank *t) {
   switch(t->camp) {
     case CP_P1: std::cout << "PLAYER 1"; break;
     case CP_P2: std::cout << "PLAYER 2"; break;
-    case CP_EN: std::cout << "ENEMY   "; break;
+    case CP_EN: {
+      std::cout << "ENEMY   "; 
+      std::cout << Tank::models[t->modelSel][D_RT][3] << Tank::models[t->modelSel][D_RT][4] << Tank::models[t->modelSel][D_RT][5]; break;
+    }
   }
   std::cout << "\033[0m";
   std::cout << "\033[" << y + 2 << ";63HHP [";
     int n = t->life * 10 / t->lifeMax;
-  for (int i = 0; i < n; i++) std::cout << "█";
+  for (int i = 0; i < n; i++) std::cout << "■";
   for (int i = n; i < 10; i++) std::cout << " ";
   std::cout << "\033[" << y + 2 << ";77H]";
   if(t->camp != CP_EN)
