@@ -8,10 +8,11 @@
 #include "level.h"
 using namespace std;
 
-int Render::fps = 50;
+int Render::fps = 25;
 
 int main() {
   system("chcp 65001");
+  system("mode con cols=100 lines=40");
   system("cls");
   Render::run();
   auto level = new Adventure();

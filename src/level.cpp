@@ -18,7 +18,7 @@ Level::Level(int type): type(type), scoreP1(0), scoreP2(0) {
   case LV_AD1: {
     player1 = new Tank(5, 28, D_UP, CP_P1, MD_ATG);
     player2 = nullptr;
-    base = new Base(15, 28);
+    base = new Base(MAP_W >> 1, MAP_H - 2);
     scoreP1 = 0;
     scoreP2 = 0;
     Render::Drawables.push_back(base);
@@ -58,6 +58,8 @@ void Adventure::run() {
       } 
       }
     }
+    for(auto it = enemies.begin(); it != enemies.end(); ++it)
+      (*it)->move();
     for(auto it = Bullet::Bullets.begin(); it != Bullet::Bullets.end();) {
       Bullet *blt = *it;
       if(blt->move()) {
@@ -106,7 +108,7 @@ void Adventure::sendEnemy() {
     auto w = waves.front();
     waves.pop_front();
     if(std::get<2>(w) == -1) continue;
-    auto t = new Tank(std::get<0>(w), std::get<1>(w), D_DN, CP_EN, std::get<2>(w));
+    auto t = new AutoTank(std::get<0>(w), std::get<1>(w), std::get<2>(w));
     enemies.push_back(t);
     Render::Drawables.push_back(t);
   }

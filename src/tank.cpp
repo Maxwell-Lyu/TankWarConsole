@@ -222,3 +222,54 @@ Tank::~Tank() {
     for (int y = this->y - 1; y <= this->y + 1; y++)
       Map::map[x][y] = {T_BNK, NULL};
 }
+
+
+int AutoTank::getDirection() {
+  switch(this->direction) {
+    case D_UP: return D_LT;
+    case D_LT: return D_DN;
+    case D_DN: return D_RT;
+    case D_RT: return D_UP;
+  }
+}
+
+void AutoTank::move(int direction) {
+  if(getTime() < speedMove + lastMove) return;
+  lastMove = getTime();
+  for (int x = this->x - 1; x <= this->x + 1; x++)
+    for (int y = this->y - 1; y <= this->y + 1; y++)
+      Map::map[x][y] = {T_BNK, NULL};
+  switch (this->direction) {
+  case D_UP:{
+    if(this->y > 1 && checkMove())
+      --this->y;
+    else
+      this->direction = getDirection();
+    break;
+  }
+  case D_LT:{
+    if(this->x > 1 && checkMove())
+      --this->x;
+    else
+      this->direction = getDirection();
+    break;
+  }
+  case D_DN:{
+    if(this->y < MAP_H - 2 && checkMove())
+      ++this->y;
+    else
+      this->direction = getDirection();
+    break;
+  }
+  case D_RT:{
+    if(this->x < MAP_W - 2 && checkMove())
+      ++this->x;
+    else
+      this->direction = getDirection();
+    break;
+  }
+  }
+  for (int x = this->x - 1; x <= this->x + 1; x++)
+    for (int y = this->y - 1; y <= this->y + 1; y++)
+      Map::map[x][y] = {T_DRW, this};
+}

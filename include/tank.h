@@ -33,8 +33,7 @@ protected:
   int colorBody;
   int colorWheel;
 public:
-  Tank(int x, int y, int direction, int camp, 
-    int modelSel = MD_LHT);
+  Tank(int x, int y, int direction, int camp, int modelSel = MD_LHT);
   void draw();
   virtual void move(int direction = 0);
   Bullet *fire();
@@ -44,7 +43,10 @@ public:
 };
 
 class AutoTank: public Tank {
+private:
+  int getDirection();
 public:
+  AutoTank(int x, int y, int modelSel = MD_LHT): Tank(x, y, D_DN, CP_EN, modelSel) {}
   void move(int direction = 0);
 };
 

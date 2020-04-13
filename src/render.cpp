@@ -74,18 +74,18 @@ void Render::thrRender() {
 
 void Render::renderStatus() {
   switch (Level::currentLevel->type) {
-  case LV_AD2: renderStatusTank(23, Level::currentLevel->player2);
+  case LV_AD2: renderStatusTank(STATUS_START_Y + 19, Level::currentLevel->player2);
   case LV_AD1: {
-    renderStatusTank(18, Level::currentLevel->player1);
-    renderStatusTank(15, Level::currentLevel->base);
-    int line = 7;
+    renderStatusTank(STATUS_START_Y + 14, Level::currentLevel->player1);
+    renderStatusTank(STATUS_START_Y + 11, Level::currentLevel->base);
+    int line = STATUS_START_Y + 2;
     for (auto it = Level::currentLevel->enemies.begin(); it != Level::currentLevel->enemies.end(); it++) {
       renderStatusTank(line, *it);
       line += 2;
     }
-    for (; line < 15; line++)
-      std::cout << "\033[" << line + 1 << ";63H                ";
-    renderStatusEnemy(5);
+    for (; line < STATUS_START_Y + 10; line++)
+      std::cout << "\033[" << line + 1 << ";" << STATUS_START_X << "H                ";
+    renderStatusEnemy(STATUS_START_Y);
     break;
   }
   case LV_ARN:
@@ -106,7 +106,7 @@ void Render::renderStatus() {
 }
 void Render::renderStatusTank(int y, Tank *t) {
   std::cout << "\033[1m";
-  std::cout << "\033[" << t->colorBody << "m\033[" << y + 1 << ";63H";
+  std::cout << "\033[" << t->colorBody << "m\033[" << y + 1 << ";" << STATUS_START_X << "H";
   switch(t->camp) {
     case CP_P1: std::cout << "PLAYER 1"; break;
     case CP_P2: std::cout << "PLAYER 2"; break;
@@ -117,21 +117,21 @@ void Render::renderStatusTank(int y, Tank *t) {
     }
   }
   std::cout << "\033[0m\033[1m";
-  std::cout << "\033[" << y + 2 << ";63HHP [";
+  std::cout << "\033[" << y + 2 << ";" << STATUS_START_X << "HHP [";
     int n = t->life * 10 / t->lifeMax;
   for (int i = 0; i < n; i++) std::cout << "■";
   for (int i = n; i < 10; i++) std::cout << " ";
-  std::cout << "\033[" << y + 2 << ";77H]";
+  std::cout << "\033[" << y + 2 << ";" << STATUS_START_X + 14 <<"H]";
   if(t->camp == CP_P1 || t->camp == CP_P2)
-    std::cout << "\033[" << y + 3 << ";63HWP [" << Bullet::models[t->weapon] << "]  LF [" << std::setw(2) << std::setfill('0') << t->nLife << "]";
+    std::cout << "\033[" << y + 3 << ";" << STATUS_START_X << "HWP [" << Bullet::models[t->weapon] << "]  LF [" << std::setw(2) << std::setfill('0') << t->nLife << "]";
   if(t->camp == CP_P1)
-    std::cout << "\033[" << y + 4 << ";63HPT [" << std::setw(10) << std::setfill(' ') << Level::currentLevel->scoreP1 << "] ";
+    std::cout << "\033[" << y + 4 << ";" << STATUS_START_X << "HPT [" << std::setw(10) << std::setfill(' ') << Level::currentLevel->scoreP1 << "] ";
   if(t->camp == CP_P2)
-    std::cout << "\033[" << y + 4 << ";63HPT [" << std::setw(10) << std::setfill(' ') << Level::currentLevel->scoreP2 << "] ";
+    std::cout << "\033[" << y + 4 << ";" << STATUS_START_X << "HPT [" << std::setw(10) << std::setfill(' ') << Level::currentLevel->scoreP2 << "] ";
     
 }
 void Render::renderStatusEnemy(int y) {
-  std::cout << "\033[31;1m\033[" << y + 1 << ";63HENEMY LEFT [\033[37;1m" << std::setw(2) << std::setfill('0') << Level::currentLevel->waves.size() << "\033[31;1m]";
+  std::cout << "\033[31;1m\033[" << y + 1 << ";" << STATUS_START_X << "HENEMY LEFT [\033[37;1m" << std::setw(2) << std::setfill('0') << Level::currentLevel->waves.size() << "\033[31;1m]";
 }
 
 void Render::run() {
