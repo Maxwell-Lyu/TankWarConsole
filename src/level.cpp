@@ -60,7 +60,7 @@ void Adventure::run() {
     }
     for(auto it = enemies.begin(); it != enemies.end(); ++it) {
       (*it)->move();
-      if(rand() & 0xf > 3){
+      if(getTime() % 4000 < 2000){
         Bullet *blt = (*it)->fire();
         if(blt != nullptr) {
           Render::Drawables.emplace_back(blt);
