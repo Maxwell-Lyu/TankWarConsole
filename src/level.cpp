@@ -40,7 +40,7 @@ Level::Level(int type): type(type), scoreP1(0), scoreP2(0) {
 void Adventure::run() {
   Render::scene = SC_GRN;
   while(1) {
-    if(kbhit()) {
+    while(kbhit()) {
       switch(getch()) {
       case 119: player1->move(D_UP); break;
       case 97:  player1->move(D_LT); break;
