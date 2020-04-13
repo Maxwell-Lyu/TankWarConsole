@@ -16,9 +16,10 @@ protected:
   uint64_t lastMove = 0;
 public:
   int srcCamp;
+  int toRemove;
   int type = BL_NM;
   static std::list<Bullet *> Bullets;
-  Bullet(int x, int y, int direction, int type, int srcCamp): Drawable(x, y, direction), type(type), srcCamp(srcCamp) {}
+  Bullet(int x, int y, int direction, int type, int srcCamp): Drawable(x, y, direction), type(type), srcCamp(srcCamp), toRemove(0) {}
 	void *operator new(size_t size) {	
     if(pool.empty()) {
       void *p = malloc(size);
@@ -37,6 +38,7 @@ public:
   void draw();
   bool move();
   friend class Render;
+  friend class Level;
 };
 
 

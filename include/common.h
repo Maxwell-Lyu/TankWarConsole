@@ -13,7 +13,9 @@ enum { B_BLK = 40, B_RED, B_GRN, B_YLW, B_BLU, B_MGT, B_CYN, B_WHT, B_TSP };
 
 #define MAP_W 40
 #define MAP_H 40
-enum { T_BNK, T_GRS, T_WTR, T_STN, T_WAL, T_DRW };
+
+#define N_TERRIAN 7
+enum { T_BNK, T_GRS, T_WTR, T_STN, T_WAL, T_DRW, T_PWU };
 
 
 enum { D_UP, D_LT, D_DN, D_RT };

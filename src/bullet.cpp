@@ -53,16 +53,14 @@ bool Bullet::move() {
     Map::map[this->x][this->y] = {T_BNK, NULL}; 
     return true; 
   }
-  case T_BNK:
-  case T_GRS:
-  case T_WTR:
-  case T_STN:
-  case T_DRW: break;
-  }
-  if(Map::map[x][y].type == T_DRW) {
+  case T_BNK: break;
+  case T_GRS: break;
+  case T_WTR: break;
+  case T_STN: break;
+  case T_DRW: {
     Map::map[x][y].data->hit(this->type, this->srcCamp);
-    // Level::currentLevel->events.push_bacxk(std::make_tuple(EV_HIT, Map::map[x][y].data, this->src));
     return true;
+  }
   }
   return false;
 }

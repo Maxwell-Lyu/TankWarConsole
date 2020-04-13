@@ -10,7 +10,7 @@
 class Tank: public Drawable {
 protected:
   static char *models[N_TANK_MODEL][4][9];
-  static bool canMove[6];
+  static bool canMove[N_TERRIAN];
   static int lifeMaxVals[N_TANK_MODEL];
   static int speedMoveVals[N_TANK_MODEL];
   static int speedFireVals[N_TANK_MODEL];

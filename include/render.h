@@ -2,12 +2,9 @@
 #define __RENDER_H__
 #include <list>
 #include "common.h"
-
 typedef struct _pixel_t pixel_t;
 typedef struct _pixelList_t pixelList_t;
 typedef struct _elem_t elem_t;
-
-
 
 
 struct _pixel_t{
@@ -23,9 +20,9 @@ struct _pixelList_t{
 
 class Drawable {
 protected:
-  int x = 2, y = 2;
   int direction = 0;
 public:
+  int x = 2, y = 2;
   Drawable() {}
   Drawable(int x, int y, int direction): x(x), y(y), direction(direction) {}
   virtual void draw() = 0;

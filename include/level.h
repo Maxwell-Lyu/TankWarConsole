@@ -26,7 +26,9 @@ public:
   friend class Render;
 };
 
-
+//  TODO: Add Game Class 
+//  TODO: Add Game Pause and screed 
+//  TODO: Add result more screens
 class Adventure: public Level {
 protected:
   int lastWave = 0;

@@ -11,7 +11,7 @@
 // extern elem_t Map::map[MAP_W][MAP_H];
 
 
-bool Tank::canMove[6] = {true, true, false, false, false, false};
+bool Tank::canMove[N_TERRIAN] = {true, true, false, false, false, false, true};
 int Tank::lifeMaxVals[N_TANK_MODEL] { 1000, 1000, 1000, 2000 };
 int Tank::speedMoveVals[N_TANK_MODEL] { 200, 150, 200, 200 };
 int Tank::speedFireVals[N_TANK_MODEL] { 400, 400, 200, 400 };

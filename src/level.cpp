@@ -42,6 +42,7 @@ Level::Level(int type): type(type), scoreP1(0), scoreP2(0) {
 void Adventure::run() {
   Render::scene = SC_GRN;
   while(1) {
+    // * user input and oprations
     while(kbhit()) {
       switch(getch()) {
       case 119: player1->move(D_UP); break;
@@ -58,8 +59,9 @@ void Adventure::run() {
       } 
       }
     }
+    // * move and fire for AutoTank
     for(auto it = enemies.begin(); it != enemies.end(); ++it) {
-      (*it)->move();
+      // (*it)->move();
       if(getTime() % 4000 < 2000){
         Bullet *blt = (*it)->fire();
         if(blt != nullptr) {
@@ -68,6 +70,7 @@ void Adventure::run() {
         }
       } 
     }
+    // * move bullets
     for(auto it = Bullet::Bullets.begin(); it != Bullet::Bullets.end();) {
       Bullet *blt = *it;
       if(blt->move()) {
@@ -79,6 +82,22 @@ void Adventure::run() {
         ++it;
       }
     }
+    // * bullet cancels each other
+    for(auto it = Bullet::Bullets.begin(); it != Bullet::Bullets.end();++it)
+      for(auto it2 = it; it2 != Bullet::Bullets.end();++it2)
+        if((*it)->x == (*it2)->x && (*it)->y == (*it2)->y && it != it2)
+          (*it)->toRemove = (*it2)->toRemove = 1;
+    for(auto it = Bullet::Bullets.begin(); it != Bullet::Bullets.end();) {
+      Bullet *blt = *it;
+      if(blt->toRemove) {
+        it = Bullet::Bullets.erase(it);
+        Render::Drawables.remove(blt);
+        delete blt;
+      }
+      else
+        it++;
+    }
+
     for(auto it = events.begin(); it != events.end();) {
       auto e = *it;
       switch(std::get<0>(e)) {
