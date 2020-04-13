@@ -39,6 +39,7 @@ public:
   bool move();
   friend class Render;
   friend class Level;
+  friend class Tank;
 };
 
 

@@ -6,7 +6,6 @@ typedef struct _pixel_t pixel_t;
 typedef struct _pixelList_t pixelList_t;
 typedef struct _elem_t elem_t;
 
-
 struct _pixel_t{
   // int x, y;
   int colorFG, colorBG;
@@ -46,7 +45,6 @@ private:
   static void thrRender();
   static void refresh();
   static void renderStatus();
-  static void renderStatusTank(int y, Tank *t);
   static void renderStatusEnemy(int y); 
 public:
   static int scene;

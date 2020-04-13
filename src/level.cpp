@@ -127,7 +127,7 @@ void Adventure::run() {
           if(target->camp != CP_EN) {
             switch(type) {
               case PU_NLF: target->nLife++; break;
-              case PU_UGD: target->weapon = min(target->weapon++, 2); break;
+              case PU_UGD: target->weapon = target->weapon == BL_HE ? BL_HE : target->weapon + 1; break;
               case PU_CLK: {
                 for(auto it = enemies.begin(); it != enemies.end(); ++it)
                   (*it)->lastMove = (*it)->lastFire = getTime() + 3000;

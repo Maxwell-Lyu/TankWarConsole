@@ -5,6 +5,7 @@
 #include <conio.h>
 #include <cmath>
 #include <iostream>
+#include <iomanip>
 #include "common.h"
 #include "map.h"
 #include "level.h"
@@ -208,7 +209,7 @@ Bullet *Tank::fire() {
 void Tank::hit(int type, int srcCamp) {
   if(this->camp == srcCamp) return;
   if(Level::currentLevel->type != LV_ARN && !(this->camp & srcCamp)) return;
-  this->weapon = max(this->weapon--, 0);
+  this->weapon = this->weapon == BL_NM ? BL_NM : this->weapon - 1;
   switch (type) {
   case BL_NM: this->life -= 100; break;
   case BL_AP: this->life -= 200; break;
@@ -282,4 +283,33 @@ void AutoTank::move(int direction) {
       } else
         Map::map[x][y] = {T_DRW, this};
     }
+}
+
+
+
+void Tank::renderStatusTank(int y, Tank *t) {
+  std::cout << "\033[1m";
+  std::cout << "\033[" << t->colorBody << "m\033[" << y + 1 << ";" << STATUS_START_X << "H";
+  switch(t->camp) {
+    case CP_P1: std::cout << "PLAYER 1"; break;
+    case CP_P2: std::cout << "PLAYER 2"; break;
+    case CP_BS: std::cout << "BASE TO PROTECT"; break;
+    case CP_EN: {
+      std::cout << "ENEMY   "; 
+      std::cout << Tank::models[t->modelSel][D_RT][3] << Tank::models[t->modelSel][D_RT][4] << Tank::models[t->modelSel][D_RT][5]; break;
+    }
+  }
+  std::cout << "\033[0m\033[1m";
+  std::cout << "\033[" << y + 2 << ";" << STATUS_START_X << "HHP [";
+    int n = t->life * 10 / t->lifeMax;
+  for (int i = 0; i < n; i++) std::cout << "■";
+  for (int i = n; i < 10; i++) std::cout << " ";
+  std::cout << "\033[" << y + 2 << ";" << STATUS_START_X + 14 <<"H]";
+  if(t->camp == CP_P1 || t->camp == CP_P2)
+    std::cout << "\033[" << y + 3 << ";" << STATUS_START_X << "HWP [" << Bullet::models[t->weapon] << "]  LF [" << std::setw(2) << std::setfill('0') << t->nLife << "]";
+  if(t->camp == CP_P1)
+    std::cout << "\033[" << y + 4 << ";" << STATUS_START_X << "HPT [" << std::setw(10) << std::setfill(' ') << Level::currentLevel->scoreP1 << "] ";
+  if(t->camp == CP_P2)
+    std::cout << "\033[" << y + 4 << ";" << STATUS_START_X << "HPT [" << std::setw(10) << std::setfill(' ') << Level::currentLevel->scoreP2 << "] ";
+    
 }

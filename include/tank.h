@@ -33,6 +33,7 @@ protected:
   int colorWheel;
   int camp;
 public:
+  static void renderStatusTank(int y, Tank *t);
   Tank(int x, int y, int direction, int camp, int modelSel = MD_LHT);
   void draw();
   virtual void move(int direction = 0);

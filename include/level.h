@@ -24,6 +24,7 @@ public:
   Level(int type);
   virtual void run() = 0;
   friend class Render;
+  friend class Tank;
 };
 
 //  TODO: Add Game Class 
