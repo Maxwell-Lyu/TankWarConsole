@@ -9,6 +9,8 @@
 #include <iostream>
 #include <list>
 #include <algorithm>
+#include "map.h"
+#include "powerup.h"
 
 Level *Level::currentLevel;
 
@@ -33,6 +35,13 @@ Level::Level(int type): type(type), scoreP1(0), scoreP2(0) {
     waves.push_back(std::make_tuple(10, 5, MD_AMR));
     waves.push_back(std::make_tuple(15, 5, MD_ATG));
     waves.push_back(std::make_tuple(20, 5, MD_HVY));
+    auto p = new PowerUp(10, 10, PU_NLF);
+    Map::map[10][10] = {T_PWU, p};
+    Render::Drawables.push_back(p);
+    // Map::map[15][10] = {T_PWU, new PowerUp(15, 10, PU_UGD)};
+    // Map::map[20][10] = {T_PWU, new PowerUp(20, 10, PU_CLK)};
+    // Map::map[25][10] = {T_PWU, new PowerUp(25, 10, PU_SVL)};
+    // Map::map[30][10] = {T_PWU, new PowerUp(30, 10, PU_BMB)};
     break;
   }
   default:

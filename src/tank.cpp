@@ -179,9 +179,11 @@ void Tank::move(int direction) {
   }
   for (int x = this->x - 1; x <= this->x + 1; x++)
     for (int y = this->y - 1; y <= this->y + 1; y++) {
-      if(Map::map[x][y].type == T_PWU)
+      if(Map::map[x][y].type == T_PWU) {
+        Level::currentLevel->events.push_back(std::make_tuple(EV_GET_PW, this, -1));
         Map::map[x][y].data->hit(this->weapon, this->camp);
-      Map::map[x][y] = {T_DRW, this};
+      } else
+        Map::map[x][y] = {T_DRW, this};
     }
 }
 
@@ -277,9 +279,8 @@ void AutoTank::move(int direction) {
   for (int x = this->x - 1; x <= this->x + 1; x++)
     for (int y = this->y - 1; y <= this->y + 1; y++) {
       if(Map::map[x][y].type == T_PWU) {
-        Drawable *d = Map::map[x][y].data;
-        Map::map[x][y] = {T_DRW, this};
-        d->hit(this->weapon, this->camp);
+        Level::currentLevel->events.push_back(std::make_tuple(EV_GET_PW, this, -1));
+        Map::map[x][y].data->hit(this->weapon, this->camp);
       } else
         Map::map[x][y] = {T_DRW, this};
     }

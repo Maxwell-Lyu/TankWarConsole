@@ -14,6 +14,6 @@ void PowerUp::draw() {
   }
 }
 void PowerUp::hit(int type, int srcCamp) {
-  Level::currentLevel->events.push_back(std::make_tuple(EV_GET_PW, (Tank *)Map::map[x][y].data, this->type));
-  delete this;
+  std::get<2>(Level::currentLevel->events.back()) = this->type;
+  Render::Drawables.remove(this);
 }
