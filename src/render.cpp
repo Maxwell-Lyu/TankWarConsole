@@ -6,6 +6,7 @@
 #include "level.h"
 #include <iostream>
 #include <iomanip>
+#include "assets.h"
 std::list<Drawable *> Render::Drawables;
 pixel_t Render::vBuf[MAP_H][MAP_W];
 int Render::scene;
@@ -54,6 +55,13 @@ void Render::thrRender() {
       break;
     }
     case SC_GRD: {
+      Assets::renderDight(23, 17, F_WHT, 3);
+      Sleep(1000);
+      Assets::renderDight(23, 17, F_WHT, 2);
+      Sleep(1000);
+      Assets::renderDight(23, 17, F_WHT, 1);
+      Sleep(1000);
+      Assets::renderDight(23, 17, F_WHT, 0);
       break;
     }
     case SC_GFN: {

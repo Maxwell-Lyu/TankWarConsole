@@ -2,7 +2,7 @@
 #include "common.h"
 #include "render.h"
 #include "map.h"
-#include "level.h"
+// #include "level.h"
 
 int Base::lifeMaxVal = 2000;
 

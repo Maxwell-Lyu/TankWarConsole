@@ -46,8 +46,11 @@ Level::Level(int type): type(type), scoreP1(0), scoreP2(0) {
   }
 }
 
-void Adventure::run() {
+int Adventure::run() {
+  Render::scene = SC_GRD;
+  Sleep(3000);
   Render::scene = SC_GRN;
+  Sleep(500);
   while(1) {
     // * user input and oprations
     while(kbhit()) {
@@ -115,10 +118,10 @@ void Adventure::run() {
           dest->~Tank();
           if(dest == player1) {
             delete player1;
-            return;
+            return GR_PL;
           } 
           else if(dest == base) {
-            return;
+            return GR_PL;
           }
           else {
             enemies.remove(dest);
@@ -164,8 +167,12 @@ void Adventure::run() {
       it = events.erase(it);
     }
     sendPowerUp();
-    if(enemies.size()) nextWave = getTime() + 5000;
-    sendEnemy();
+    if(enemies.size())
+      nextWave = getTime() + 5000;
+    else if(waves.size())
+      sendEnemy();
+    else
+      return GR_PW;
     Sleep(50);
   }
 }

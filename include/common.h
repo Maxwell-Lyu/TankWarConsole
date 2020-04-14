@@ -38,5 +38,7 @@ enum { PU_NLF, PU_UGD, PU_CLK, PU_SVL, PU_BMB };
 
 
 
+enum { GR_PW, GR_PL, GR_P1W, GR_P2W, GR_EXT = -1 };
+
 #endif
 

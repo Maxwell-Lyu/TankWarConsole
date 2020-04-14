@@ -1,7 +1,7 @@
 #include "bullet.h"
-#include "common.h"
+// #include "common.h"
 #include "map.h"
-#include "level.h"
+// #include "level.h"
 // extern elem_t Map[MAP_W][MAP_H];
 
 char *Bullet::models[N_BULLET_MODEL] = {

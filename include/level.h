@@ -22,7 +22,7 @@ public:
   static Level *currentLevel;
   std::list <std::tuple<int, Tank *, int> > events; 
   Level(int type);
-  virtual void run() = 0;
+  virtual int run() = 0;
   friend class Render;
   friend class Tank;
 };
@@ -38,7 +38,8 @@ public:
   Adventure(): Level(LV_AD1) {}
   void sendEnemy();
   void sendPowerUp();
-  void run();
+  int run();
+  void result();
 };
 
 
