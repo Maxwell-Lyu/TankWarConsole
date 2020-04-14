@@ -47,7 +47,8 @@ Level::Level(int type): type(type), scoreP1(0), scoreP2(0) {
 }
 
 int Adventure::run() {
-  Render::scene = SC_GRD;
+  // Render::scene = SC_GRD;
+  Render::scene = SC_HLP;
   Sleep(3000);
   Render::scene = SC_GRN;
   Sleep(500);
@@ -67,6 +68,18 @@ int Adventure::run() {
             switch(getch()) {
               case 27: {
                 Render::scene = SC_GRD;
+                break;
+              }
+              case 104: {
+                Render::scene = SC_HLP;
+                while(Render::scene != SC_GRD) {
+                  Sleep(50);
+                  if(kbhit() && getch() == 27)
+                    break;
+                }
+                Render::scene = SC_GRN;
+                Sleep(100);
+                Render::scene = SC_GPS;
                 break;
               }
               case 113: {
@@ -180,6 +193,11 @@ int Adventure::run() {
                 }
                 break;
               }
+              case PU_RBS: {
+                base->life += 1000;
+                if(base->life > base->lifeMax) base->life = base->lifeMax;
+                break;
+              }
             }
           }
           break;
@@ -203,7 +221,7 @@ void Adventure::sendPowerUp() {
   int x = rand() % MAP_W;
   int y = rand() % (MAP_H - 12) + 6;
   if(Map::map[x][y].type == T_BNK) {
-    auto p = new PowerUp(x, y, getTime() % 5);
+    auto p = new PowerUp(x, y, getTime() % N_POWER_UP);
     Map::map[x][y] = {T_PWU, p};
     Render::Drawables.push_back(p);
   }

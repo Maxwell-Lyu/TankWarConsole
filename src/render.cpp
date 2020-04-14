@@ -54,11 +54,13 @@ void Render::thrRender() {
     case SC_GPS: {
       for (int ty = 17; ty < 24; ty++)
         std::cout << "\033["<< ty << ";45H"<< "          " << std::endl;
-      std::cout << "\033[31;1m\033[18;47H\033[37;1m██  ██" << std::endl;
-      std::cout << "\033[31;1m\033[19;47H\033[37;1m██  ██" << std::endl;
-      std::cout << "\033[31;1m\033[20;47H\033[37;1m██  ██" << std::endl;
-      std::cout << "\033[31;1m\033[21;47H\033[37;1m██  ██" << std::endl;
-      std::cout << "\033[31;1m\033[22;47H\033[37;1mPAUSED" << std::endl;
+      std::cout << "\033[18;47H\033[37;1m██  ██" << std::endl;
+      std::cout << "\033[19;47H\033[37;1m██  ██" << std::endl;
+      std::cout << "\033[20;47H\033[37;1m██  ██" << std::endl;
+      std::cout << "\033[21;47H\033[37;1m██  ██" << std::endl;
+      std::cout << "\033[22;47H\033[37;1mPAUSED" << std::endl;
+      while(scene == SC_GPS)
+        Sleep(50);
       break;
     }
     case SC_GRD: {
@@ -78,6 +80,92 @@ void Render::thrRender() {
       break;
     }
     case SC_HLP: {
+      std::cout << "\033[2J";
+      renderString(HELP_START_X, HELP_START_Y, "[ ENEMY INTEL ]");
+      renderString(HELP_START_X + 0, HELP_START_Y + 2, Tank::models[MD_LHT][D_UP][0], F_WHT, B_BLK);
+      renderString(HELP_START_X + 1, HELP_START_Y + 2, Tank::models[MD_LHT][D_UP][1], F_RED, B_BLK);
+      renderString(HELP_START_X + 2, HELP_START_Y + 2, Tank::models[MD_LHT][D_UP][2], F_WHT, B_BLK);
+      renderString(HELP_START_X + 0, HELP_START_Y + 3, Tank::models[MD_LHT][D_UP][3], F_WHT, B_BLK);
+      renderString(HELP_START_X + 1, HELP_START_Y + 3, Tank::models[MD_LHT][D_UP][4], F_RED, B_BLK);
+      renderString(HELP_START_X + 2, HELP_START_Y + 3, Tank::models[MD_LHT][D_UP][5], F_WHT, B_BLK);
+      renderString(HELP_START_X + 0, HELP_START_Y + 4, Tank::models[MD_LHT][D_UP][6], F_WHT, B_BLK);
+      renderString(HELP_START_X + 1, HELP_START_Y + 4, Tank::models[MD_LHT][D_UP][7], F_RED, B_BLK);
+      renderString(HELP_START_X + 2, HELP_START_Y + 4, Tank::models[MD_LHT][D_UP][8], F_WHT, B_BLK);
+      renderString(HELP_START_X + 4, HELP_START_Y + 2, "LIGHT TANK", F_RED, B_BLK);
+      renderString(HELP_START_X + 4, HELP_START_Y + 3, "SAME PERFORMANCE AS PLAYER", F_WHT, B_BLK);
+      renderString(HELP_START_X + 20, HELP_START_Y + 2, Tank::models[MD_AMR][D_UP][0], F_WHT, B_BLK);
+      renderString(HELP_START_X + 21, HELP_START_Y + 2, Tank::models[MD_AMR][D_UP][1], F_RED, B_BLK);
+      renderString(HELP_START_X + 22, HELP_START_Y + 2, Tank::models[MD_AMR][D_UP][2], F_WHT, B_BLK);
+      renderString(HELP_START_X + 20, HELP_START_Y + 3, Tank::models[MD_AMR][D_UP][3], F_WHT, B_BLK);
+      renderString(HELP_START_X + 21, HELP_START_Y + 3, Tank::models[MD_AMR][D_UP][4], F_RED, B_BLK);
+      renderString(HELP_START_X + 22, HELP_START_Y + 3, Tank::models[MD_AMR][D_UP][5], F_WHT, B_BLK);
+      renderString(HELP_START_X + 20, HELP_START_Y + 4, Tank::models[MD_AMR][D_UP][6], F_WHT, B_BLK);
+      renderString(HELP_START_X + 21, HELP_START_Y + 4, Tank::models[MD_AMR][D_UP][7], F_RED, B_BLK);
+      renderString(HELP_START_X + 22, HELP_START_Y + 4, Tank::models[MD_AMR][D_UP][8], F_WHT, B_BLK);
+      renderString(HELP_START_X + 24, HELP_START_Y + 2, "ARMORED VEHICLE", F_RED, B_BLK);
+      renderString(HELP_START_X + 24, HELP_START_Y + 3, "HIGH MOVE SPEED", F_WHT, B_BLK);
+      renderString(HELP_START_X + 0, HELP_START_Y + 6, Tank::models[MD_ATG][D_UP][0], F_WHT, B_BLK);
+      renderString(HELP_START_X + 1, HELP_START_Y + 6, Tank::models[MD_ATG][D_UP][1], F_RED, B_BLK);
+      renderString(HELP_START_X + 2, HELP_START_Y + 6, Tank::models[MD_ATG][D_UP][2], F_WHT, B_BLK);
+      renderString(HELP_START_X + 0, HELP_START_Y + 7, Tank::models[MD_ATG][D_UP][3], F_WHT, B_BLK);
+      renderString(HELP_START_X + 1, HELP_START_Y + 7, Tank::models[MD_ATG][D_UP][4], F_RED, B_BLK);
+      renderString(HELP_START_X + 2, HELP_START_Y + 7, Tank::models[MD_ATG][D_UP][5], F_WHT, B_BLK);
+      renderString(HELP_START_X + 0, HELP_START_Y + 8, Tank::models[MD_ATG][D_UP][6], F_WHT, B_BLK);
+      renderString(HELP_START_X + 1, HELP_START_Y + 8, Tank::models[MD_ATG][D_UP][7], F_RED, B_BLK);
+      renderString(HELP_START_X + 2, HELP_START_Y + 8, Tank::models[MD_ATG][D_UP][8], F_WHT, B_BLK);
+      renderString(HELP_START_X + 4, HELP_START_Y + 6, "ANTITANK GUN", F_RED, B_BLK);
+      renderString(HELP_START_X + 4, HELP_START_Y + 7, "HIGH FIRE SPEED", F_WHT, B_BLK);
+      renderString(HELP_START_X + 20, HELP_START_Y + 6, Tank::models[MD_HVY][D_UP][0], F_WHT, B_BLK);
+      renderString(HELP_START_X + 21, HELP_START_Y + 6, Tank::models[MD_HVY][D_UP][1], F_RED, B_BLK);
+      renderString(HELP_START_X + 22, HELP_START_Y + 6, Tank::models[MD_HVY][D_UP][2], F_WHT, B_BLK);
+      renderString(HELP_START_X + 20, HELP_START_Y + 7, Tank::models[MD_HVY][D_UP][3], F_WHT, B_BLK);
+      renderString(HELP_START_X + 21, HELP_START_Y + 7, Tank::models[MD_HVY][D_UP][4], F_RED, B_BLK);
+      renderString(HELP_START_X + 22, HELP_START_Y + 7, Tank::models[MD_HVY][D_UP][5], F_WHT, B_BLK);
+      renderString(HELP_START_X + 20, HELP_START_Y + 8, Tank::models[MD_HVY][D_UP][6], F_WHT, B_BLK);
+      renderString(HELP_START_X + 21, HELP_START_Y + 8, Tank::models[MD_HVY][D_UP][7], F_RED, B_BLK);
+      renderString(HELP_START_X + 22, HELP_START_Y + 8, Tank::models[MD_HVY][D_UP][8], F_WHT, B_BLK);
+      renderString(HELP_START_X + 24, HELP_START_Y + 6, "HEAVY TANK", F_RED, B_BLK);
+      renderString(HELP_START_X + 24, HELP_START_Y + 7, "HIGH ARMOR (HP)", F_WHT, B_BLK);
+      renderString(HELP_START_X + 24, HELP_START_Y + 8, "ARMOR-PIERCING BULLET", F_WHT, B_BLK);
+      renderString(HELP_START_X, HELP_START_Y + 10, "[ CONTORL ]");
+      renderString(HELP_START_X, HELP_START_Y + 12, "PLAYER 1", F_GRN);
+      renderString(HELP_START_X + 0, HELP_START_Y + 13, Tank::models[MD_LHT][D_UP][0], F_WHT, B_BLK);
+      renderString(HELP_START_X + 1, HELP_START_Y + 13, Tank::models[MD_LHT][D_UP][1], F_GRN, B_BLK);
+      renderString(HELP_START_X + 2, HELP_START_Y + 13, Tank::models[MD_LHT][D_UP][2], F_WHT, B_BLK);
+      renderString(HELP_START_X + 0, HELP_START_Y + 14, Tank::models[MD_LHT][D_UP][3], F_WHT, B_BLK);
+      renderString(HELP_START_X + 1, HELP_START_Y + 14, Tank::models[MD_LHT][D_UP][4], F_GRN, B_BLK);
+      renderString(HELP_START_X + 2, HELP_START_Y + 14, Tank::models[MD_LHT][D_UP][5], F_WHT, B_BLK);
+      renderString(HELP_START_X + 0, HELP_START_Y + 15, Tank::models[MD_LHT][D_UP][6], F_WHT, B_BLK);
+      renderString(HELP_START_X + 1, HELP_START_Y + 15, Tank::models[MD_LHT][D_UP][7], F_GRN, B_BLK);
+      renderString(HELP_START_X + 2, HELP_START_Y + 15, Tank::models[MD_LHT][D_UP][8], F_WHT, B_BLK);
+      renderString(HELP_START_X + 4, HELP_START_Y + 13, "MOVE:      [W]");
+      renderString(HELP_START_X + 4, HELP_START_Y + 14, "        [A][S][D]");
+      renderString(HELP_START_X + 4, HELP_START_Y + 15, "FIRE:    [SPACE]");
+      renderString(HELP_START_X + 20, HELP_START_Y + 12, "PLAYER 2", F_BLU);
+      renderString(HELP_START_X + 20, HELP_START_Y + 13, Tank::models[MD_LHT][D_UP][0], F_WHT, B_BLK);
+      renderString(HELP_START_X + 21, HELP_START_Y + 13, Tank::models[MD_LHT][D_UP][1], F_BLU, B_BLK);
+      renderString(HELP_START_X + 22, HELP_START_Y + 13, Tank::models[MD_LHT][D_UP][2], F_WHT, B_BLK);
+      renderString(HELP_START_X + 20, HELP_START_Y + 14, Tank::models[MD_LHT][D_UP][3], F_WHT, B_BLK);
+      renderString(HELP_START_X + 21, HELP_START_Y + 14, Tank::models[MD_LHT][D_UP][4], F_BLU, B_BLK);
+      renderString(HELP_START_X + 22, HELP_START_Y + 14, Tank::models[MD_LHT][D_UP][5], F_WHT, B_BLK);
+      renderString(HELP_START_X + 20, HELP_START_Y + 15, Tank::models[MD_LHT][D_UP][6], F_WHT, B_BLK);
+      renderString(HELP_START_X + 21, HELP_START_Y + 15, Tank::models[MD_LHT][D_UP][7], F_BLU, B_BLK);
+      renderString(HELP_START_X + 22, HELP_START_Y + 15, Tank::models[MD_LHT][D_UP][8], F_WHT, B_BLK);
+      renderString(HELP_START_X + 24, HELP_START_Y + 13, "MOVE:      [I]");
+      renderString(HELP_START_X + 24, HELP_START_Y + 14, "        [J][K][L]");
+      renderString(HELP_START_X + 24, HELP_START_Y + 15, "FIRE:    [ENTER]");
+      renderString(HELP_START_X + 0, HELP_START_Y + 17, "PAUSE/RESUME: [ESC]        EXIT: [Q]           HELP: [H]");
+      renderString(HELP_START_X, HELP_START_Y + 19, "[ POWER-UPS ]");
+      renderString(HELP_START_X, HELP_START_Y + 20, "PICKED UP WHEN PLAYERS TOUCH, DESTROYED WHEN ENEMIES TOUCH");
+      renderString(HELP_START_X, HELP_START_Y + 22, "[+♥]: ADD 1 LIFE            [↑W]: UPGRADE WEAPON        [||]: ザ · ワールド", F_YLW);
+      renderString(HELP_START_X, HELP_START_Y + 23, "      DEATH COSTS 1 LIFE          NORM->AP->HE                STOP ENEMY FOR 3s");
+      renderString(HELP_START_X, HELP_START_Y + 24, "[╔╗]: DONALD TRUMP          [‼]: BOMB                  [↑B]: REPAIR BASE", F_YLW);
+      renderString(HELP_START_X, HELP_START_Y + 25, "      BUILD WALL AROUND BASE      KILL ALL ENEMIES            ADD 1000 BASE'S HP");         
+      renderString(HELP_START_X, HELP_START_Y + 27, "[ BULLETS ]");
+      renderString(HELP_START_X, HELP_START_Y + 29, "[○]: NORMAL(100)            [●]: ARMOR-PIERCING(200)    [☼]: HIGH-EXPLOSIVE(400)");
+      while(scene == SC_HLP)
+        Sleep(50);
+      std::cout << "\033[2J";
       break;
     }
     default:
@@ -128,4 +216,9 @@ void Render::run() {
   t.detach();
   // std::thread t2(&Render::refresh);
   // t2.detach();
+}
+
+
+void Render::renderString(int x, int y, const char *string, int colorFG, int F_REDG) {
+  std::cout << "\033[" << y + 1 << ";" << (x << 1) + 1 << "H\033[" << colorFG << ";" << F_REDG << ";1m" << string << std::endl;
 }

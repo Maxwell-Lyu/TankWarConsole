@@ -4,7 +4,7 @@
 #include "map.h"
 // #include "level.h"
 
-int Base::lifeMaxVal = 2000;
+int Base::lifeMaxVal = 3000;
 
 Base::Base(int x, int y): Tank(x, y, D_UP, CP_BS) {
   this->life = Base::lifeMaxVal;
