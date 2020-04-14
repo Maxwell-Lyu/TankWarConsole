@@ -5,7 +5,7 @@
 // extern elem_t Map[MAP_W][MAP_H];
 
 char *Bullet::models[N_BULLET_MODEL] = {
-  "○ ", "● ", "☼ ",
+  "○", "●", "☼",
 };
 
 int Bullet::bulletSpeed = 80;
@@ -59,13 +59,14 @@ bool Bullet::move() {
   case T_STN: {
     if(this->type == BL_HE) {
       Map::map[this->x][this->y] = {T_BNK, NULL}; 
-      return true; 
     }
+    return true;
   } 
   case T_DRW: {
     Map::map[x][y].data->hit(this->type, this->srcCamp);
     return true;
   }
+  case T_PWU: break;
   }
   return false;
 }

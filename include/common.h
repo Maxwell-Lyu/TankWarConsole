@@ -33,7 +33,7 @@ enum { EV_DST_TK, EV_GET_PW };
 #define STATUS_START_Y 8
 enum { SC_WLC, SC_HLP, SC_GRN, SC_GRD, SC_GPS, SC_GFN };
 
-
+#define N_POWER_UP 5
 enum { PU_NLF, PU_UGD, PU_CLK, PU_SVL, PU_BMB };
 
 

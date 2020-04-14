@@ -33,9 +33,11 @@ public:
 class Adventure: public Level {
 protected:
   uint64_t nextWave = 0;
+  uint64_t nextPowerUp = 0;
 public:
   Adventure(): Level(LV_AD1) {}
   void sendEnemy();
+  void sendPowerUp();
   void run();
 };
 

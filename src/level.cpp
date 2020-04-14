@@ -34,10 +34,7 @@ Level::Level(int type): type(type), scoreP1(0), scoreP2(0) {
     waves.push_back(std::make_tuple(5, 5, MD_LHT));
     waves.push_back(std::make_tuple(10, 5, MD_AMR));
     waves.push_back(std::make_tuple(15, 5, MD_ATG));
-    waves.push_back(std::make_tuple(20, 5, MD_HVY));
-    auto p = new PowerUp(10, 30, PU_SVL);
-    Map::map[10][30] = {T_PWU, p};
-    Render::Drawables.push_back(p);
+    // waves.push_back(std::make_tuple(20, 5, MD_HVY));
     // Map::map[15][10] = {T_PWU, new PowerUp(15, 10, PU_UGD)};
     // Map::map[20][10] = {T_PWU, new PowerUp(20, 10, PU_CLK)};
     // Map::map[25][10] = {T_PWU, new PowerUp(25, 10, PU_SVL)};
@@ -166,13 +163,24 @@ void Adventure::run() {
       }
       it = events.erase(it);
     }
+    sendPowerUp();
     if(enemies.size()) nextWave = getTime() + 5000;
     sendEnemy();
     Sleep(50);
   }
 }
 
-
+void Adventure::sendPowerUp() {
+  if(getTime() < nextPowerUp + 10000) return;
+  int x = rand() % MAP_W;
+  int y = rand() % (MAP_H - 12) + 6;
+  if(Map::map[x][y].type == T_BNK) {
+    auto p = new PowerUp(x, y, getTime() % 5);
+    Map::map[x][y] = {T_PWU, p};
+    Render::Drawables.push_back(p);
+  }
+  nextPowerUp = getTime();
+}
 
 void Adventure::sendEnemy() {
   if(getTime() < nextWave) return;
