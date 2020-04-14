@@ -52,6 +52,8 @@ void Render::thrRender() {
       break;
     }
     case SC_GPS: {
+      for (int ty = 17; ty < 24; ty++)
+        std::cout << "\033["<< ty << ";45H"<< "          " << std::endl;
       std::cout << "\033[31;1m\033[18;47H\033[37;1m██  ██" << std::endl;
       std::cout << "\033[31;1m\033[19;47H\033[37;1m██  ██" << std::endl;
       std::cout << "\033[31;1m\033[20;47H\033[37;1m██  ██" << std::endl;

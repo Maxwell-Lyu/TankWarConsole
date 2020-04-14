@@ -69,6 +69,9 @@ int Adventure::run() {
                 Render::scene = SC_GRD;
                 break;
               }
+              case 113: {
+                return GR_EXT;
+              }
             }
           }
         }

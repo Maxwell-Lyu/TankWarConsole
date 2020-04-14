@@ -2,14 +2,22 @@
 #include "common.h"
 
 void Assets::renderLetter(int x, int y, int color, char letter) {
+  for (int ty = -1; ty < 6; ty++)
+    for (int tx = -1; tx < 6; tx++)
+      std::cout << "\033["<< y + ty + 1 << ";" <<  (x + tx) * 2 + 1 << "H\033[" << color << ";1m" << "  " << std::endl;
   for (int ty = 0; ty < 5; ty++)
     for (int tx = 0; tx < 5; tx++)
-      std::cout << "\033["<< y + ty + 1 << ";" <<  (x + tx) * 2 + 1 << "H\033[" << color << ";1m" << (Letter[letter - 'A'][ty][tx] ? "██" : "  ") << std::endl;
+    if(Letter[letter - 'A'][ty][tx])
+      std::cout << "\033["<< y + ty + 1 << ";" <<  (x + tx) * 2 + 1 << "H\033[" << color << ";1m" << "██" << std::endl;
 }
 void Assets::renderDight(int x, int y, int color, int digit) {
+  for (int ty = -1; ty < 6; ty++)
+    for (int tx = -1; tx < 4; tx++)
+      std::cout << "\033["<< y + ty + 1 << ";" <<  ((x + tx) << 1) + 1 << "H\033[" << color << ";1m" << "  " << std::endl;
   for (int ty = 0; ty < 5; ty++)
     for (int tx = 0; tx < 3; tx++)
-      std::cout << "\033["<< y + ty + 1 << ";" <<  ((x + tx) << 1) + 1 << "H\033[" << color << ";1m" << (Digit[digit][ty][tx] ? "██" : "  ") << std::endl;
+      if(Digit[digit][ty][tx])
+        std::cout << "\033["<< y + ty + 1 << ";" <<  ((x + tx) << 1) + 1 << "H\033[" << color << ";1m" << "██" << std::endl;
 }
 
 int Assets::Letter[26][5][5] {
