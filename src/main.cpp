@@ -16,8 +16,8 @@ int main() {
   system("cls");
   Render::run();
   auto level = new Adventure();
-  level->run();
-
+  int ret = level->run();
+  level->showResult(ret);
   // Sleep(2000);
   // t.move(D_UP);
   // while(1) {

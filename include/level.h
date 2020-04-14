@@ -17,18 +17,19 @@ protected:
   std::list<Tank *> enemies;
   int scoreP1;
   int scoreP2;
+  int result;
 public:
   int type;
   static Level *currentLevel;
   std::list <std::tuple<int, Tank *, int> > events; 
   Level(int type);
   virtual int run() = 0;
+  virtual void showResult(int ret) = 0;
+  virtual void renderResult() = 0;
   friend class Render;
   friend class Tank;
 };
 
-//  TODO: Add Game Class 
-//  TODO: Add Game Pause and screed 
 //  TODO: Add result more screens
 class Adventure: public Level {
 protected:
@@ -39,7 +40,8 @@ public:
   void sendEnemy();
   void sendPowerUp();
   int run();
-  void result();
+  void showResult(int ret);
+  void renderResult();
 };
 
 

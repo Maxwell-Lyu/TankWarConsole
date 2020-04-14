@@ -74,6 +74,9 @@ void Render::thrRender() {
       break;
     }
     case SC_GFN: {
+      Level::currentLevel->renderResult();
+      while(scene == SC_GFN)
+        Sleep(50);
       break;
     }
     case SC_WLC: {

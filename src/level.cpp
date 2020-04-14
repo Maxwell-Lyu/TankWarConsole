@@ -11,6 +11,7 @@
 #include <algorithm>
 #include "map.h"
 #include "powerup.h"
+#include "assets.h"
 
 Level *Level::currentLevel;
 
@@ -28,12 +29,12 @@ Level::Level(int type): type(type), scoreP1(0), scoreP2(0) {
     Render::Drawables.push_back(player1);
     // Render::Drawables.push_back(player2 = new Tank(5, 5, D_UP, CP_EN, MD_LHT));
     waves.push_back(std::make_tuple(5, 5, MD_LHT));
-    waves.push_back(std::make_tuple(10, 5, MD_AMR));
-    waves.push_back(std::make_tuple(15, 5, -1));
-    waves.push_back(std::make_tuple(20, 5, -1));
-    waves.push_back(std::make_tuple(5, 5, MD_LHT));
-    waves.push_back(std::make_tuple(10, 5, MD_AMR));
-    waves.push_back(std::make_tuple(15, 5, MD_ATG));
+    // waves.push_back(std::make_tuple(10, 5, MD_AMR));
+    // waves.push_back(std::make_tuple(15, 5, -1));
+    // waves.push_back(std::make_tuple(20, 5, -1));
+    // waves.push_back(std::make_tuple(5, 5, MD_LHT));
+    // waves.push_back(std::make_tuple(10, 5, MD_AMR));
+    // waves.push_back(std::make_tuple(15, 5, MD_ATG));
     // waves.push_back(std::make_tuple(20, 5, MD_HVY));
     // Map::map[15][10] = {T_PWU, new PowerUp(15, 10, PU_UGD)};
     // Map::map[20][10] = {T_PWU, new PowerUp(20, 10, PU_CLK)};
@@ -47,8 +48,8 @@ Level::Level(int type): type(type), scoreP1(0), scoreP2(0) {
 }
 
 int Adventure::run() {
-  // Render::scene = SC_GRD;
-  Render::scene = SC_HLP;
+  Render::scene = SC_GRD;
+  // Render::scene = SC_HLP;
   Sleep(3000);
   Render::scene = SC_GRN;
   Sleep(500);
@@ -62,7 +63,7 @@ int Adventure::run() {
       case 100: player1->move(D_RT); break;
       case 27: {
         Render::scene = SC_GPS;
-        while(Render::scene != SC_GRD) {
+        while(Render::scene == SC_GPS) {
           Sleep(50);
           if(kbhit()) {
             switch(getch()) {
@@ -238,5 +239,39 @@ void Adventure::sendEnemy() {
     auto t = new AutoTank(std::get<0>(w), std::get<1>(w), std::get<2>(w));
     enemies.push_back(t);
     Render::Drawables.push_back(t);
+  }
+}
+
+void Adventure::showResult(int ret) {
+  std::cout << "\033[2J";
+  this->result = ret;
+  Render::scene = SC_GFN;
+  while(Render::scene == SC_GFN) {
+    Sleep(50);
+    if(kbhit()) {
+      int ch = getch();
+      if(ch == 27 || ch == 13)
+        Render::scene = SC_WLC;
+    }
+  }
+}
+
+void Adventure::renderResult() {
+  switch(this->result) {
+    case GR_PW: {
+      Assets::renderLetter(7, 10, F_GRN, 'Y');
+      Assets::renderLetter(13, 10, F_GRN, 'O');
+      Assets::renderLetter(19, 10, F_GRN, 'U');
+      Assets::renderLetter(25, 10, F_GRN, 'W');
+      Assets::renderLetter(31, 10, F_GRN, 'I');
+      Assets::renderLetter(37, 10, F_GRN, 'N');
+      break;
+    }
+    case GR_PL: {
+      break;
+    }
+    default: {
+      break;
+    }
   }
 }

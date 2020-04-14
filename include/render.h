@@ -46,11 +46,11 @@ private:
   static void refresh();
   static void renderStatus();
   static void renderStatusEnemy(int y); 
-  static void renderString(int x, int y, const char *string, int colorFG = F_WHT, int colorBG = B_BLK);
 public:
   static int scene;
   static int fps;
   static void draw(pixel_t pixel, int x, int y) { vBuf[x][y] = pixel;}
+  static void renderString(int x, int y, const char *string, int colorFG = F_WHT, int colorBG = B_BLK);
   static void run();
   static std::list<Drawable *> Drawables;
 };
