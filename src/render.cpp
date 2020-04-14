@@ -33,13 +33,13 @@ void Render::thrRender() {
           case T_DRW:
             break;
           case T_GRS:
-            draw({F_WHT, B_GRN, "草"}, x, y); break;
+            draw({F_WHT, B_GRN, "WW"}, x, y); break;
           case T_WTR:
-            draw({F_WHT, B_BLU, "水"}, x, y); break;
+            draw({F_BLU, B_BLK, "░░"}, x, y); break;
           case T_WAL:
-            draw({F_WHT, B_YLW, "墙"}, x, y); break;
+            draw({F_YLW, B_BLK, "▓▓"}, x, y); break;
           case T_STN:
-            draw({F_WHT, B_MGT, "石"}, x, y); break;
+            draw({F_WHT, B_YLW, "╪╪"}, x, y); break;
           case T_BNK:
             draw({F_WHT, B_BLK, "  "}, x, y); break;
           }
