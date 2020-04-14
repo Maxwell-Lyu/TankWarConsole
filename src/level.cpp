@@ -59,6 +59,24 @@ int Adventure::run() {
       case 97:  player1->move(D_LT); break;
       case 115: player1->move(D_DN); break;
       case 100: player1->move(D_RT); break;
+      case 27: {
+        Render::scene = SC_GPS;
+        while(Render::scene != SC_GRD) {
+          Sleep(50);
+          if(kbhit()) {
+            switch(getch()) {
+              case 27: {
+                Render::scene = SC_GRD;
+                break;
+              }
+            }
+          }
+        }
+        Sleep(3000);
+        Render::scene = SC_GRN;
+        Sleep(500);
+        break;
+      }; 
       case 32: {
         Bullet *blt = player1->fire();
         if(blt != nullptr) {

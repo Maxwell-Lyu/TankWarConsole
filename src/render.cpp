@@ -52,6 +52,11 @@ void Render::thrRender() {
       break;
     }
     case SC_GPS: {
+      std::cout << "\033[31;1m\033[18;47H\033[37;1m██  ██" << std::endl;
+      std::cout << "\033[31;1m\033[19;47H\033[37;1m██  ██" << std::endl;
+      std::cout << "\033[31;1m\033[20;47H\033[37;1m██  ██" << std::endl;
+      std::cout << "\033[31;1m\033[21;47H\033[37;1m██  ██" << std::endl;
+      std::cout << "\033[31;1m\033[22;47H\033[37;1mPAUSED" << std::endl;
       break;
     }
     case SC_GRD: {
