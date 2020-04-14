@@ -35,8 +35,8 @@ Level::Level(int type): type(type), scoreP1(0), scoreP2(0) {
     waves.push_back(std::make_tuple(10, 5, MD_AMR));
     waves.push_back(std::make_tuple(15, 5, MD_ATG));
     waves.push_back(std::make_tuple(20, 5, MD_HVY));
-    auto p = new PowerUp(10, 10, PU_NLF);
-    Map::map[10][10] = {T_PWU, p};
+    auto p = new PowerUp(10, 30, PU_SVL);
+    Map::map[10][30] = {T_PWU, p};
     Render::Drawables.push_back(p);
     // Map::map[15][10] = {T_PWU, new PowerUp(15, 10, PU_UGD)};
     // Map::map[20][10] = {T_PWU, new PowerUp(20, 10, PU_CLK)};
@@ -71,7 +71,7 @@ void Adventure::run() {
     }
     // * move and fire for AutoTank
     for(auto it = enemies.begin(); it != enemies.end(); ++it) {
-      // (*it)->move();
+      (*it)->move();
       if(getTime() % 4000 < 2000){
         Bullet *blt = (*it)->fire();
         if(blt != nullptr) {
@@ -136,14 +136,18 @@ void Adventure::run() {
           if(target->camp != CP_EN) {
             switch(type) {
               case PU_NLF: target->nLife++; break;
-              case PU_UGD: target->weapon = target->weapon == BL_HE ? BL_HE : target->weapon + 1; break;
+              case PU_UGD: target->weapon = target->weapon == BL_HE ? BL_HE : target->weapon + 1; 
+              break;
               case PU_CLK: {
                 for(auto it = enemies.begin(); it != enemies.end(); ++it)
                   (*it)->lastMove = (*it)->lastFire = getTime() + 3000;
                 break;
               }
               case PU_SVL: {
-                // TODO
+                for (int x = base->x - 4; x <= base->x + 4; x++)
+                  for (int y = base->y - 4; y <= base->y + 1; y++)
+                    if(Map::map[x][y].type == T_BNK)
+                      Map::map[x][y] = {T_WAL, NULL};
                 break;
               }
               case PU_BMB:  {
@@ -162,6 +166,7 @@ void Adventure::run() {
       }
       it = events.erase(it);
     }
+    if(enemies.size()) nextWave = getTime() + 5000;
     sendEnemy();
     Sleep(50);
   }
@@ -170,8 +175,8 @@ void Adventure::run() {
 
 
 void Adventure::sendEnemy() {
-  if(enemies.size() != 0 || getTime() < lastWave + waveSpeed) return;
-  lastWave = getTime();
+  if(getTime() < nextWave) return;
+  nextWave = getTime();
   for (int i = 0; i < 4 && waves.size(); i++) {
     auto w = waves.front();
     waves.pop_front();

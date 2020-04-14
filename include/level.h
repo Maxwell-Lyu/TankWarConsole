@@ -32,8 +32,7 @@ public:
 //  TODO: Add result more screens
 class Adventure: public Level {
 protected:
-  int lastWave = 0;
-  int waveSpeed = 5000;
+  uint64_t nextWave = 0;
 public:
   Adventure(): Level(LV_AD1) {}
   void sendEnemy();

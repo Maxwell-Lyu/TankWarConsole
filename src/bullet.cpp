@@ -5,7 +5,7 @@
 // extern elem_t Map[MAP_W][MAP_H];
 
 char *Bullet::models[N_BULLET_MODEL] = {
-  "○", "●", "☼",
+  "○ ", "● ", "☼ ",
 };
 
 int Bullet::bulletSpeed = 80;
@@ -13,7 +13,7 @@ std::list<Bullet *> Bullet::pool;
 std::list<Bullet *> Bullet::Bullets;
 
 void Bullet::draw() {
-  Render::draw({F_WHT, B_TSP, Bullet::models[this->type]}, x, y);
+  Render::draw({F_WHT, B_BLK, Bullet::models[this->type]}, x, y);
 }
 bool Bullet::move() {
   if(getTime() < Bullet::bulletSpeed + lastMove) return false;
