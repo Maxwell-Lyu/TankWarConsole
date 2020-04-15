@@ -30,13 +30,13 @@ Level::Level(int type): scoreP1(0), scoreP2(0), type(type) {
     Render::Drawables.push_back(player1);
     // Render::Drawables.push_back(player2 = new Tank(5, 5, D_UP, CP_EN, MD_LHT));
     waves.push_back(std::make_tuple(5, 5, MD_LHT));
-    // waves.push_back(std::make_tuple(10, 5, MD_AMR));
-    // waves.push_back(std::make_tuple(15, 5, -1));
-    // waves.push_back(std::make_tuple(20, 5, -1));
-    // waves.push_back(std::make_tuple(5, 5, MD_LHT));
-    // waves.push_back(std::make_tuple(10, 5, MD_AMR));
-    // waves.push_back(std::make_tuple(15, 5, MD_ATG));
-    // waves.push_back(std::make_tuple(20, 5, MD_HVY));
+    waves.push_back(std::make_tuple(10, 5, MD_AMR));
+    waves.push_back(std::make_tuple(15, 5, -1));
+    waves.push_back(std::make_tuple(20, 5, -1));
+    waves.push_back(std::make_tuple(5, 5, MD_LHT));
+    waves.push_back(std::make_tuple(10, 5, MD_AMR));
+    waves.push_back(std::make_tuple(15, 5, MD_ATG));
+    waves.push_back(std::make_tuple(20, 5, MD_HVY));
     // Map::map[15][10] = {T_PWU, new PowerUp(15, 10, PU_UGD)};
     // Map::map[20][10] = {T_PWU, new PowerUp(20, 10, PU_CLK)};
     // Map::map[25][10] = {T_PWU, new PowerUp(25, 10, PU_SVL)};
@@ -185,7 +185,6 @@ int Adventure::run() {
           Render::Drawables.remove(dest);
           dest->~Tank();
           if(dest == player1) {
-            delete player1;
             player1 = nullptr;
             return GR_PL;
           } 
@@ -194,7 +193,6 @@ int Adventure::run() {
           }
           else {
             enemies.remove(dest);
-            delete dest;
             scoreP1 += 1000;
           }
           break;
@@ -440,19 +438,16 @@ int Cooperation::run() {
           Render::Drawables.remove(dest);
           dest->~Tank();
           if(dest == player1) {
-            delete player1;
             player1 = nullptr;
           } 
           else if(dest == base) {
             return GR_PL;
           }
           else if(dest == player2) {
-            delete player2;
             player2 = nullptr;
           }
           else {
             enemies.remove(dest);
-            delete dest;
             if(src == CP_P1)
               scoreP1 += 1000;
             if(src == CP_P2)
@@ -693,13 +688,11 @@ int Arena::run() {
           Render::Drawables.remove(dest);
           dest->~Tank();
           if(dest == player1) {
-            delete player1;
             player1 = nullptr;
             scoreP2 += 1000;
             return GR_P2W;
           } 
           else {
-            delete player2;
             player2 = nullptr;
             scoreP1 += 1000;
             return GR_P1W;

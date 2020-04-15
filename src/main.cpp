@@ -15,7 +15,7 @@ int main() {
   system("mode con cols=100 lines=40");
   system("cls");
   Render::run();
-  Level *level = new Arena();
+  Level *level = new Adventure();
   int ret = level->run();
   level->showResult(ret);
   // Sleep(2000);
