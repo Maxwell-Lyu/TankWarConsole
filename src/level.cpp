@@ -166,6 +166,14 @@ int Adventure::run() {
           }
           break;
         }
+        case EV_HIT_TK: {
+          auto dest = std::get<1>(e);
+          auto src = std::get<2>(e);
+          switch(src) {
+            case CP_P1: scoreP1 += 100; break;
+            case CP_EN: break;
+          }
+        }
         case EV_GET_PW: {
           auto target = std::get<1>(e);
           auto type = std::get<2>(e);

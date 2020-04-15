@@ -217,6 +217,7 @@ void Tank::hit(int type, int srcCamp) {
   case BL_AP: this->life -= 200; break;
   case BL_HE: this->life -= 400; break;
   }
+  Level::currentLevel->events.push_back(std::make_tuple(EV_HIT_TK, this, srcCamp));
   if(this->life <= 0)
     if((--this->nLife) > 0)
       this->life - this->lifeMax;
