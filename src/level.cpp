@@ -251,7 +251,7 @@ void Adventure::sendEnemy() {
   }
 }
 
-void Adventure::showResult(int ret) {
+void Level::showResult(int ret) {
   std::cout << "\033[2J";
   this->result = ret;
   Render::scene = SC_GFN;

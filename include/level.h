@@ -24,7 +24,7 @@ public:
   std::list <std::tuple<int, Tank *, int> > events; 
   Level(int type);
   virtual int run() = 0;
-  virtual void showResult(int ret) = 0;
+  void showResult(int ret);
   virtual void renderResult() = 0;
   friend class Render;
   friend class Tank;
@@ -40,7 +40,6 @@ public:
   void sendEnemy();
   void sendPowerUp();
   int run();
-  void showResult(int ret);
   void renderResult();
 };
 
