@@ -51,10 +51,6 @@ void Game::run() {
           }
           break;
         }
-        case 27: {
-          return;
-          break;
-        }
       }
     }
   }
