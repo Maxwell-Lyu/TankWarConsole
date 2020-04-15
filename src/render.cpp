@@ -74,6 +74,7 @@ void Render::thrRender() {
       break;
     }
     case SC_GFN: {
+      std::cout << "\033[2J" << std::endl;
       Level::currentLevel->renderResult();
       while(scene == SC_GFN)
         Sleep(50);
@@ -168,7 +169,7 @@ void Render::thrRender() {
       renderString(HELP_START_X, HELP_START_Y + 29, "[○]: NORMAL(100)            [●]: ARMOR-PIERCING(200)    [☼]: HIGH-EXPLOSIVE(400)");
       while(scene == SC_HLP)
         Sleep(50);
-      std::cout << "\033[2J";
+      std::cout << "\033[2J" << std::endl;
       break;
     }
     default:

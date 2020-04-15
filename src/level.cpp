@@ -11,6 +11,7 @@
 #include <algorithm>
 #include "map.h"
 #include "powerup.h"
+#include <iomanip>
 #include "assets.h"
 
 Level *Level::currentLevel;
@@ -83,7 +84,7 @@ int Adventure::run() {
                 Render::scene = SC_GPS;
                 break;
               }
-              case 113: {
+              case 13: {
                 return GR_EXT;
               }
             }
@@ -259,18 +260,47 @@ void Adventure::showResult(int ret) {
 void Adventure::renderResult() {
   switch(this->result) {
     case GR_PW: {
-      Assets::renderLetter(7, 10, F_GRN, 'Y');
-      Assets::renderLetter(13, 10, F_GRN, 'O');
-      Assets::renderLetter(19, 10, F_GRN, 'U');
-      Assets::renderLetter(25, 10, F_GRN, 'W');
-      Assets::renderLetter(31, 10, F_GRN, 'I');
-      Assets::renderLetter(37, 10, F_GRN, 'N');
+      Assets::renderLetter(4, 10, F_GRN, 'Y');
+      Assets::renderLetter(10, 10, F_GRN, 'O');
+      Assets::renderLetter(16, 10, F_GRN, 'U');
+      Assets::renderLetter(28, 10, F_GRN, 'W');
+      Assets::renderLetter(34, 10, F_GRN, 'I');
+      Assets::renderLetter(40, 10, F_GRN, 'N');
+      Render::renderString(20, 23, "    [  MODE  ]    ", F_WHT);
+      Render::renderString(20, 24, "   SINGLE PLAYER ", F_WHT);
+      Render::renderString(20, 26, "    [  SCORE ]    ", F_WHT);
+      std::cout << "\033[32;1m\033[" << 28 << ";" << 41 << "H    " << std::setw(10) << std::setfill(' ') << scoreP1 << "    " << std::endl;;
+      Render::renderString(18, 29, "PRESS [ESC/ENTER] TO EXIT", F_WHT);
       break;
     }
     case GR_PL: {
+      Assets::renderLetter(2 , 10, F_RED, 'Y');
+      Assets::renderLetter(8 , 10, F_RED, 'O');
+      Assets::renderLetter(14, 10, F_RED, 'U');
+      Assets::renderLetter(24, 10, F_RED, 'L');
+      Assets::renderLetter(30, 10, F_RED, 'O');
+      Assets::renderLetter(36, 10, F_RED, 'S');
+      Assets::renderLetter(42, 10, F_RED, 'E');
+      Render::renderString(20, 23, "    [  MODE  ]    ", F_WHT);
+      Render::renderString(20, 24, "   SINGLE PLAYER ", F_WHT);
+      Render::renderString(20, 26, "    [  SCORE ]    ", F_WHT);
+      std::cout << "\033[32;1m\033[" << 28 << ";" << 41 << "H    " << std::setw(10) << std::setfill(' ') << scoreP1 << "    " << std::endl;;
+      Render::renderString(18, 29, "PRESS [ESC/ENTER] TO EXIT", F_WHT);
       break;
     }
     default: {
+      Assets::renderLetter(4 , 10, F_YLW, 'S');
+      Assets::renderLetter(10, 10, F_YLW, 'U');
+      Assets::renderLetter(16, 10, F_YLW, 'S');
+      Assets::renderLetter(22, 10, F_YLW, 'P');
+      Assets::renderLetter(28, 10, F_YLW, 'E');
+      Assets::renderLetter(34, 10, F_YLW, 'N');
+      Assets::renderLetter(40, 10, F_YLW, 'D');
+      Render::renderString(20, 23, "    [  MODE  ]    ", F_WHT);
+      Render::renderString(20, 24, "   SINGLE PLAYER ", F_WHT);
+      Render::renderString(20, 26, "    [  SCORE ]    ", F_WHT);
+      std::cout << "\033[32;1m\033[" << 28 << ";" << 41 << "H    " << std::setw(10) << std::setfill(' ') << scoreP1 << "    " << std::endl;;
+      Render::renderString(18, 29, "PRESS [ESC/ENTER] TO EXIT", F_WHT);
       break;
     }
   }
