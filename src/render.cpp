@@ -195,21 +195,12 @@ void Render::renderStatus() {
     renderStatusEnemy(STATUS_START_Y);
     break;
   }
-  case LV_ARN:
-    
-    break;
-  
-  default:
+  case LV_ARN:{
+    Tank::renderStatusTank(STATUS_START_Y + 9, Level::currentLevel->player1);
+    Tank::renderStatusTank(STATUS_START_Y + 14, Level::currentLevel->player2);
     break;
   }
-  // renderStatusTank(10, Level::currentLevel->player1);
-  // switch (Level::currentLevel->type) {
-  // case LV_ADV: {
-
-  // }
-  // default:
-  //   break;
-  // }
+  }
 }
 void Render::renderStatusEnemy(int y) {
   std::cout << "\033[31;1m\033[" << y + 1 << ";" << STATUS_START_X << "HENEMY LEFT [\033[37;1m" << std::setw(2) << std::setfill('0') << Level::currentLevel->waves.size() << "\033[31;1m]";

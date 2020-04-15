@@ -55,7 +55,13 @@ Level::Level(int type): type(type), scoreP1(0), scoreP2(0) {
     waves.push_back(std::make_tuple(5, 5, MD_LHT));
     break;
   }
-  default:
+  case LV_ARN:
+    player1 = new Tank(1 , 20, D_RT, CP_P1, MD_LHT);
+    player2 = new Tank(38, 20, D_LT, CP_P2, MD_LHT);
+    scoreP1 = 0;
+    scoreP2 = 0;
+    Render::Drawables.push_back(player1);
+    Render::Drawables.push_back(player2);
     break;
   }
 }
@@ -375,7 +381,7 @@ int Cooperation::run() {
         }
         break;
       } 
-      case 109: {
+      case 13: {
         Bullet *blt = player2->fire();
         if(blt != nullptr) {
           Render::Drawables.emplace_back(blt);
@@ -575,6 +581,207 @@ void Cooperation::renderResult() {
   }
   Render::renderString(20, 23, "    [  MODE  ]    ", F_WHT);
   Render::renderString(20, 24, "    COOPERATION   ", F_WHT);
+  Render::renderString(14, 26, "    [ SCORE P1 ]            [ SCORE P2 ]    ", F_WHT);
+  std::cout << "\033[32;1m\033[" << 28 << ";" << 29 << "H    " << std::setw(10) << std::setfill(' ') << scoreP1 << "              " << "\033[34;1m" << std::setw(10) << std::setfill(' ') << scoreP2 <<  std::endl;;
+  Render::renderString(18, 29, "PRESS [ESC/ENTER] TO EXIT", F_WHT);
+}
+
+int Arena::run() {
+  Render::scene = SC_GRD;
+  // Render::scene = SC_HLP;
+  Sleep(3000);
+  Render::scene = SC_GRN;
+  Sleep(500);
+  while(1) {
+    // * user input and oprations
+    while(kbhit()) {
+      switch(getch()) {
+      case 119: player1->move(D_UP); break;
+      case 97:  player1->move(D_LT); break;
+      case 115: player1->move(D_DN); break;
+      case 100: player1->move(D_RT); break;
+      case 105: player2->move(D_UP); break;
+      case 106:  player2->move(D_LT); break;
+      case 107: player2->move(D_DN); break;
+      case 108: player2->move(D_RT); break;
+      case 27: {
+        Render::scene = SC_GPS;
+        while(Render::scene == SC_GPS) {
+          Sleep(50);
+          if(kbhit()) {
+            switch(getch()) {
+              case 27: {
+                Render::scene = SC_GRD;
+                break;
+              }
+              case 104: {
+                Render::scene = SC_HLP;
+                while(Render::scene != SC_GRD) {
+                  Sleep(50);
+                  if(kbhit() && getch() == 27)
+                    break;
+                }
+                Render::scene = SC_GRN;
+                Sleep(100);
+                Render::scene = SC_GPS;
+                break;
+              }
+              case 13: {
+                return GR_EXT;
+              }
+            }
+          }
+        }
+        Sleep(3000);
+        Render::scene = SC_GRN;
+        Sleep(500);
+        break;
+      }; 
+      case 32: {
+        Bullet *blt = player1->fire();
+        if(blt != nullptr) {
+          Render::Drawables.emplace_back(blt);
+          Bullet::Bullets.emplace_back(blt);
+        }
+        break;
+      } 
+      case 13: {
+        Bullet *blt = player2->fire();
+        if(blt != nullptr) {
+          Render::Drawables.emplace_back(blt);
+          Bullet::Bullets.emplace_back(blt);
+        }
+        break;
+      } 
+      }
+    }
+    // * move bullets
+    for(auto it = Bullet::Bullets.begin(); it != Bullet::Bullets.end();) {
+      Bullet *blt = *it;
+      if(blt->move()) {
+          it = Bullet::Bullets.erase(it);
+          Render::Drawables.remove(blt);
+          delete blt;
+      }
+      else {
+        ++it;
+      }
+    }
+    // * bullet cancels each other
+    for(auto it = Bullet::Bullets.begin(); it != Bullet::Bullets.end();++it)
+      for(auto it2 = it; it2 != Bullet::Bullets.end();++it2)
+        if((*it)->x == (*it2)->x && (*it)->y == (*it2)->y && it != it2)
+          (*it)->toRemove = (*it2)->toRemove = 1;
+    for(auto it = Bullet::Bullets.begin(); it != Bullet::Bullets.end();) {
+      Bullet *blt = *it;
+      if(blt->toRemove) {
+        it = Bullet::Bullets.erase(it);
+        Render::Drawables.remove(blt);
+        delete blt;
+      }
+      else
+        it++;
+    }
+    // * handle events
+    for(auto it = events.begin(); it != events.end();) {
+      auto e = *it;
+      switch(std::get<0>(e)) {
+        case EV_DST_TK: {
+          auto dest = std::get<1>(e);
+          auto src = std::get<2>(e);
+          Render::Drawables.remove(dest);
+          dest->~Tank();
+          if(dest == player1) {
+            delete player1;
+            player1 = nullptr;
+            return GR_P2W;
+          } 
+          else {
+            delete player2;
+            player2 = nullptr;
+            return GR_P1W;
+          }
+          break;
+        }
+        case EV_HIT_TK: {
+          auto dest = std::get<1>(e);
+          auto src = std::get<2>(e);
+          switch(src) {
+            case CP_P1: scoreP1 += 100; break;
+            case CP_P2: scoreP2 += 100; break;
+            case CP_EN: break;
+          }
+        }
+        case EV_GET_PW: {
+          auto target = std::get<1>(e);
+          auto type = std::get<2>(e);
+          switch(type) {
+            case PU_NLF: target->nLife++; break;
+            case PU_UGD: target->weapon = target->weapon == BL_HE ? BL_HE : target->weapon + 1; 
+            break;
+            case PU_CLK: {
+              if(target->camp == CP_P1)
+                player2->lastMove = player2->lastFire = getTime() + 3000;
+              else
+                player1->lastMove = player1->lastFire = getTime() + 3000;
+              break;
+            }
+          }
+          break;
+        }
+      }
+      it = events.erase(it);
+    }
+    sendPowerUp();
+    Sleep(50);
+  }
+}
+
+void Arena::sendPowerUp() {
+  if(getTime() < nextPowerUp + 10000) return;
+  int x = rand() % MAP_W;
+  int y = rand() % (MAP_H - 12) + 6;
+  if(Map::map[x][y].type == T_BNK) {
+    auto p = new PowerUp(x, y, getTime() % N_POWER_UP - 3);
+    Map::map[x][y] = {T_PWU, p};
+    Render::Drawables.push_back(p);
+  }
+  nextPowerUp = getTime();
+}
+
+void Arena::renderResult() {
+  switch(this->result) {
+    case GR_P1W: {
+      Assets::renderLetter(4 , 10, F_GRN, 'Y');
+      Assets::renderLetter(10, 10, F_GRN, 'O');
+      Assets::renderLetter(16, 10, F_GRN, 'U');
+      Assets::renderLetter(28, 10, F_GRN, 'W');
+      Assets::renderLetter(34, 10, F_GRN, 'I');
+      Assets::renderLetter(40, 10, F_GRN, 'N');
+      break;
+    }
+    case GR_P2W: {
+      Assets::renderLetter(4 , 10, F_BLU, 'Y');
+      Assets::renderLetter(10, 10, F_BLU, 'O');
+      Assets::renderLetter(16, 10, F_BLU, 'U');
+      Assets::renderLetter(28, 10, F_BLU, 'W');
+      Assets::renderLetter(34, 10, F_BLU, 'I');
+      Assets::renderLetter(40, 10, F_BLU, 'N');
+      break;
+    }
+    default: {
+      Assets::renderLetter(4 , 10, F_YLW, 'S');
+      Assets::renderLetter(10, 10, F_YLW, 'U');
+      Assets::renderLetter(16, 10, F_YLW, 'S');
+      Assets::renderLetter(22, 10, F_YLW, 'P');
+      Assets::renderLetter(28, 10, F_YLW, 'E');
+      Assets::renderLetter(34, 10, F_YLW, 'N');
+      Assets::renderLetter(40, 10, F_YLW, 'D');
+      break;
+    }
+  }
+  Render::renderString(20, 23, "    [  MODE  ]    ", F_WHT);
+  Render::renderString(20, 24, "       ARENA      ", F_WHT);
   Render::renderString(14, 26, "    [ SCORE P1 ]            [ SCORE P2 ]    ", F_WHT);
   std::cout << "\033[32;1m\033[" << 28 << ";" << 29 << "H    " << std::setw(10) << std::setfill(' ') << scoreP1 << "              " << "\033[34;1m" << std::setw(10) << std::setfill(' ') << scoreP2 <<  std::endl;;
   Render::renderString(18, 29, "PRESS [ESC/ENTER] TO EXIT", F_WHT);

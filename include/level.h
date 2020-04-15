@@ -56,4 +56,14 @@ public:
 
 
 
+class Arena: public Level {
+protected:
+  uint64_t nextPowerUp = 0;
+public:
+  Arena(): Level(LV_ARN) {}
+  void sendPowerUp();
+  int run();
+  void renderResult();
+};
+
 #endif

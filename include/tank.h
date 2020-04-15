@@ -43,6 +43,7 @@ protected:
   friend class Render;
   friend class Adventure;
   friend class Cooperation;
+  friend class Arena;
 };
 
 class AutoTank: public Tank {
