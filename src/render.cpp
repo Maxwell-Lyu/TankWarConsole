@@ -85,25 +85,29 @@ void Render::thrRender() {
     }
     case SC_WLC: {
       std::cout << "\033[2J" << std::endl;
-      Assets::renderLetter(4 , 10, F_YLW, 'S');
-      Assets::renderLetter(10, 10, F_YLW, 'U');
-      Assets::renderLetter(16, 10, F_YLW, 'S');
-      Assets::renderLetter(22, 10, F_YLW, 'P');
-      Assets::renderLetter(28, 10, F_YLW, 'E');
-      Assets::renderLetter(34, 10, F_YLW, 'N');
-      Assets::renderLetter(40, 10, F_YLW, 'D');
+      Assets::renderLetter(13, 8 , F_GRN, 'T');
+      Assets::renderLetter(19, 8 , F_GRN, 'A');
+      Assets::renderLetter(25, 8 , F_GRN, 'N');
+      Assets::renderLetter(31, 8 , F_GRN, 'K');
+      Assets::renderLetter(4 , 14, F_BLU, 'W');
+      Assets::renderLetter(10, 14, F_BLU, 'A');
+      Assets::renderLetter(16, 14, F_BLU, 'R');
+      Assets::renderLetter(22, 14, F_BLU, 'F');
+      Assets::renderLetter(28, 14, F_BLU, 'A');
+      Assets::renderLetter(34, 14, F_BLU, 'R');
+      Assets::renderLetter(40, 14, F_BLU, 'E');
       while(scene == SC_WLC) {
-        if(Game::menuSel == MN_ADV) renderString(1,1,"");
-        else                        renderString(1,1,"");
+        if(Game::menuSel == MN_ADV) renderString(19, MENU_START_Y + 0, ">>  [   ADVENTURE  ]  <<", F_YLW);
+        else                        renderString(19, MENU_START_Y + 0, "    [   ADVENTURE  ]    ", F_WHT);
 
-        if(Game::menuSel == MN_COP) renderString(1,1,"");
-        else                        renderString(1,1,"");
+        if(Game::menuSel == MN_COP) renderString(19, MENU_START_Y + 2, ">>  [ CO-OPERATION ]  <<", F_YLW);
+        else                        renderString(19, MENU_START_Y + 2, "    [ CO-OPERATION ]    ", F_WHT);
 
-        if(Game::menuSel == MN_ARN) renderString(1,1,"");
-        else                        renderString(1,1,"");
+        if(Game::menuSel == MN_ARN) renderString(19, MENU_START_Y + 4, ">>  [     ARENA    ]  <<", F_YLW);
+        else                        renderString(19, MENU_START_Y + 4, "    [     ARENA    ]    ", F_WHT);
 
-        if(Game::menuSel == MN_EXT) renderString(1,1,"");
-        else                        renderString(1,1,"");
+        if(Game::menuSel == MN_EXT) renderString(19, MENU_START_Y + 6, ">>  [     EXIT     ]  <<", F_YLW);
+        else                        renderString(19, MENU_START_Y + 6, "    [     EXIT     ]    ", F_WHT);
         Sleep(50);
       }
       std::cout << "\033[2J" << std::endl;

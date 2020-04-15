@@ -314,7 +314,7 @@ void Adventure::renderResult() {
     }
   }
   Render::renderString(20, 23, "    [  MODE  ]    ", F_WHT);
-  Render::renderString(20, 24, "   SINGLE PLAYER ", F_WHT);
+  Render::renderString(20, 24, "    ADVENTURE     ", F_WHT);
   Render::renderString(20, 26, "    [  SCORE ]    ", F_WHT);
   std::cout << "\033[32;1m\033[" << 28 << ";" << 41 << "H    " << std::setw(10) << std::setfill(' ') << scoreP1 << "    " << std::endl;;
   Render::renderString(20, 29, "PRESS [ESC] TO EXIT", F_WHT);
@@ -574,7 +574,7 @@ void Cooperation::renderResult() {
     }
   }
   Render::renderString(20, 23, "    [  MODE  ]    ", F_WHT);
-  Render::renderString(20, 24, "    COOPERATION   ", F_WHT);
+  Render::renderString(20, 24, "   CO-OPERATION   ", F_WHT);
   Render::renderString(14, 26, "    [ SCORE P1 ]            [ SCORE P2 ]    ", F_WHT);
   std::cout << "\033[32;1m\033[" << 28 << ";" << 29 << "H    " << std::setw(10) << std::setfill(' ') << scoreP1 << "              " << "\033[34;1m" << std::setw(10) << std::setfill(' ') << scoreP2 <<  std::endl;;
   Render::renderString(20, 29, "PRESS [ESC] TO EXIT", F_WHT);
@@ -749,18 +749,30 @@ void Arena::renderResult() {
       Assets::renderLetter(4 , 10, F_GRN, 'Y');
       Assets::renderLetter(10, 10, F_GRN, 'O');
       Assets::renderLetter(16, 10, F_GRN, 'U');
-      Assets::renderLetter(28, 10, F_GRN, 'W');
-      Assets::renderLetter(34, 10, F_GRN, 'I');
-      Assets::renderLetter(40, 10, F_GRN, 'N');
+      Assets::renderLetter(28, 10, F_BLU, 'Y');
+      Assets::renderLetter(34, 10, F_BLU, 'O');
+      Assets::renderLetter(40, 10, F_BLU, 'U');
+      Assets::renderLetter(4 , 16, F_GRN, 'W');
+      Assets::renderLetter(10, 16, F_GRN, 'I');
+      Assets::renderLetter(16, 16, F_GRN, 'N');
+      Assets::renderLetter(28, 16, F_BLU, 'L');
+      Assets::renderLetter(34, 16, F_BLU, 'O');
+      Assets::renderLetter(40, 16, F_BLU, 'S');
       break;
     }
     case GR_P2W: {
-      Assets::renderLetter(4 , 10, F_BLU, 'Y');
-      Assets::renderLetter(10, 10, F_BLU, 'O');
-      Assets::renderLetter(16, 10, F_BLU, 'U');
-      Assets::renderLetter(28, 10, F_BLU, 'W');
-      Assets::renderLetter(34, 10, F_BLU, 'I');
-      Assets::renderLetter(40, 10, F_BLU, 'N');
+      Assets::renderLetter(4 , 10, F_GRN, 'Y');
+      Assets::renderLetter(10, 10, F_GRN, 'O');
+      Assets::renderLetter(16, 10, F_GRN, 'U');
+      Assets::renderLetter(28, 10, F_BLU, 'Y');
+      Assets::renderLetter(34, 10, F_BLU, 'O');
+      Assets::renderLetter(40, 10, F_BLU, 'U');
+      Assets::renderLetter(4 , 16, F_GRN, 'L');
+      Assets::renderLetter(10, 16, F_GRN, 'O');
+      Assets::renderLetter(16, 16, F_GRN, 'S');
+      Assets::renderLetter(28, 16, F_BLU, 'W');
+      Assets::renderLetter(34, 16, F_BLU, 'I');
+      Assets::renderLetter(40, 16, F_BLU, 'N');
       break;
     }
     default: {

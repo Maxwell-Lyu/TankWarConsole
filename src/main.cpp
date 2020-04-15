@@ -10,6 +10,5 @@ int main() {
   system("mode con cols=100 lines=40");
   system("cls");
   Game::run();
-  system("pause");
   return 0;
 }

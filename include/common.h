@@ -45,6 +45,7 @@ enum { GR_PW, GR_PL, GR_P1W, GR_P2W, GR_EXT = -1 };
 
 
 #define N_MENU 4
+#define MENU_START_Y 24
 enum { MN_ADV, MN_COP, MN_ARN, MN_EXT };
 
 #endif
