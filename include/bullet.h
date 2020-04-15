@@ -13,13 +13,13 @@ protected:
   static int bulletSpeed;
   static char *models[N_BULLET_MODEL];
   // static std::list<Bullet *> pool;
-  uint64_t lastMove = 0;
+  uint64_t lastMove;
 public:
+  int type;
   int srcCamp;
   int toRemove;
-  int type = BL_NM;
   static std::list<Bullet *> Bullets;
-  Bullet(int x, int y, int direction, int type, int srcCamp): Drawable(x, y, direction), type(type), srcCamp(srcCamp), toRemove(0) {}
+  Bullet(int x, int y, int direction, int type, int srcCamp): Drawable(x, y, direction), lastMove(0), type(type), srcCamp(srcCamp), toRemove(0) {}
 	void *operator new(size_t size) {	
     if(pool.empty()) {
       void *p = malloc(size);

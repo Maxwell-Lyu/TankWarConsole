@@ -19,13 +19,14 @@ struct _pixelList_t{
 
 class Drawable {
 protected:
-  int direction = 0;
+  int direction;
 public:
-  int x = 2, y = 2;
+  int x, y;
   Drawable() {}
-  Drawable(int x, int y, int direction): x(x), y(y), direction(direction) {}
+  Drawable(int x, int y, int direction): direction(direction), x(x), y(y) {}
   virtual void draw() = 0;
   virtual void hit(int type, int srcCamp) {};
+  virtual ~Drawable() {};
 };
 
 struct _elem_t{

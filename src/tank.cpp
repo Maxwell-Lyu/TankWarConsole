@@ -42,7 +42,7 @@ char *Tank::models[N_TANK_MODEL][4][9] = {{
 }, };
 
 
-Tank::Tank(int x, int y, int direction, int camp, int modelSel): Drawable(x, y, direction), modelSel(modelSel), camp(camp), nLife(1)  {
+Tank::Tank(int x, int y, int direction, int camp, int modelSel): Drawable(x, y, direction), modelSel(modelSel), nLife(1), camp(camp)  {
   this->life = Tank::lifeMaxVals[modelSel];
   this->lifeMax = Tank::lifeMaxVals[modelSel];
   this->speedMove = Tank::speedMoveVals[modelSel];
@@ -218,11 +218,12 @@ void Tank::hit(int type, int srcCamp) {
   case BL_HE: this->life -= 400; break;
   }
   Level::currentLevel->events.push_back(std::make_tuple(EV_HIT_TK, this, srcCamp));
-  if(this->life <= 0)
+  if(this->life <= 0) {
     if((--this->nLife) > 0)
-      this->life - this->lifeMax;
+      this->life = this->lifeMax;
     else
       Level::currentLevel->events.push_back(std::make_tuple(EV_DST_TK, this, srcCamp));
+  }
 }
 
 Tank::~Tank() {
@@ -239,6 +240,7 @@ int AutoTank::getDirection() {
     case D_DN: return D_RT;
     case D_RT: return D_UP;
   }
+  return D_UP;
 }
 
 void AutoTank::move(int direction) {

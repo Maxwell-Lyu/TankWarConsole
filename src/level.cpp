@@ -17,7 +17,7 @@
 Level *Level::currentLevel;
 
 
-Level::Level(int type): type(type), scoreP1(0), scoreP2(0) {
+Level::Level(int type): scoreP1(0), scoreP2(0), type(type) {
   Level::currentLevel = this;
   switch (type) {
   case LV_ADV: {
@@ -181,7 +181,7 @@ int Adventure::run() {
       switch(std::get<0>(e)) {
         case EV_DST_TK: {
           auto dest = std::get<1>(e);
-          auto src = std::get<2>(e);
+          // auto src = std::get<2>(e);
           Render::Drawables.remove(dest);
           dest->~Tank();
           if(dest == player1) {
@@ -200,7 +200,7 @@ int Adventure::run() {
           break;
         }
         case EV_HIT_TK: {
-          auto dest = std::get<1>(e);
+          // auto dest = std::get<1>(e);
           auto src = std::get<2>(e);
           switch(src) {
             case CP_P1: scoreP1 += 100; break;
@@ -463,7 +463,7 @@ int Cooperation::run() {
           break;
         }
         case EV_HIT_TK: {
-          auto dest = std::get<1>(e);
+          // auto dest = std::get<1>(e);
           auto src = std::get<2>(e);
           switch(src) {
             case CP_P1: scoreP1 += 100; break;
@@ -689,7 +689,7 @@ int Arena::run() {
       switch(std::get<0>(e)) {
         case EV_DST_TK: {
           auto dest = std::get<1>(e);
-          auto src = std::get<2>(e);
+          // auto src = std::get<2>(e);
           Render::Drawables.remove(dest);
           dest->~Tank();
           if(dest == player1) {
@@ -707,7 +707,7 @@ int Arena::run() {
           break;
         }
         case EV_HIT_TK: {
-          auto dest = std::get<1>(e);
+          // auto dest = std::get<1>(e);
           auto src = std::get<2>(e);
           switch(src) {
             case CP_P1: scoreP1 += 100; break;
