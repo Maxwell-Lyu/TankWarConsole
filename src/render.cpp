@@ -43,6 +43,8 @@ void Render::thrRender() {
             draw({F_WHT, B_YLW, "╪╪"}, x, y); break;
           case T_BNK:
             draw({F_WHT, B_BLK, "  "}, x, y); break;
+          case T_PWU:
+            elem.data->draw(); break;
           }
         }
       for(auto &drawable: Drawables)

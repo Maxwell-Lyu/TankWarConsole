@@ -16,5 +16,5 @@ void PowerUp::draw() {
 }
 void PowerUp::hit(int type, int srcCamp) {
   std::get<2>(Level::currentLevel->events.back()) = this->type;
-  Render::Drawables.remove(this);
+  // Render::Drawables.remove(this);
 }

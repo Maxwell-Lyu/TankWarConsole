@@ -9,7 +9,7 @@ char *Bullet::models[N_BULLET_MODEL] = {
 };
 
 int Bullet::bulletSpeed = 80;
-std::list<Bullet *> Bullet::pool;
+std::list<void *> Bullet::pool;
 std::list<Bullet *> Bullet::Bullets;
 
 void Bullet::draw() {

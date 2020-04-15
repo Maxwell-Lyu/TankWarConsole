@@ -206,6 +206,7 @@ int Adventure::run() {
             case CP_P1: scoreP1 += 100; break;
             case CP_EN: break;
           }
+          break;
         }
         case EV_GET_PW: {
           auto target = std::get<1>(e);
@@ -266,7 +267,7 @@ void Adventure::sendPowerUp() {
   if(Map::map[x][y].type == T_BNK) {
     auto p = new PowerUp(x, y, getTime() % N_POWER_UP);
     Map::map[x][y] = {T_PWU, p};
-    Render::Drawables.push_back(p);
+    // Render::Drawables.push_back(p);
   }
   nextPowerUp = getTime();
 }
@@ -469,6 +470,7 @@ int Cooperation::run() {
             case CP_P2: scoreP2 += 100; break;
             case CP_EN: break;
           }
+          break;
         }
         case EV_GET_PW: {
           auto target = std::get<1>(e);
@@ -476,8 +478,7 @@ int Cooperation::run() {
           if(target->camp != CP_EN) {
             switch(type) {
               case PU_NLF: target->nLife++; break;
-              case PU_UGD: target->weapon = target->weapon == BL_HE ? BL_HE : target->weapon + 1; 
-              break;
+              case PU_UGD: target->weapon = target->weapon == BL_HE ? BL_HE : target->weapon + 1; break;
               case PU_CLK: {
                 for(auto it = enemies.begin(); it != enemies.end(); ++it)
                   (*it)->lastMove = (*it)->lastFire = getTime() + 3000;
@@ -529,7 +530,7 @@ void Cooperation::sendPowerUp() {
   if(Map::map[x][y].type == T_BNK) {
     auto p = new PowerUp(x, y, getTime() % N_POWER_UP);
     Map::map[x][y] = {T_PWU, p};
-    Render::Drawables.push_back(p);
+    // Render::Drawables.push_back(p);
   }
   nextPowerUp = getTime();
 }
@@ -601,7 +602,7 @@ int Arena::run() {
       case 115: player1->move(D_DN); break;
       case 100: player1->move(D_RT); break;
       case 105: player2->move(D_UP); break;
-      case 106:  player2->move(D_LT); break;
+      case 106: player2->move(D_LT); break;
       case 107: player2->move(D_DN); break;
       case 108: player2->move(D_RT); break;
       case 27: {
@@ -694,11 +695,13 @@ int Arena::run() {
           if(dest == player1) {
             delete player1;
             player1 = nullptr;
+            scoreP2 += 1000;
             return GR_P2W;
           } 
           else {
             delete player2;
             player2 = nullptr;
+            scoreP1 += 1000;
             return GR_P1W;
           }
           break;
@@ -711,14 +714,14 @@ int Arena::run() {
             case CP_P2: scoreP2 += 100; break;
             case CP_EN: break;
           }
+          break;
         }
         case EV_GET_PW: {
           auto target = std::get<1>(e);
           auto type = std::get<2>(e);
           switch(type) {
             case PU_NLF: target->nLife++; break;
-            case PU_UGD: target->weapon = target->weapon == BL_HE ? BL_HE : target->weapon + 1; 
-            break;
+            case PU_UGD: target->weapon = target->weapon == BL_HE ? BL_HE : target->weapon + 1; break;
             case PU_CLK: {
               if(target->camp == CP_P1)
                 player2->lastMove = player2->lastFire = getTime() + 3000;
@@ -744,7 +747,7 @@ void Arena::sendPowerUp() {
   if(Map::map[x][y].type == T_BNK) {
     auto p = new PowerUp(x, y, getTime() % N_POWER_UP - 3);
     Map::map[x][y] = {T_PWU, p};
-    Render::Drawables.push_back(p);
+    // Render::Drawables.push_back(p);
   }
   nextPowerUp = getTime();
 }

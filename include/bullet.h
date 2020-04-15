@@ -9,7 +9,7 @@
 
 class Bullet: public Drawable {
 protected:
-  static std::list<Bullet *> pool;
+  static std::list<void *> pool;
   static int bulletSpeed;
   static char *models[N_BULLET_MODEL];
   // static std::list<Bullet *> pool;
@@ -33,7 +33,7 @@ public:
     }
 	}
   void operator delete(void *p) {
-    pool.push_back((Bullet *)p);
+    pool.push_back(p);
   }
   void draw();
   bool move();

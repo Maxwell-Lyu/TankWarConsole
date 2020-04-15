@@ -188,9 +188,9 @@ void Tank::move(int direction) {
 }
 
 Bullet *Tank::fire() {
-  if(getTime() < speedFire + lastFire) return NULL;
+  if(getTime() < speedFire + lastFire) return nullptr;
   lastFire = getTime();
-  Bullet *blt;
+  Bullet *blt = nullptr;
   switch(this->direction) {
   case D_UP:
     blt = new Bullet(this->x, this->y - 1, this->direction, this->weapon, this->camp);
