@@ -375,7 +375,7 @@ int Cooperation::run() {
         }
         break;
       } 
-      case 13: {
+      case 109: {
         Bullet *blt = player2->fire();
         if(blt != nullptr) {
           Render::Drawables.emplace_back(blt);
