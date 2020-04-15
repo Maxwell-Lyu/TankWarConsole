@@ -145,10 +145,13 @@ void Tank::draw() {
   }
   }
 };
+#define SNAPPY_MOVE
 void Tank::move(int direction) {
   if(direction != this->direction) {
     this->direction = direction;
+#ifndef SNAPPY_MOVE
     return;
+#endif
   }
   if(getTime() < speedMove + lastMove) return;
   lastMove = getTime();
