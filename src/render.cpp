@@ -96,6 +96,7 @@ void Render::thrRender() {
       Assets::renderLetter(28, 14, F_BLU, 'A');
       Assets::renderLetter(34, 14, F_BLU, 'R');
       Assets::renderLetter(40, 14, F_BLU, 'E');
+      renderString(12, 39, "Copyright © 2020 Maxwell Lyu. All Rights Reserved.");
       while(scene == SC_WLC) {
         if(Game::menuSel == MN_ADV) renderString(19, MENU_START_Y + 0, ">>  [   ADVENTURE  ]  <<", F_YLW);
         else                        renderString(19, MENU_START_Y + 0, "    [   ADVENTURE  ]    ", F_WHT);
