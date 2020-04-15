@@ -181,8 +181,8 @@ void Render::thrRender() {
 
 void Render::renderStatus() {
   switch (Level::currentLevel->type) {
-  case LV_AD2: Tank::renderStatusTank(STATUS_START_Y + 19, Level::currentLevel->player2);
-  case LV_AD1: {
+  case LV_COP: Tank::renderStatusTank(STATUS_START_Y + 19, Level::currentLevel->player2);
+  case LV_ADV: {
     Tank::renderStatusTank(STATUS_START_Y + 14, Level::currentLevel->player1);
     Tank::renderStatusTank(STATUS_START_Y + 11, Level::currentLevel->base);
     int line = STATUS_START_Y + 2;
@@ -204,7 +204,7 @@ void Render::renderStatus() {
   }
   // renderStatusTank(10, Level::currentLevel->player1);
   // switch (Level::currentLevel->type) {
-  // case LV_AD1: {
+  // case LV_ADV: {
 
   // }
   // default:

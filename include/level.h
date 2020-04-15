@@ -30,13 +30,24 @@ public:
   friend class Tank;
 };
 
-//  TODO: Add result more screens
 class Adventure: public Level {
 protected:
   uint64_t nextWave = 0;
   uint64_t nextPowerUp = 0;
 public:
-  Adventure(): Level(LV_AD1) {}
+  Adventure(): Level(LV_ADV) {}
+  void sendEnemy();
+  void sendPowerUp();
+  int run();
+  void renderResult();
+};
+
+class Cooperation: public Level {
+protected:
+  uint64_t nextWave = 0;
+  uint64_t nextPowerUp = 0;
+public:
+  Cooperation(): Level(LV_COP) {}
   void sendEnemy();
   void sendPowerUp();
   int run();
