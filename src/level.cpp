@@ -72,10 +72,8 @@ void Level::showResult(int ret) {
   Render::scene = SC_GFN;
   while(Render::scene == SC_GFN) {
     Sleep(50);
-    if(kbhit()) {
-      int ch = getch();
-      if(ch == 27 || ch == 13)
-        Render::scene = SC_WLC;
+    if(kbhit() && getch() == 27) {
+      Render::scene = SC_WLC;
     }
   }
 }
@@ -319,7 +317,7 @@ void Adventure::renderResult() {
   Render::renderString(20, 24, "   SINGLE PLAYER ", F_WHT);
   Render::renderString(20, 26, "    [  SCORE ]    ", F_WHT);
   std::cout << "\033[32;1m\033[" << 28 << ";" << 41 << "H    " << std::setw(10) << std::setfill(' ') << scoreP1 << "    " << std::endl;;
-  Render::renderString(18, 29, "PRESS [ESC/ENTER] TO EXIT", F_WHT);
+  Render::renderString(20, 29, "PRESS [ESC] TO EXIT", F_WHT);
 }
 int Cooperation::run() {
   Render::scene = SC_GRD;
@@ -579,7 +577,7 @@ void Cooperation::renderResult() {
   Render::renderString(20, 24, "    COOPERATION   ", F_WHT);
   Render::renderString(14, 26, "    [ SCORE P1 ]            [ SCORE P2 ]    ", F_WHT);
   std::cout << "\033[32;1m\033[" << 28 << ";" << 29 << "H    " << std::setw(10) << std::setfill(' ') << scoreP1 << "              " << "\033[34;1m" << std::setw(10) << std::setfill(' ') << scoreP2 <<  std::endl;;
-  Render::renderString(18, 29, "PRESS [ESC/ENTER] TO EXIT", F_WHT);
+  Render::renderString(20, 29, "PRESS [ESC] TO EXIT", F_WHT);
 }
 
 int Arena::run() {
@@ -780,5 +778,5 @@ void Arena::renderResult() {
   Render::renderString(20, 24, "       ARENA      ", F_WHT);
   Render::renderString(14, 26, "    [ SCORE P1 ]            [ SCORE P2 ]    ", F_WHT);
   std::cout << "\033[32;1m\033[" << 28 << ";" << 29 << "H    " << std::setw(10) << std::setfill(' ') << scoreP1 << "              " << "\033[34;1m" << std::setw(10) << std::setfill(' ') << scoreP2 <<  std::endl;;
-  Render::renderString(18, 29, "PRESS [ESC/ENTER] TO EXIT", F_WHT);
+  Render::renderString(20, 29, "PRESS [ESC] TO EXIT", F_WHT);
 }

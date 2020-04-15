@@ -6,6 +6,7 @@
 #include "level.h"
 #include <iostream>
 #include <iomanip>
+#include "game.h"
 #include "assets.h"
 std::list<Drawable *> Render::Drawables;
 pixel_t Render::vBuf[MAP_H][MAP_W];
@@ -83,10 +84,33 @@ void Render::thrRender() {
       break;
     }
     case SC_WLC: {
+      std::cout << "\033[2J" << std::endl;
+      Assets::renderLetter(4 , 10, F_YLW, 'S');
+      Assets::renderLetter(10, 10, F_YLW, 'U');
+      Assets::renderLetter(16, 10, F_YLW, 'S');
+      Assets::renderLetter(22, 10, F_YLW, 'P');
+      Assets::renderLetter(28, 10, F_YLW, 'E');
+      Assets::renderLetter(34, 10, F_YLW, 'N');
+      Assets::renderLetter(40, 10, F_YLW, 'D');
+      while(scene == SC_WLC) {
+        if(Game::menuSel == MN_ADV) renderString(1,1,"");
+        else                        renderString(1,1,"");
+
+        if(Game::menuSel == MN_COP) renderString(1,1,"");
+        else                        renderString(1,1,"");
+
+        if(Game::menuSel == MN_ARN) renderString(1,1,"");
+        else                        renderString(1,1,"");
+
+        if(Game::menuSel == MN_EXT) renderString(1,1,"");
+        else                        renderString(1,1,"");
+        Sleep(50);
+      }
+      std::cout << "\033[2J" << std::endl;
       break;
     }
     case SC_HLP: {
-      std::cout << "\033[2J";
+      std::cout << "\033[2J" << std::endl;
       renderString(HELP_START_X, HELP_START_Y, "[ ENEMY INTEL ]");
       renderString(HELP_START_X + 0, HELP_START_Y + 2, Tank::models[MD_LHT][D_UP][0], F_WHT, B_BLK);
       renderString(HELP_START_X + 1, HELP_START_Y + 2, Tank::models[MD_LHT][D_UP][1], F_RED, B_BLK);
