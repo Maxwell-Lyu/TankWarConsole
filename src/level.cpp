@@ -66,6 +66,14 @@ Level::Level(int type): scoreP1(0), scoreP2(0), type(type) {
   }
 }
 
+Level::~Level() {
+  for(auto &a: Render::Drawables) {
+    delete a;
+  }
+  Render::Drawables.clear();
+  Bullet::Bullets.clear();
+}
+
 void Level::showResult(int ret) {
   std::cout << "\033[2J";
   this->result = ret;

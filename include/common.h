@@ -24,7 +24,7 @@ enum { D_UP, D_LT, D_DN, D_RT };
 enum { MD_LHT, MD_AMR, MD_ATG, MD_HVY };
 enum { CP_P1 = 1, CP_P2 = 2, CP_BS = 4, CP_EN = 7 };
 
-enum { LV_ADV, LV_COP, LV_ARN };
+enum { LV_ADV, LV_COP, LV_ARN, LV_EDT };
 enum { EV_DST_TK, EV_GET_PW, EV_HIT_TK };
 // enum { ST_STB, ST_RUN, ST_PUS, ST_FIN };
 

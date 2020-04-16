@@ -28,6 +28,7 @@ public:
   virtual void renderResult() = 0;
   friend class Render;
   friend class Tank;
+  ~Level();
 };
 
 class Adventure: public Level {
@@ -62,6 +63,13 @@ protected:
 public:
   Arena(): Level(LV_ARN) {}
   void sendPowerUp();
+  int run();
+  void renderResult();
+};
+
+class MapEdit: public Level {
+public:
+  MapEdit(): Level(LV_EDT) {}
   int run();
   void renderResult();
 };

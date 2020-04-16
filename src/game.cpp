@@ -27,18 +27,21 @@ void Game::run() {
               Level *l = new Adventure();
               int ret = l->run();
               l->showResult(ret);
+              delete l;
               break;
             }
             case MN_COP: {
               Level *l = new Cooperation();
               int ret = l->run();
               l->showResult(ret);
+              delete l;
               break;
             }
             case MN_ARN: {
               Level *l = new Arena();
               int ret = l->run();
               l->showResult(ret);
+              delete l;
               break;
             }
             case MN_EXT: {
