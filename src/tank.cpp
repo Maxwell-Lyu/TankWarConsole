@@ -320,3 +320,58 @@ void Tank::renderStatusTank(int y, Tank *t) {
     std::cout << "\033[" << y + 4 << ";" << STATUS_START_X << "HPT [" << std::setw(10) << std::setfill(' ') << Level::currentLevel->scoreP2 << "] ";
     
 }
+
+
+
+
+Cursor::Cursor(): Tank(MAP_W / 2, MAP_H / 2, D_UP, CP_P1, MD_LHT) {
+  this->weapon = T_BNK;
+  this->speedMove = 200;
+  for (int x = this->x - 1; x <= this->x + 1; x++)
+    for (int y = this->y - 1; y <= this->y + 1; y++)
+      Map::map[x][y] = {T_BNK, nullptr};
+}
+
+void Cursor::move(int direction) {
+  // for (int x = this->x - 1; x <= this->x + 1; x++)
+  //   for (int y = this->y - 1; y <= this->y + 1; y++)
+  //     Render::draw({F_BLK, B_BLK, "  "}, x, y);
+  switch (direction) {
+  case D_UP:{
+    if(this->y > 0)
+      --this->y;
+    break;
+  }
+  case D_LT:{
+    if(this->x > 0)
+      --this->x;
+    break;
+  }
+  case D_DN:{
+    if(this->y < MAP_H - 1)
+      ++this->y;
+    break;
+  }
+  case D_RT:{
+    if(this->x < MAP_W - 1)
+      ++this->x;
+    break;
+  }
+  }
+}
+
+void Cursor::draw() {
+  uint64_t t = getTime();
+  if(t > speedMove + speedMove + lastMove)
+    lastMove = t;
+  else if(t > speedMove + lastMove)
+    Render::draw({F_WHT, B_BLK, "▒▒"}, x, y);
+  else 
+    Render::draw({F_WHT, B_BLK, "  "}, x, y);
+}
+
+
+Bullet *Cursor::fire() {
+  Map::map[x][y] = {this->weapon, nullptr};
+  return nullptr;
+}

@@ -44,9 +44,9 @@ enum { PU_NLF, PU_UGD, PU_CLK, PU_SVL, PU_BMB, PU_RBS };
 enum { GR_PW, GR_PL, GR_P1W, GR_P2W, GR_EXT = -1 };
 
 
-#define N_MENU 4
+#define N_MENU 5
 #define MENU_START_Y 24
-enum { MN_ADV, MN_COP, MN_ARN, MN_EXT };
+enum { MN_ADV, MN_COP, MN_ARN, MN_EDT, MN_EXT };
 
 #endif
 

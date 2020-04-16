@@ -55,7 +55,7 @@ Level::Level(int type): scoreP1(0), scoreP2(0), type(type) {
     waves.push_back(std::make_tuple(5, 5, MD_LHT));
     break;
   }
-  case LV_ARN:
+  case LV_ARN: {
     player1 = new Tank(1 , 20, D_RT, CP_P1, MD_LHT);
     player2 = new Tank(38, 20, D_LT, CP_P2, MD_LHT);
     scoreP1 = 0;
@@ -63,6 +63,15 @@ Level::Level(int type): scoreP1(0), scoreP2(0), type(type) {
     Render::Drawables.push_back(player1);
     Render::Drawables.push_back(player2);
     break;
+  }
+  case LV_EDT: {
+    player1 = new Cursor();
+    player2 = nullptr;
+    scoreP1 = 0;
+    scoreP2 = 0;
+    Render::Drawables.push_back(player1);
+    break;
+  }
   }
 }
 
@@ -106,7 +115,7 @@ int Adventure::run() {
           Sleep(50);
           if(kbhit()) {
             switch(getch()) {
-              case 27: {
+              case 13: {
                 Render::scene = SC_GRD;
                 break;
               }
@@ -122,7 +131,7 @@ int Adventure::run() {
                 Render::scene = SC_GPS;
                 break;
               }
-              case 13: {
+              case 27: {
                 return GR_EXT;
               }
             }
@@ -351,7 +360,7 @@ int Cooperation::run() {
           Sleep(50);
           if(kbhit()) {
             switch(getch()) {
-              case 27: {
+              case 13: {
                 Render::scene = SC_GRD;
                 break;
               }
@@ -367,7 +376,7 @@ int Cooperation::run() {
                 Render::scene = SC_GPS;
                 break;
               }
-              case 13: {
+              case 27: {
                 return GR_EXT;
               }
             }
@@ -612,7 +621,7 @@ int Arena::run() {
           Sleep(50);
           if(kbhit()) {
             switch(getch()) {
-              case 27: {
+              case 13: {
                 Render::scene = SC_GRD;
                 break;
               }
@@ -628,7 +637,7 @@ int Arena::run() {
                 Render::scene = SC_GPS;
                 break;
               }
-              case 13: {
+              case 27: {
                 return GR_EXT;
               }
             }
@@ -798,5 +807,42 @@ void Arena::renderResult() {
   Render::renderString(20, 24, "       ARENA      ", F_WHT);
   Render::renderString(14, 26, "    [ SCORE P1 ]            [ SCORE P2 ]    ", F_WHT);
   std::cout << "\033[32;1m\033[" << 28 << ";" << 29 << "H    " << std::setw(10) << std::setfill(' ') << scoreP1 << "              " << "\033[34;1m" << std::setw(10) << std::setfill(' ') << scoreP2 <<  std::endl;;
+  Render::renderString(20, 29, "PRESS [ESC] TO EXIT", F_WHT);
+}
+
+
+
+int MapEdit::run() {
+  Render::scene = SC_GRN;
+  Sleep(500);
+  while(1) {
+    // * user input and oprations
+    while(kbhit()) {
+      switch(getch()) {
+      case 119: player1->move(D_UP); break;
+      case 97:  player1->move(D_LT); break;
+      case 115: player1->move(D_DN); break;
+      case 100: player1->move(D_RT); break;
+      case 49: player1->weapon = T_BNK; break;
+      case 50: player1->weapon = T_GRS; break;
+      case 51: player1->weapon = T_WTR; break;
+      case 52: player1->weapon = T_STN; break;
+      case 53: player1->weapon = T_WAL; break;
+      case 32:  player1->fire(); break;      
+      case 27:  return GR_EXT; break;
+      }
+    Sleep(50);
+    }
+  }
+}
+
+
+void MapEdit::renderResult() {
+  Assets::renderLetter(10, 10, F_GRN, 'S');
+  Assets::renderLetter(16, 10, F_GRN, 'A');
+  Assets::renderLetter(22, 10, F_GRN, 'V');
+  Assets::renderLetter(28, 10, F_GRN, 'E');
+  Assets::renderLetter(34, 10, F_GRN, 'D');
+  Render::renderString(14, 26, "        THE EDITED MAP IS GOOD TO GO        ", F_WHT);
   Render::renderString(20, 29, "PRESS [ESC] TO EXIT", F_WHT);
 }

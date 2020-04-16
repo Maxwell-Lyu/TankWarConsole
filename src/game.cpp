@@ -16,9 +16,9 @@ void Game::run() {
         case 224: {
           int ch = getch();
           if(ch == 72)
-            menuSel = (menuSel + 3) % 4;
+            menuSel = (menuSel + N_MENU - 1) % N_MENU;
           else if(ch == 80)
-            menuSel = (menuSel + 1) % 4;
+            menuSel = (menuSel + 1) % N_MENU;
           break;
         }
         case 13: {
@@ -39,6 +39,13 @@ void Game::run() {
             }
             case MN_ARN: {
               Level *l = new Arena();
+              int ret = l->run();
+              l->showResult(ret);
+              delete l;
+              break;
+            }
+            case MN_EDT: {
+              Level *l = new MapEdit();
               int ret = l->run();
               l->showResult(ret);
               delete l;

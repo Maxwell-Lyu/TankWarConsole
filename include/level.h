@@ -28,7 +28,7 @@ public:
   virtual void renderResult() = 0;
   friend class Render;
   friend class Tank;
-  ~Level();
+  virtual ~Level();
 };
 
 class Adventure: public Level {

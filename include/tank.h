@@ -35,15 +35,16 @@ protected:
  public:
   static void renderStatusTank(int y, Tank *t);
   Tank(int x, int y, int direction, int camp, int modelSel = MD_LHT);
-  void draw();
+  virtual void draw();
   virtual void move(int direction = 0);
-  Bullet *fire();
+  virtual Bullet *fire();
   void hit(int type, int srcCamp);
   ~Tank();
   friend class Render;
   friend class Adventure;
   friend class Cooperation;
   friend class Arena;
+  friend class MapEdit;
 };
 
 class AutoTank: public Tank {
@@ -54,5 +55,13 @@ public:
   void move(int direction = 0);
 };
 
+
+class Cursor: public Tank {
+public:
+  Cursor();
+  void move(int direction = 0);
+  void draw();
+  Bullet *fire();
+};
 
 #endif

@@ -107,8 +107,11 @@ void Render::thrRender() {
         if(Game::menuSel == MN_ARN) renderString(19, MENU_START_Y + 4, ">>  [     ARENA    ]  <<", F_YLW);
         else                        renderString(19, MENU_START_Y + 4, "    [     ARENA    ]    ", F_WHT);
 
-        if(Game::menuSel == MN_EXT) renderString(19, MENU_START_Y + 6, ">>  [     EXIT     ]  <<", F_YLW);
-        else                        renderString(19, MENU_START_Y + 6, "    [     EXIT     ]    ", F_WHT);
+        if(Game::menuSel == MN_EDT) renderString(19, MENU_START_Y + 6, ">>  [   MAP EDIT   ]  <<", F_YLW);
+        else                        renderString(19, MENU_START_Y + 6, "    [   MAP EDIT   ]    ", F_WHT);
+
+        if(Game::menuSel == MN_EXT) renderString(19, MENU_START_Y + 8, ">>  [     EXIT     ]  <<", F_YLW);
+        else                        renderString(19, MENU_START_Y + 8, "    [     EXIT     ]    ", F_WHT);
         Sleep(50);
       }
       std::cout << "\033[2J" << std::endl;
@@ -175,7 +178,7 @@ void Render::thrRender() {
       renderString(HELP_START_X + 2, HELP_START_Y + 15, Tank::models[MD_LHT][D_UP][8], F_WHT, B_BLK);
       renderString(HELP_START_X + 4, HELP_START_Y + 13, "MOVE:      [W]");
       renderString(HELP_START_X + 4, HELP_START_Y + 14, "        [A][S][D]");
-      renderString(HELP_START_X + 4, HELP_START_Y + 15, "FIRE:    [SPACE]");
+      renderString(HELP_START_X + 4, HELP_START_Y + 15, "FIRE:   [SPACE]");
       renderString(HELP_START_X + 20, HELP_START_Y + 12, "PLAYER 2", F_BLU);
       renderString(HELP_START_X + 20, HELP_START_Y + 13, Tank::models[MD_LHT][D_UP][0], F_WHT, B_BLK);
       renderString(HELP_START_X + 21, HELP_START_Y + 13, Tank::models[MD_LHT][D_UP][1], F_BLU, B_BLK);
@@ -188,7 +191,7 @@ void Render::thrRender() {
       renderString(HELP_START_X + 22, HELP_START_Y + 15, Tank::models[MD_LHT][D_UP][8], F_WHT, B_BLK);
       renderString(HELP_START_X + 24, HELP_START_Y + 13, "MOVE:      [I]");
       renderString(HELP_START_X + 24, HELP_START_Y + 14, "        [J][K][L]");
-      renderString(HELP_START_X + 24, HELP_START_Y + 15, "FIRE:    [ENTER]");
+      renderString(HELP_START_X + 24, HELP_START_Y + 15, "FIRE:   [ENTER]");
       renderString(HELP_START_X + 0, HELP_START_Y + 17, "PAUSE/RESUME: [ESC]        EXIT: [Q]           HELP: [H]");
       renderString(HELP_START_X, HELP_START_Y + 19, "[ POWER-UPS ]");
       renderString(HELP_START_X, HELP_START_Y + 20, "PICKED UP WHEN PLAYERS TOUCH, DESTROYED WHEN ENEMIES TOUCH");
@@ -226,10 +229,53 @@ void Render::renderStatus() {
     renderStatusEnemy(STATUS_START_Y);
     break;
   }
-  case LV_ARN:{
+  case LV_ARN: {
     Tank::renderStatusTank(STATUS_START_Y + 9, Level::currentLevel->player1);
     Tank::renderStatusTank(STATUS_START_Y + 14, Level::currentLevel->player2);
     break;
+  }
+  case LV_EDT: {
+    renderString(43, 11, " ▄▄▄▄ ");
+    renderString(43, 12, " █");
+    renderString(45, 12, "█ ");
+    renderString(43, 13, " ▀▀▀▀ ");
+    renderString(41, 14, "MOVE:    [W]    ");
+    renderString(41, 15, "      [A][S][D] ");
+    renderString(41, 16, "DRAW: [SPACE]   ");
+    switch(Level::currentLevel->player1->weapon) {
+      case T_GRS: {
+        renderString(44, 12, "WW", F_WHT, B_GRN);
+        renderString(41, 18, "TANK CAN PASS");
+        renderString(41, 20, "WHEN RUNNED OVER, ");
+        renderString(41, 21, "IT'S DESTROYED");
+        break;
+      }
+      case T_WTR: {
+        renderString(44, 12, "░░", F_BLU, B_BLK);
+        renderString(41, 18, "TANK CAN'T PASS");
+        renderString(41, 20, "CAN'T DESTROY");
+        break;
+      }
+      case T_WAL: {
+        renderString(44, 12, "▓▓", F_YLW, B_BLK);
+        renderString(41, 18, "TANK CAN'T PASS");
+        renderString(41, 20, "CAN DESTROY");
+        break;
+      }
+      case T_STN: {
+        renderString(44, 12, "╪╪", F_WHT, B_YLW);
+        renderString(41, 18, "TANK CAN'T PASS");
+        renderString(41, 20, "CAN DESTROY, ");
+        renderString(41, 21, "BUT ONLY BY");
+        renderString(41, 22, "HIGH-EXPLOSIVE");
+        break;
+      }
+      case T_BNK: {
+        renderString(44, 12, "  ", F_WHT, B_BLK);
+        renderString(41, 18, "PURE VOID");
+        break;
+      }
+    }
   }
   }
 }
@@ -245,6 +291,6 @@ void Render::run() {
 }
 
 
-void Render::renderString(int x, int y, const char *string, int colorFG, int F_REDG) {
-  std::cout << "\033[" << y + 1 << ";" << (x << 1) + 1 << "H\033[" << colorFG << ";" << F_REDG << ";1m" << string << std::endl;
+void Render::renderString(int x, int y, const char *string, int colorFG, int colorBG) {
+  std::cout << "\033[" << y + 1 << ";" << (x << 1) + 1 << "H\033[" << colorFG << ";" << colorBG << ";1m" << string << std::endl;
 }
