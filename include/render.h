@@ -2,6 +2,7 @@
 #define __RENDER_H__
 #include <list>
 #include "common.h"
+#include <mutex>
 typedef struct _pixel_t pixel_t;
 typedef struct _pixelList_t pixelList_t;
 typedef struct _elem_t elem_t;
@@ -48,6 +49,7 @@ private:
   static void renderStatus();
   static void renderStatusEnemy(int y); 
 public:
+  static std::mutex mutex;
   static int scene;
   static int fps;
   static void draw(pixel_t pixel, int x, int y) { vBuf[x][y] = pixel;}

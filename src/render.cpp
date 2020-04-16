@@ -11,6 +11,7 @@
 std::list<Drawable *> Render::Drawables;
 pixel_t Render::vBuf[MAP_H][MAP_W];
 int Render::scene;
+std::mutex Render::mutex;
 // extern elem_t Map[MAP_W][MAP_H];
 
 
@@ -48,8 +49,10 @@ void Render::thrRender() {
             elem.data->draw(); break;
           }
         }
+      mutex.lock();
       for(auto &drawable: Drawables)
         drawable->draw();
+      mutex.unlock();
       renderStatus();
       refresh();
       break;
@@ -220,10 +223,12 @@ void Render::renderStatus() {
     Tank::renderStatusTank(STATUS_START_Y + 14, Level::currentLevel->player1);
     Tank::renderStatusTank(STATUS_START_Y + 11, Level::currentLevel->base);
     int line = STATUS_START_Y + 2;
+    Level::currentLevel->mutex.lock();
     for (auto it = Level::currentLevel->enemies.begin(); it != Level::currentLevel->enemies.end(); it++) {
       Tank::renderStatusTank(line, *it);
       line += 2;
     }
+    Level::currentLevel->mutex.unlock();
     for (; line < STATUS_START_Y + 10; line++)
       std::cout << "\033[" << line + 1 << ";" << STATUS_START_X << "H                ";
     renderStatusEnemy(STATUS_START_Y);

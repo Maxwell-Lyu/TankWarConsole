@@ -6,6 +6,7 @@
 #include "base.h"
 #include <list>
 #include <tuple>
+#include <mutex>
 
 class Level {
 protected:
@@ -20,6 +21,7 @@ protected:
   int scoreP2;
   int result;
 public:
+  std::mutex mutex;
   int type;
   static Level *currentLevel;
   std::list <std::tuple<int, Tank *, int> > events; 

@@ -79,7 +79,9 @@ Level::~Level() {
     delete a;
   for(auto &a: deadEnemies)
     delete a;
+  Render::mutex.lock();
   Render::Drawables.clear();
+  Render::mutex.unlock();
   Bullet::Bullets.clear();
 }
 
@@ -145,7 +147,9 @@ int Adventure::run() {
       case 32: {
         Bullet *blt = player1->fire();
         if(blt != nullptr) {
+          Render::mutex.lock();
           Render::Drawables.emplace_back(blt);
+          Render::mutex.unlock();
           Bullet::Bullets.emplace_back(blt);
         }
         break;
@@ -153,22 +157,28 @@ int Adventure::run() {
       }
     }
     // * move and fire for AutoTank
+    mutex.lock();
     for(auto it = enemies.begin(); it != enemies.end(); ++it) {
       (*it)->move();
       if(getTime() % 4000 < 2000){
         Bullet *blt = (*it)->fire();
         if(blt != nullptr) {
+          Render::mutex.lock();
           Render::Drawables.emplace_back(blt);
+          Render::mutex.unlock();
           Bullet::Bullets.emplace_back(blt);
         }
       } 
     }
+    mutex.unlock();
     // * move bullets
     for(auto it = Bullet::Bullets.begin(); it != Bullet::Bullets.end();) {
       Bullet *blt = *it;
       if(blt->move()) {
           it = Bullet::Bullets.erase(it);
+          Render::mutex.lock();
           Render::Drawables.remove(blt);
+          Render::mutex.unlock();
           delete blt;
       }
       else {
@@ -184,7 +194,9 @@ int Adventure::run() {
       Bullet *blt = *it;
       if(blt->toRemove) {
         it = Bullet::Bullets.erase(it);
+        Render::mutex.lock();
         Render::Drawables.remove(blt);
+        Render::mutex.unlock();
         delete blt;
       }
       else
@@ -197,7 +209,9 @@ int Adventure::run() {
         case EV_DST_TK: {
           auto dest = std::get<1>(e);
           // auto src = std::get<2>(e);
+          Render::mutex.lock();
           Render::Drawables.remove(dest);
+          Render::mutex.unlock();
           dest->~Tank();
           if(dest == player1) {
             player1 = nullptr;
@@ -207,7 +221,9 @@ int Adventure::run() {
             return GR_PL;
           }
           else {
+            mutex.lock();
             enemies.remove(dest);
+            mutex.unlock();
             scoreP1 += 1000;
           }
           break;
@@ -242,12 +258,16 @@ int Adventure::run() {
                 break;
               }
               case PU_BMB:  {
+                mutex.lock();
                 for(auto it = enemies.begin(); it != enemies.end();) {
+                  Render::mutex.lock();
                   Render::Drawables.remove(*it);
+                  Render::mutex.unlock();
                   (*it)->~Tank();
                   deadEnemies.push_back(*it);
                   it = enemies.erase(it);
                 }
+                mutex.unlock();
                 break;
               }
               case PU_RBS: {
@@ -292,8 +312,12 @@ void Adventure::sendEnemy() {
     waves.pop_front();
     if(std::get<2>(w) == -1) continue;
     auto t = new AutoTank(std::get<0>(w), std::get<1>(w), std::get<2>(w));
+    mutex.lock();
     enemies.push_back(t);
+    mutex.unlock();
+    Render::mutex.lock();
     Render::Drawables.push_back(t);
+    Render::mutex.unlock();
   }
 }
 
@@ -389,7 +413,9 @@ int Cooperation::run() {
       case 32: {
         Bullet *blt = player1->fire();
         if(blt != nullptr) {
+          Render::mutex.lock();
           Render::Drawables.emplace_back(blt);
+          Render::mutex.unlock();
           Bullet::Bullets.emplace_back(blt);
         }
         break;
@@ -397,7 +423,9 @@ int Cooperation::run() {
       case 13: {
         Bullet *blt = player2->fire();
         if(blt != nullptr) {
+          Render::mutex.lock();
           Render::Drawables.emplace_back(blt);
+          Render::mutex.unlock();
           Bullet::Bullets.emplace_back(blt);
         }
         break;
@@ -405,22 +433,28 @@ int Cooperation::run() {
       }
     }
     // * move and fire for AutoTank
+    mutex.lock();
     for(auto it = enemies.begin(); it != enemies.end(); ++it) {
       (*it)->move();
       if(getTime() % 4000 < 2000){
         Bullet *blt = (*it)->fire();
         if(blt != nullptr) {
+          Render::mutex.lock();
           Render::Drawables.emplace_back(blt);
+          Render::mutex.unlock();
           Bullet::Bullets.emplace_back(blt);
         }
       } 
     }
+    mutex.unlock();
     // * move bullets
     for(auto it = Bullet::Bullets.begin(); it != Bullet::Bullets.end();) {
       Bullet *blt = *it;
       if(blt->move()) {
           it = Bullet::Bullets.erase(it);
+          Render::mutex.lock();
           Render::Drawables.remove(blt);
+          Render::mutex.unlock();
           delete blt;
       }
       else {
@@ -436,7 +470,9 @@ int Cooperation::run() {
       Bullet *blt = *it;
       if(blt->toRemove) {
         it = Bullet::Bullets.erase(it);
+        Render::mutex.lock();
         Render::Drawables.remove(blt);
+        Render::mutex.unlock();
         delete blt;
       }
       else
@@ -449,7 +485,9 @@ int Cooperation::run() {
         case EV_DST_TK: {
           auto dest = std::get<1>(e);
           auto src = std::get<2>(e);
+          Render::mutex.lock();
           Render::Drawables.remove(dest);
+          Render::mutex.unlock();
           dest->~Tank();
           if(dest == player1) {
             player1 = nullptr;
@@ -461,7 +499,9 @@ int Cooperation::run() {
             player2 = nullptr;
           }
           else {
+            mutex.lock();
             enemies.remove(dest);
+            mutex.unlock();
             if(src == CP_P1)
               scoreP1 += 1000;
             if(src == CP_P2)
@@ -501,12 +541,16 @@ int Cooperation::run() {
                 break;
               }
               case PU_BMB:  {
+                mutex.lock();
                 for(auto it = enemies.begin(); it != enemies.end();) {
+                  Render::mutex.lock();
                   Render::Drawables.remove(*it);
+                  Render::mutex.unlock();
                   (*it)->~Tank();
                   deadEnemies.push_back(*it);
                   it = enemies.erase(it);
                 }
+                mutex.unlock();
                 break;
               }
               case PU_RBS: {
@@ -551,8 +595,12 @@ void Cooperation::sendEnemy() {
     waves.pop_front();
     if(std::get<2>(w) == -1) continue;
     auto t = new AutoTank(std::get<0>(w), std::get<1>(w), std::get<2>(w));
+    mutex.lock();
     enemies.push_back(t);
+    mutex.unlock();
+    Render::mutex.lock();
     Render::Drawables.push_back(t);
+    Render::mutex.unlock();
   }
 }
 
@@ -649,7 +697,9 @@ int Arena::run() {
       case 32: {
         Bullet *blt = player1->fire();
         if(blt != nullptr) {
+          Render::mutex.lock();
           Render::Drawables.emplace_back(blt);
+          Render::mutex.unlock();
           Bullet::Bullets.emplace_back(blt);
         }
         break;
@@ -657,7 +707,9 @@ int Arena::run() {
       case 13: {
         Bullet *blt = player2->fire();
         if(blt != nullptr) {
+          Render::mutex.lock();
           Render::Drawables.emplace_back(blt);
+          Render::mutex.unlock();
           Bullet::Bullets.emplace_back(blt);
         }
         break;
@@ -669,7 +721,9 @@ int Arena::run() {
       Bullet *blt = *it;
       if(blt->move()) {
           it = Bullet::Bullets.erase(it);
+          Render::mutex.lock();
           Render::Drawables.remove(blt);
+          Render::mutex.unlock();
           delete blt;
       }
       else {
@@ -685,7 +739,9 @@ int Arena::run() {
       Bullet *blt = *it;
       if(blt->toRemove) {
         it = Bullet::Bullets.erase(it);
+        Render::mutex.lock();
         Render::Drawables.remove(blt);
+        Render::mutex.unlock();
         delete blt;
       }
       else
@@ -698,7 +754,9 @@ int Arena::run() {
         case EV_DST_TK: {
           auto dest = std::get<1>(e);
           // auto src = std::get<2>(e);
+          Render::mutex.lock();
           Render::Drawables.remove(dest);
+          Render::mutex.unlock();
           dest->~Tank();
           if(dest == player1) {
             player1 = nullptr;
