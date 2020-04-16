@@ -28,7 +28,6 @@ Level::Level(int type): scoreP1(0), scoreP2(0), type(type) {
     scoreP2 = 0;
     Render::Drawables.push_back(base);
     Render::Drawables.push_back(player1);
-    // Render::Drawables.push_back(player2 = new Tank(5, 5, D_UP, CP_EN, MD_LHT));
     waves.push_back(std::make_tuple(5, 5, MD_LHT));
     waves.push_back(std::make_tuple(10, 5, MD_AMR));
     waves.push_back(std::make_tuple(15, 5, -1));
@@ -281,7 +280,6 @@ void Adventure::sendPowerUp() {
   if(Map::map[x][y].type == T_BNK) {
     auto p = new PowerUp(x, y, getTime() % N_POWER_UP);
     Map::map[x][y] = {T_PWU, p};
-    // Render::Drawables.push_back(p);
   }
   nextPowerUp = getTime();
 }
@@ -541,7 +539,6 @@ void Cooperation::sendPowerUp() {
   if(Map::map[x][y].type == T_BNK) {
     auto p = new PowerUp(x, y, getTime() % N_POWER_UP);
     Map::map[x][y] = {T_PWU, p};
-    // Render::Drawables.push_back(p);
   }
   nextPowerUp = getTime();
 }
@@ -756,7 +753,6 @@ void Arena::sendPowerUp() {
   if(Map::map[x][y].type == T_BNK) {
     auto p = new PowerUp(x, y, getTime() % N_POWER_UP - 3);
     Map::map[x][y] = {T_PWU, p};
-    // Render::Drawables.push_back(p);
   }
   nextPowerUp = getTime();
 }
