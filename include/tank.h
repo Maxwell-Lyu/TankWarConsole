@@ -34,6 +34,7 @@ protected:
   int camp;
  public:
   static void renderStatusTank(int y, Tank *t);
+  Tank(): modelSel(MD_LHT) {}
   Tank(int x, int y, int direction, int camp, int modelSel = MD_LHT);
   virtual void draw();
   virtual void move(int direction = 0);

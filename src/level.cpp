@@ -76,9 +76,10 @@ Level::Level(int type): scoreP1(0), scoreP2(0), type(type) {
 }
 
 Level::~Level() {
-  for(auto &a: Render::Drawables) {
+  for(auto &a: Render::Drawables)
     delete a;
-  }
+  for(auto &a: deadEnemies)
+    delete a;
   Render::Drawables.clear();
   Bullet::Bullets.clear();
 }
@@ -245,7 +246,7 @@ int Adventure::run() {
                 for(auto it = enemies.begin(); it != enemies.end();) {
                   Render::Drawables.remove(*it);
                   (*it)->~Tank();
-                  delete (*it);
+                  deadEnemies.push_back(*it);
                   it = enemies.erase(it);
                 }
                 break;
@@ -505,7 +506,7 @@ int Cooperation::run() {
                 for(auto it = enemies.begin(); it != enemies.end();) {
                   Render::Drawables.remove(*it);
                   (*it)->~Tank();
-                  delete (*it);
+                  deadEnemies.push_back(*it);
                   it = enemies.erase(it);
                 }
                 break;

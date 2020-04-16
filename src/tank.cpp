@@ -324,12 +324,12 @@ void Tank::renderStatusTank(int y, Tank *t) {
 
 
 
-Cursor::Cursor(): Tank(MAP_W / 2, MAP_H / 2, D_UP, CP_P1, MD_LHT) {
+Cursor::Cursor() {
+  this->x = MAP_W / 2;
+  this->y = MAP_H / 2;
   this->weapon = T_BNK;
   this->speedMove = 200;
-  for (int x = this->x - 1; x <= this->x + 1; x++)
-    for (int y = this->y - 1; y <= this->y + 1; y++)
-      Map::map[x][y] = {T_BNK, nullptr};
+  this->lastMove = 0;
 }
 
 void Cursor::move(int direction) {

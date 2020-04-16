@@ -15,6 +15,7 @@ protected:
   // Tank *enemy[4];
   std::list<std::tuple<int, int, int> > waves;
   std::list<Tank *> enemies;
+  std::list<Tank *> deadEnemies;
   int scoreP1;
   int scoreP2;
   int result;
