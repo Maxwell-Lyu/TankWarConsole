@@ -37,7 +37,7 @@ void Render::thrRender() {
           case T_GRS:
             draw({F_WHT, B_GRN, "WW"}, x, y); break;
           case T_WTR:
-            draw({F_BLU, B_BLK, "░░"}, x, y); break;
+            draw({F_WHT, B_BLU, "░░"}, x, y); break;
           case T_WAL:
             draw({F_YLW, B_BLK, "▓▓"}, x, y); break;
           case T_STN:
@@ -242,37 +242,48 @@ void Render::renderStatus() {
     renderString(41, 14, "MOVE:    [W]    ");
     renderString(41, 15, "      [A][S][D] ");
     renderString(41, 16, "DRAW: [SPACE]   ");
+    renderString(41, 17, "CHANGE PEN: ");
+    renderString(41, 18, "[1][2][3][4][5]");
+    renderString(41, 26, "[DESCRIPTION]");
     switch(Level::currentLevel->player1->weapon) {
       case T_GRS: {
         renderString(44, 12, "WW", F_WHT, B_GRN);
-        renderString(41, 18, "TANK CAN PASS");
-        renderString(41, 20, "WHEN RUNNED OVER, ");
-        renderString(41, 21, "IT'S DESTROYED");
+        renderString(41, 28, "TANK CAN PASS     ");
+        renderString(41, 30, "WHEN RUNNED OVER, ");
+        renderString(41, 31, "IT'S DESTROYED    ");
+        renderString(41, 32, "                  ");
         break;
       }
       case T_WTR: {
-        renderString(44, 12, "░░", F_BLU, B_BLK);
-        renderString(41, 18, "TANK CAN'T PASS");
-        renderString(41, 20, "CAN'T DESTROY");
+        renderString(44, 12, "░░", F_WHT, B_BLU);
+        renderString(41, 28, "TANK CAN'T PASS   ");
+        renderString(41, 30, "CAN'T DESTROY     ");
+        renderString(41, 31, "                  ");
+        renderString(41, 32, "                  ");
         break;
       }
       case T_WAL: {
         renderString(44, 12, "▓▓", F_YLW, B_BLK);
-        renderString(41, 18, "TANK CAN'T PASS");
-        renderString(41, 20, "CAN DESTROY");
+        renderString(41, 28, "TANK CAN'T PASS   ");
+        renderString(41, 30, "CAN DESTROY       ");
+        renderString(41, 31, "                  ");
+        renderString(41, 32, "                  ");
         break;
       }
       case T_STN: {
         renderString(44, 12, "╪╪", F_WHT, B_YLW);
-        renderString(41, 18, "TANK CAN'T PASS");
-        renderString(41, 20, "CAN DESTROY, ");
-        renderString(41, 21, "BUT ONLY BY");
-        renderString(41, 22, "HIGH-EXPLOSIVE");
+        renderString(41, 28, "TANK CAN'T PASS   ");
+        renderString(41, 30, "CAN DESTROY,      ");
+        renderString(41, 31, "BUT ONLY BY       ");
+        renderString(41, 32, "HIGH-EXPLOSIVE    ");
         break;
       }
       case T_BNK: {
         renderString(44, 12, "  ", F_WHT, B_BLK);
-        renderString(41, 18, "PURE VOID");
+        renderString(41, 28, "PURE VOID         ");
+        renderString(41, 30, "                  ");
+        renderString(41, 31, "                  ");
+        renderString(41, 32, "                  ");
         break;
       }
     }
