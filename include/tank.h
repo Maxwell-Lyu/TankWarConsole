@@ -20,8 +20,8 @@ protected:
   
   const int modelSel;
   int lifeMax;
-  int speedMove;
-  int speedFire;
+  uint64_t speedMove;
+  uint64_t speedFire;
   int weapon;
   int life;
   int nLife;

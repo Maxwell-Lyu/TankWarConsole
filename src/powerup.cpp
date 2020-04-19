@@ -10,7 +10,7 @@ void PowerUp::draw() {
     case PU_UGD: Render::draw({F_YLW, B_TSP, "↑W"}, x, y); break;
     case PU_CLK: Render::draw({F_YLW, B_TSP, "||"}, x, y); break;
     case PU_SVL: Render::draw({F_YLW, B_TSP, "╔╗"}, x, y); break;
-    case PU_BMB: Render::draw({F_YLW, B_TSP, "‼"}, x, y); break;
+    case PU_BMB: Render::draw({F_YLW, B_TSP, "!!"}, x, y); break;
     case PU_RBS: Render::draw({F_YLW, B_TSP, "↑B"}, x, y); break;
   }
 }

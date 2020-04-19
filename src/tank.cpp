@@ -328,7 +328,7 @@ Cursor::Cursor() {
   this->x = MAP_W / 2;
   this->y = MAP_H / 2;
   this->weapon = T_BNK;
-  this->speedMove = 200;
+  this->speedMove = 300;
   this->lastMove = 0;
 }
 

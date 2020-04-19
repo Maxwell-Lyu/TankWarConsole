@@ -200,7 +200,7 @@ void Render::thrRender() {
       renderString(HELP_START_X, HELP_START_Y + 20, "PICKED UP WHEN PLAYERS TOUCH, DESTROYED WHEN ENEMIES TOUCH");
       renderString(HELP_START_X, HELP_START_Y + 22, "[+♥]: ADD 1 LIFE            [↑W]: UPGRADE WEAPON        [||]: ザ · ワールド", F_YLW);
       renderString(HELP_START_X, HELP_START_Y + 23, "      DEATH COSTS 1 LIFE          NORM->AP->HE                STOP ENEMY FOR 3s");
-      renderString(HELP_START_X, HELP_START_Y + 24, "[╔╗]: DONALD TRUMP          [‼]: BOMB                  [↑B]: REPAIR BASE", F_YLW);
+      renderString(HELP_START_X, HELP_START_Y + 24, "[╔╗]: DONALD TRUMP          [!!]: BOMB                  [↑B]: REPAIR BASE", F_YLW);
       renderString(HELP_START_X, HELP_START_Y + 25, "      BUILD WALL AROUND BASE      KILL ALL ENEMIES            ADD 1000 BASE'S HP");         
       renderString(HELP_START_X, HELP_START_Y + 27, "[ BULLETS ]");
       renderString(HELP_START_X, HELP_START_Y + 29, "[○]: NORMAL(100)            [●]: ARMOR-PIERCING(200)    [☼]: HIGH-EXPLOSIVE(400)");

@@ -3,7 +3,7 @@
 #include "render.h"
 
 #define _P(c, v) {F_##c, B_BLK, v}
-#define P(c) _P(c, "██")
+#define P(c) _P(c, "█")
 #define B(c) _P(c, "  ")
 
 class Assets {
