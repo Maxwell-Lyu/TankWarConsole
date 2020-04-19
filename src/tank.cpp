@@ -361,13 +361,15 @@ void Cursor::move(int direction) {
 }
 
 void Cursor::draw() {
-  uint64_t t = getTime();
-  if(t > speedMove + speedMove + lastMove)
-    lastMove = t;
-  else if(t > speedMove + lastMove)
-    Render::draw({F_WHT, B_BLK, "▒▒"}, x, y);
-  else 
-    Render::draw({F_WHT, B_BLK, "  "}, x, y);
+  // uint64_t t = getTime();
+  // if(t > speedMove + speedMove + lastMove) {
+  //   Render::draw({F_WHT, B_BLK, "  "}, x, y);
+  //   lastMove = t;
+  // }
+  // else if(t > speedMove + lastMove)
+    Render::draw({F_WHT, B_BLK, "█▀"}, x + 1, y + 1);
+  // else 
+  //   Render::draw({F_WHT, B_BLK, "  "}, x, y);
 }
 
 
