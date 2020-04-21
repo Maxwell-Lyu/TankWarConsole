@@ -6,7 +6,7 @@
 class Game {
 private:
   static int menuSel;
-  static void mapSel(int index = -1);
+  // static void mapSel(int index = -1);
 public:
   static void run();
   friend class Render;

@@ -195,7 +195,7 @@ void Render::thrRender() {
       renderString(HELP_START_X + 24, HELP_START_Y + 13, "MOVE:      [I]");
       renderString(HELP_START_X + 24, HELP_START_Y + 14, "        [J][K][L]");
       renderString(HELP_START_X + 24, HELP_START_Y + 15, "FIRE:   [ENTER]");
-      renderString(HELP_START_X + 0, HELP_START_Y + 17, "PAUSE/RESUME: [ESC]        EXIT: [Q]           HELP: [H]");
+      renderString(HELP_START_X + 0, HELP_START_Y + 17, "PAUSE/EXIT: [ESC]           RESUME: [ENTER]             HELP: [H]");
       renderString(HELP_START_X, HELP_START_Y + 19, "[ POWER-UPS ]");
       renderString(HELP_START_X, HELP_START_Y + 20, "PICKED UP WHEN PLAYERS TOUCH, DESTROYED WHEN ENEMIES TOUCH");
       renderString(HELP_START_X, HELP_START_Y + 22, "[+♥]: ADD 1 LIFE            [↑W]: UPGRADE WEAPON        [||]: ザ · ワールド", F_YLW);

@@ -4,18 +4,12 @@
 #include "common.h"
 #include <mutex>
 typedef struct _pixel_t pixel_t;
-typedef struct _pixelList_t pixelList_t;
 typedef struct _elem_t elem_t;
 
 struct _pixel_t{
   // int x, y;
   int colorFG, colorBG;
   char *val;
-};
-
-struct _pixelList_t{
-  pixel_t *pixels;
-  int size;
 };
 
 class Drawable {

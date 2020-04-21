@@ -30,15 +30,10 @@ Level::Level(int type): scoreP1(0), scoreP2(0), type(type) {
     Render::Drawables.push_back(player1);
     waves.push_back(std::make_tuple(5, 5, MD_LHT));
     waves.push_back(std::make_tuple(10, 5, MD_AMR));
-    waves.push_back(std::make_tuple(15, 5, -1));
-    waves.push_back(std::make_tuple(20, 5, -1));
     waves.push_back(std::make_tuple(5, 5, MD_LHT));
     waves.push_back(std::make_tuple(10, 5, MD_AMR));
     waves.push_back(std::make_tuple(15, 5, MD_ATG));
     waves.push_back(std::make_tuple(20, 5, MD_HVY));
-    // Map::map[15][10] = {T_PWU, new PowerUp(15, 10, PU_UGD)};
-    // Map::map[20][10] = {T_PWU, new PowerUp(20, 10, PU_CLK)};
-    // Map::map[25][10] = {T_PWU, new PowerUp(25, 10, PU_SVL)};
     // Map::map[30][10] = {T_PWU, new PowerUp(30, 10, PU_BMB)};
     break;
   }
