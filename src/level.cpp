@@ -29,12 +29,17 @@ Level::Level(int type): scoreP1(0), scoreP2(0), type(type) {
     Render::Drawables.push_back(base);
     Render::Drawables.push_back(player1);
     waves.push_back(std::make_tuple(5, 5, MD_LHT));
-    waves.push_back(std::make_tuple(10, 5, MD_AMR));
-    waves.push_back(std::make_tuple(5, 5, MD_LHT));
+    waves.push_back(std::make_tuple(10, 5, MD_LHT));
+    waves.push_back(std::make_tuple(15, 5, MD_LHT));
+    waves.push_back(std::make_tuple(20, 5, MD_LHT));
+    waves.push_back(std::make_tuple(5, 5, MD_AMR));
     waves.push_back(std::make_tuple(10, 5, MD_AMR));
     waves.push_back(std::make_tuple(15, 5, MD_ATG));
+    waves.push_back(std::make_tuple(20, 5, MD_ATG));
+    waves.push_back(std::make_tuple(5, 5, MD_LHT));
+    waves.push_back(std::make_tuple(10, 5, MD_ATG));
+    waves.push_back(std::make_tuple(15, 5, MD_AMR));
     waves.push_back(std::make_tuple(20, 5, MD_HVY));
-    // Map::map[30][10] = {T_PWU, new PowerUp(30, 10, PU_BMB)};
     break;
   }
   case LV_COP: {
@@ -47,6 +52,17 @@ Level::Level(int type): scoreP1(0), scoreP2(0), type(type) {
     Render::Drawables.push_back(player1);
     Render::Drawables.push_back(player2);
     waves.push_back(std::make_tuple(5, 5, MD_LHT));
+    waves.push_back(std::make_tuple(10, 5, MD_LHT));
+    waves.push_back(std::make_tuple(15, 5, MD_LHT));
+    waves.push_back(std::make_tuple(20, 5, MD_LHT));
+    waves.push_back(std::make_tuple(5, 5, MD_AMR));
+    waves.push_back(std::make_tuple(10, 5, MD_AMR));
+    waves.push_back(std::make_tuple(15, 5, MD_ATG));
+    waves.push_back(std::make_tuple(20, 5, MD_ATG));
+    waves.push_back(std::make_tuple(5, 5, MD_LHT));
+    waves.push_back(std::make_tuple(10, 5, MD_ATG));
+    waves.push_back(std::make_tuple(15, 5, MD_AMR));
+    waves.push_back(std::make_tuple(20, 5, MD_HVY));
     break;
   }
   case LV_ARN: {

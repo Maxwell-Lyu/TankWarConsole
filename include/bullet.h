@@ -38,7 +38,7 @@ public:
   void draw();
   bool move();
   friend class Render;
-  friend class Level;
+  // friend class Level;
   friend class Tank;
 };
 
